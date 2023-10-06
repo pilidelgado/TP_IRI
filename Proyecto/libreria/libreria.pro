@@ -11,8 +11,8 @@ SOURCES += \
     libreria.cpp
 
 HEADERS += \
-    libreria_global.h \
     libreria.h \
+    libreria_global.h \
     structs.h
 
 # Default rules for deployment.
