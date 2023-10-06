@@ -12,7 +12,8 @@ SOURCES += \
 
 HEADERS += \
     libreria_global.h \
-    libreria.h
+    libreria.h \
+    structs.h
 
 # Default rules for deployment.
 unix {
