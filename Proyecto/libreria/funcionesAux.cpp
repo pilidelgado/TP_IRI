@@ -1,4 +1,5 @@
 #include "libreria.h"
+#include "structs.h"
 
 void nuevoSize(NSize &error, cliente*& lista, NMAX, u_int nuevoTam) { //va puntero?
     if(nuevoTam==0)

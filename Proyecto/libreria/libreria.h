@@ -19,4 +19,7 @@ clientes* nuevoTamaño(clientes* puntero, NMAX, u_int nuevoTam);
 bool DNICorrecto(DNIDado);
 
 bool RevisarCliente(DNIDado, Clientes[]);
+
+
+
 #endif // LIBRERIA_H

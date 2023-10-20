@@ -8,48 +8,44 @@ using namespace std;
 struct fecha
 {
     u_int dia, mes, anio;
-}
+};
 typedef fecha Fecha;
 
 struct clase
 {
     u_int horario, idClase; //hora de la clase
     string nombre; //yoga, streching, etc.
-    u_int cupo; //cantidad de personas anotadas
-    int cupo_maximo;
-    int reservados[cupo_maximo]; // array de reservas con DNI
+    u_int cupo,   cupo_maximo; //cantidad de personas anotadas
+    u_int* reservados;
 };
-
-clase clases[N1]; // definimos despues el N
-
-/*struct musculacion
-{
-    u_int bloque,cupo; //hora de reserva //cantidad de personas anotadas
-    int cupo_maximo;
-    int reservados[cupo_maximo];
-}
-
-musculacion musculacion[N2]; */
+typedef clase Clase;
 
 
 struct cliente
 {
-    string nombre, apellido, idCliente, email, telefono;
+    string nombre, apellido, email, telefono;
+    u_int idCliente;
     Fecha fechaNac;
     float estado; //para saber si tiene la cuota al dia (menor a 0 debe, 0 todo ok, mayor a 0 pago por adelantado)
-}
+};
+typedef cliente Cliente;
 
-cliente clientes[NMAX]; //memoria dinámica (funcion)
+struct Gimnasio
+{
+    Cliente* clientes;
+    Clase* clases;
+    u_int tamClases, tamClientes;
+};
 
 
 typedef struct {
-    uint idCurso;
-    time_t fechaInscripcion;
+    u_int idClase;
+    time_t fechaInscripcion;//a q hora se inscibio al curso
 } Inscripcion;
 
 typedef struct {
-    uint idCliente, cantInscriptos;
-    Inscripcion* CursosInscriptos;
+    u_int idCliente, cantInscripciones;//cantidad del array
+    Inscripcion* CursosInscriptos;//array
 } Asistencia;
 
 #endif // LIBRERIA_GLOBAL_H
