@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 struct fecha
 {
     u_int dia, mes, anio;
@@ -24,12 +23,10 @@ struct cliente
 typedef cliente Cliente;
 
 
-clientes* nuevoTamaño(clientes* puntero, NMAX, u_int nuevoTam);
+void nuevoCliente(Gimnasio* gym, Cliente aux);
 
-void nuevoCliente(clientes[], DNIDado);
+bool RevisarCliente(u_int idClienteIng, Gimnasio gym);
 
-bool DNICorrecto(DNIDado);
-
-bool RevisarCliente(DNIDado, Clientes[]);
+u_int BuscarCliente(Cliente aux, Gimnasio gym);// me devuelve su id
 
 #endif // LIBRERIA_GLOBAL_H

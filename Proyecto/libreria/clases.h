@@ -16,6 +16,6 @@ struct clase
 };
 typedef clase Clase;
 
-//poner errores relacionados a las funciones de clases
+bool hayCupo(idClase, Gimnasio gym);
 
 #endif // LIBRERIA_GLOBAL_H

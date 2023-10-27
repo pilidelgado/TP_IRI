@@ -5,6 +5,8 @@
 #include <ctime>
 #include "libreria.h"
 
+enum resizeInscriptos { ErrSize= -2, ErrNull=-1, ExitoResize=0};
+typedef enum resizeInscriptos eResizeInscriptos;
 
 typedef struct {
     u_int idClase;
@@ -18,8 +20,10 @@ typedef struct {
 
 u_int buscarPosAsistencia(Asistencia asist, u_int idCliente);
 
-bool repetidos(Asistencia asist, u_int idCliente, u_int idClase);
+bool repetidos(Asistencia asist, u_int idClase);
 
 void hayEspacio(Asistencia asist);
+
+eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nuevoTam);
 
 #endif // LIBRERIA_GLOBAL_H

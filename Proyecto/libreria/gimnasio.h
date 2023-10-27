@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum resClase { ErrNoExisteClase= -2, ErrClienteRepetido=-1, ExitoReserva=0}
+enum resClase{ ErrNoExisteClase= -2, ErrClienteRepetido=-1, ExitoReserva=0};
 typedef enum resClase eResClase;
 
 struct gimnasio
@@ -20,8 +20,6 @@ struct gimnasio
 
 typedef gimnasio Gimnasio;
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gimnasio, time_t fechaInscripcion);
-
-bool hayCupo(idCurso, Gimnasio gimnasio);
+eResClase ReservaClases(u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gym);
 
 #endif // LIBRERIA_GLOBAL_H

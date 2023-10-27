@@ -1,39 +1,52 @@
-u_int buscarPosAsistencia(Asistencia asist, u_int idCliente)
-{
+#include "archivos.h"
+#include "gimnasio.h"
 
+u_int buscarPosAsistencia(Asistencia asist, u_int idCliente) // va con puntero asist
+{
+    u_int pos;
+    for (int i = 0; i < tamA ; ++i) { // como se el tamaño del array de Asistencia
+        if(asist.idCliente == idCliente)
+            pos=i;
+    }
+    return pos;
 }
 
-bool repetidos(Asistencia asist, u_int idCliente, u_int idClase)
+bool repetidos(Asistencia asist, u_int idClase)
 {
-
+    u_int pos;
+    for (int i = 0; i < asist.cantInscripciones ; ++i) {
+        if(asist.CursosInscriptos[i].idClase == idClase)
+            return true;
+    }
+    return false;
 }
 
 void hayEspacio(Asistencia asist )
 {
 
 }
-void nuevoSize(NSize &error, Asistencia asist , tam , u_int nuevoTam) { //va puntero?
-    if(nuevoTam==0)
-    {
-        error= NSize :: ErrSize;
-        return;
-    }
-    cliente* aux = new cliente[nuevoTam];
 
-    u_int longitud = (NMAX < nuevoTam) ? NMAX: nuevoTam;
+eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nuevoTam)
+{
+    if(nuevoTam==0)
+        return eResizeInscriptos :: ErrSize;
+
+
+    Inscripcion* aux = new Inscripcion[nuevoTam];
+
+    u_int longitud = (tam < nuevoTam) ? tam: nuevoTam;
 
     if(aux == nullptr)
-    {
-        error= NTamaño :: ErrNull;
-            return;
-    }
+        return eResizeInscriptos :: ErrNull;
+
 
     for(u_int i = 0; i < longitud; i++)
-        aux[i] = lista[i];
+        aux[i] = CursosInscriptos[i];
 
 
-    delete[] lista;
-    lista = aux;
+    delete[] CursosIncriptos;
+    CursosInscriptos = aux;
+    return eResizeInscriptos :: ExitoResize;
 
 }
 
