@@ -1,17 +1,7 @@
-#include "clases.h"
+#include "gimnasio.h"
 
 
-
-
-
-
-
-
-
-
-
-
-(NombreError) ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gimnasio, time_t fechaInscripcion)
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gimnasio, time_t fechaInscripcion)
 {
     u_int i, j, idCursoAReservar, posReserva;
 
@@ -22,6 +12,8 @@
             idCursoAReservar = gimnasio.clases[i].idClase;
             posReserva = i;
         }
+        else
+             return eResClase :: ErrNoExisteClase;
     }
 
 
@@ -32,7 +24,7 @@
         for(j=0; j< Asistencia[posCliente].cantInscripciones; j++)
         {
             if(repetidos(Asistencia, idClienteIng, idCursoAReservar)) //definir funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces
-                //error, si me devuelve true es porque está repetido
+                return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
 
             else //si devuelve false, lo inscribo
             {
@@ -46,6 +38,7 @@
             }
         }
     }
+    return eResClase :: ExitoReserva;
 }
 
 

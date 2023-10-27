@@ -5,7 +5,6 @@
 #include <ctime>
 #include "libreria.h" //error!!!!!
 
-typedef unsigned int u_int;
 
 typedef struct {
     u_int idClase;
@@ -16,5 +15,7 @@ typedef struct {
     u_int idCliente, cantInscripciones;//cantidad del array
     Inscripcion* CursosInscriptos;//array
 } Asistencia;
+
+buscarPosAsistencia(Asistencia, idClienteIng);
 
 #endif // LIBRERIA_GLOBAL_H

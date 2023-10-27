@@ -3,14 +3,10 @@
 
 #include <iostream>
 #include <ctime>
-
-
-
-
-
+#include "libreria.h"
 
 using namespace std;
-typedef unsigned int u_int;
+
 
 struct fecha
 {

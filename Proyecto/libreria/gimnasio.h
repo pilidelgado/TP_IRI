@@ -3,19 +3,24 @@
 
 #include <iostream>
 #include <ctime>
+#include "clientes.h"//
+#include "clases.h"
 
 using namespace std;
-typedef unsigned int u_int;
 
-struct clase
+enum resClase { ErrNoExisteClase= -2, ErrClienteRepetido=-1, ExitoReserva=0}
+typedef enum resClase eResClase;
+
+struct gimnasio
 {
-    u_int horario, idClase; //hora de la clase
-    string nombre; //yoga, streching, etc.
-    u_int cupo,   cupo_maximo; //cantidad de personas anotadas
-    u_int* reservados;
+    Cliente* clientes;
+    Clase* clases;
+    u_int tamClases, tamClientes;
 };
-typedef clase Clase;
 
-//poner errores relacionados a las funciones de clases
+typedef gimnasio Gimnasio;
+
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gimnasio, time_t fechaInscripcion);
+
 
 #endif // LIBRERIA_GLOBAL_H
