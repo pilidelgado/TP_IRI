@@ -32,7 +32,6 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClient
                 if(!hayEspacio(Asistencia[posCliente]))
                     resizeCantInscripciones(Asistencia[posCliente]); //definir función que, si no hay espacio en Inscripcion*, le agrega memoria
 
-
                 Asistencia[posCliente].cantInscripciones++;
                 agregarInscripcion(Asistencia, idCursoAReservar, posCliente, fechaInscripcion); //definir función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
             }

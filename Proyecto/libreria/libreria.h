@@ -12,14 +12,5 @@ using namespace std;
 typedef unsigned int u_int;
 
 
-clientes* nuevoTamaño(clientes* puntero, NMAX, u_int nuevoTam);
-
-    void nuevoCliente(clientes[], DNIDado);
-
-bool DNICorrecto(DNIDado);
-
-bool RevisarCliente(DNIDado, Clientes[]);
-
-
 
 #endif // LIBRERIA_H

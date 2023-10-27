@@ -22,5 +22,6 @@ typedef gimnasio Gimnasio;
 
 eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gimnasio, time_t fechaInscripcion);
 
+bool hayCupo(idCurso, Gimnasio gimnasio);
 
 #endif // LIBRERIA_GLOBAL_H

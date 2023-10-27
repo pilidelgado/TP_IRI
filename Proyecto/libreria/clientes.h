@@ -23,4 +23,13 @@ struct cliente
 };
 typedef cliente Cliente;
 
+
+clientes* nuevoTamaño(clientes* puntero, NMAX, u_int nuevoTam);
+
+void nuevoCliente(clientes[], DNIDado);
+
+bool DNICorrecto(DNIDado);
+
+bool RevisarCliente(DNIDado, Clientes[]);
+
 #endif // LIBRERIA_GLOBAL_H
