@@ -9,8 +9,8 @@
 #define NMAX 200;
 
 using namespace std;
-
 typedef unsigned int u_int;
+
 
 clientes* nuevoTamaño(clientes* puntero, NMAX, u_int nuevoTam);
 
