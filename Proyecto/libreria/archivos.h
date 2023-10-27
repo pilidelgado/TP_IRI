@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <ctime>
-#include "libreria.h" //error!!!!!
+#include "libreria.h"
 
 
 typedef struct {
@@ -16,10 +16,10 @@ typedef struct {
     Inscripcion* CursosInscriptos;//array
 } Asistencia;
 
-u_int buscarPosAsistencia(Asistencia* Asistencia, u_int idCliente);
+u_int buscarPosAsistencia(Asistencia asist, u_int idCliente);
 
-bool repetidos(Asistencia* Asistencia, u_int idCliente, u_int idClase);
+bool repetidos(Asistencia asist, u_int idCliente, u_int idClase);
 
-void hayEspacio(Asistencia[posCliente]);
+void hayEspacio(Asistencia asist);
 
 #endif // LIBRERIA_GLOBAL_H

@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 struct clase
 {
     u_int horario, idClase; //hora de la clase

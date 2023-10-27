@@ -1,18 +1,18 @@
-u_int buscarPosAsistencia(Asistencia* Asistencia, u_int idCliente)
+u_int buscarPosAsistencia(Asistencia asist, u_int idCliente)
 {
 
 }
 
-bool repetidos(Asistencia* Asistencia, u_int idCliente, u_int idClase)
+bool repetidos(Asistencia asist, u_int idCliente, u_int idClase)
 {
 
 }
 
-void hayEspacio(Asistencia[posCliente])
+void hayEspacio(Asistencia asist )
 {
 
 }
-void nuevoSize(NSize &error, cliente*& lista, NMAX, u_int nuevoTam) { //va puntero?
+void nuevoSize(NSize &error, Asistencia asist , tam , u_int nuevoTam) { //va puntero?
     if(nuevoTam==0)
     {
         error= NSize :: ErrSize;
