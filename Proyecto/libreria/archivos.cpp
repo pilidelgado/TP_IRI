@@ -41,11 +41,11 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nue
 
 
     for(u_int i = 0; i < longitud; i++)
-        aux[i] = CursosInscriptos[i];
+        aux[i] = asist.CursosInscriptos[i];
 
 
     delete[] CursosIncriptos;
-    CursosInscriptos = aux;
+    asist.CursosInscriptos = aux;
     return eResizeInscriptos :: ExitoResize;
 
 }
