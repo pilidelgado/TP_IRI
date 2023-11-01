@@ -33,7 +33,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClient
                     gym.clases[posReserva].cupo++;
                     if(!hayEspacio(asist[posCliente]))
                     {
-                        errorResize = resizeCantInscripciones(asist[posCliente], asist[posCliente].cantInscripciones, asist[posCliente].cantInscripciones + BLK); //definir función que, si no hay espacio en Inscripcion*, le agrega memoria
+                        errorResize = resizeCantInscripciones(asist[posCliente], asist[posCliente].tamArrayCI + BLK); //definir función que, si no hay espacio en Inscripcion*, le agrega memoria
                         if (errorResize<0)
                             return eResClase :: ErrResize;
                     }

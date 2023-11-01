@@ -21,12 +21,16 @@ bool repetidos(Asistencia asist, u_int idClase)
     return false;
 }
 
-void hayEspacio(Asistencia asist )
+bool hayEspacio(Asistencia asist )
 {
-
+    if(asist.tamArrayCI-asist.cantInscripciones<=0)
+        return false;
+    else
+        return true;
 }
 
-eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nuevoTam)
+
+eResizeInscriptos resizeCantInscripciones(Asistencia asist, u_int nuevoTam)
 {
     if(nuevoTam==0)
         return eResizeInscriptos :: ErrSize;
@@ -34,7 +38,7 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nue
 
     Inscripcion* aux = new Inscripcion[nuevoTam];
 
-    u_int longitud = (tam < nuevoTam) ? tam: nuevoTam;
+    u_int longitud = (asist.tamArrayCI < nuevoTam) ? tam: nuevoTam;
 
     if(aux == nullptr)
         return eResizeInscriptos :: ErrNull;
@@ -46,6 +50,7 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nue
 
     delete[] CursosIncriptos;
     asist.CursosInscriptos = aux;
+    asist.tamArrayCI=nuevoTam;
     return eResizeInscriptos :: ExitoResize;
 
 }

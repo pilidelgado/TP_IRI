@@ -14,7 +14,7 @@ typedef struct {
 } Inscripcion;
 
 typedef struct {
-    u_int idCliente, cantInscripciones;//cantidad del array
+    u_int idCliente, cantInscripciones, tamArrayCI;//cantidad del array
     Inscripcion* CursosInscriptos;//array
 } Asistencia;
 
@@ -22,8 +22,8 @@ u_int buscarPosAsistencia(Asistencia asist, u_int idCliente);
 
 bool repetidos(Asistencia asist, u_int idClase);
 
-void hayEspacio(Asistencia asist);
+bool hayEspacio(Asistencia asist);
 
-eResizeInscriptos resizeCantInscripciones(Asistencia asist ,u_int tam, u_int nuevoTam);
+eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);
 
 #endif // LIBRERIA_GLOBAL_H

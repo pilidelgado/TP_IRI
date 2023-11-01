@@ -22,8 +22,9 @@ struct cliente
 };
 typedef cliente Cliente;
 
+Cliente crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
 
-void nuevoCliente(Gimnasio* gym, Cliente aux);
+void nuevoCliente(Gimnasio* gym, Cliente Ing);
 
 bool RevisarCliente(u_int idClienteIng, Gimnasio gym);
 
