@@ -1,42 +1,90 @@
 #include "archivos.h"
 #include "gimnasio.h"
 #include <fstream>
+#include <sstream>
+#include <iostream>
+using namespace std;
 
 #define ArchivoClase "C:\Users\emmif\source\Dataset TP (1)"
 
-Clase* leer(){
-    ifstream infile;
-    string line = "";
-    char delimitador = ",";
-    Clase ArrayClase[60];
+int leerClases_CSV(){ //QUÉ DEVUELVE LA FUNCIÓN? NECESITA PARÁMETROS?
 
-    u_int w=0,c;
-    infile.open("iriClasesGYM.csv",ios::in);
-    while(getline(infile,line))
-    {
-        w++;
-        c=0;
-        stringstream strstr(line);
-        string palabra = "";
-        //cada linea la separa x la coma
-        while(getline(strstr,palabra,delimitador))
-        {
-            c++
-                if(w!=1){
-                for(u_int i=0; i<60;i++){
-                    if(c==1)
-                        ArrayClase[i].idClase = (u_int)palabra;
-                    if(c==2)
-                        ArrayClase[i].nombre = palabra;
-                    if(c==3)
-                       ArrayClase[i].horario = (u_int)palabra;
-                }
-
-            }
-        }
+    ifstream infile("iriClasesGYM.csv");
+    if(!infile.is_open()) {
+        cout << "Error abriendo el archivo CSV de clases" << endl;
+        return 1; //cambiar después por un error perteneciente a un enum!!
     }
+
+    string header;
+    getline(infile, header);
+
+    while(infile.good()) {
+        string linea;
+        getline(infile, linea);
+
+        char delimitador = ',';
+        string campo;
+        istringstream iss(linea);
+        while(getline(iss, campo, delimitador)) {
+            cout << campo << " ";
+        }
+        cout << endl;
+    }
+
     infile.close();
-    return  *ArrayClase;
+    return 0; //cambiar después por un error perteneciente a un enum!!
 }
+
+int leerClientes_CSV(){ //QUÉ DEVUELVE LA FUNCIÓN? NECESITA PARÁMETROS?
+
+    ifstream infile("iriClientesGYM.csv");
+    if(!infile.is_open()) {
+        cout << "Error abriendo el archivo CSV de clientes" << endl;
+        return 1; //cambiar después por un error perteneciente a un enum!!
+    }
+
+    string header;
+    getline(infile, header);
+
+    while(infile.good()) {
+        string linea;
+        getline(infile, linea);
+
+        char delimitador = ',';
+        string campo;
+        istringstream iss(linea);
+        while(getline(iss, campo, delimitador)) {
+            cout << campo << " ";
+        }
+        cout << endl;
+    }
+
+    infile.close();
+    return 0; //cambiar después por un éxito perteneciente a un enum!!
+}
+
+int leerAsistencias_BIN(){
+
+    ifstream infile("iriClientesGYM.csv");
+    if(!infile.is_open()) {
+        cout << "Error abriendo el archivo binario de asistencias" << endl;
+        return 1; //cambiar después por un error perteneciente a un enum!!
+    }
+
+    char buffer[1024];
+    while(infile.good()) {
+        infile.read(buffer, sizeof(buffer));
+    }
+
+    infile.close();
+    return 0; //cambiar después por un éxito perteneciente a un enum!!
+}
+
+
+
+
+
+
+
 
 
