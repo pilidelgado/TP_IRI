@@ -26,4 +26,6 @@ bool hayEspacio(Asistencia asist);
 
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);
 
+void agregarInscripcion(asist, idClaseAReservar, posCliente, time(NULL));
+
 #endif // LIBRERIA_GLOBAL_H

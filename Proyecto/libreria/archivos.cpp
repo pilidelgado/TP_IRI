@@ -55,3 +55,7 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist, u_int nuevoTam)
 
 }
 
+agregarInscripcion(asist, idClaseAReservar, posCliente, time(NULL))
+{
+
+}

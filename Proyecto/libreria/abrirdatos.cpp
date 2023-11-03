@@ -82,7 +82,21 @@ int leerAsistencias_BIN(){
 
 
 
+int escribirAsistencias_BIN(){
 
+    ofstream outfile("iriClientesGYM.csv", ios::binary);
+    if(!outfile.is_open()) {
+        cout << "Error abriendo el archivo binario de asistencias" << endl;
+        return 1;
+    }
+
+    char datos[] = "acá va lo que queremos escribir en el archivo";
+    outfile.write(datos, sizeof(datos));
+
+    outfile.close();
+
+    return 0;
+}
 
 
 
