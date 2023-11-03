@@ -20,6 +20,6 @@ struct gimnasio
 
 typedef gimnasio Gimnasio;
 
-eResClase ReservaClases(u_int horarioIng, string nombreClaseIng, u_int idClienteIng, Asistencia* Asistencia, Gimnasio* gym);
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, MisAsistencias asist, Gimnasio* gym);
 
 #endif // LIBRERIA_GLOBAL_H

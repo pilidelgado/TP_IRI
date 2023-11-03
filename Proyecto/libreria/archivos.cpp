@@ -1,11 +1,11 @@
 #include "archivos.h"
 #include "gimnasio.h"
 
-u_int buscarPosAsistencia(Asistencia asist, u_int idCliente) // va con puntero asist
+u_int buscarPosAsistencia(MisAsistencias asist, u_int idCliente) // va con puntero asist
 {
     u_int pos;
-    for (int i = 0; i < tamA ; ++i) { // como se el tamaño del array de Asistencia
-        if(asist.idCliente == idCliente)
+    for (int i = 0; i < asist.tamAsist ; ++i) { // como se el tamaño del array de Asistencia
+        if(asist.arrayDeAsistencia->idCliente == idCliente)
             pos=i;
     }
     return pos;
@@ -21,16 +21,16 @@ bool repetidos(Asistencia asist, u_int idClase)
     return false;
 }
 
-bool hayEspacio(Asistencia asist )
+/* bool hayEspacio(Asistencia asist )
 {
     if(asist.tamArrayCI-asist.cantInscripciones<=0)
         return false;
     else
         return true;
-}
+} */
 
 
-eResizeInscriptos resizeCantInscripciones(Asistencia asist, u_int nuevoTam)
+/*eResizeInscriptos resizeCantInscripciones(Asistencia asist, u_int nuevoTam)
 {
     if(nuevoTam==0)
         return eResizeInscriptos :: ErrSize;
@@ -53,9 +53,21 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist, u_int nuevoTam)
     asist.tamArrayCI=nuevoTam;
     return eResizeInscriptos :: ExitoResize;
 
-}
+}*/
 
-agregarInscripcion(asist, idClaseAReservar, posCliente, time(NULL))
+eAgregarInscripciones agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente)
 {
+    for(u_int i=0; i<gym->clases[idClase].cupo_maximo; i++)
+    {
+        if(gym->clases[idClase].reservados[i]==0)
+        {
+            gym->clases[idClase].reservados[i]= idCliente;
+            break;
+        }
+    }
+    if(i==gym->clases[idClase].cupo_maximo)
+        return ErrNoSeAgrego;
+    else
+        return ExitoAgregado;
 
 }
