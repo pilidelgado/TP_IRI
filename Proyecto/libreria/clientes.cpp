@@ -1,7 +1,7 @@
 #include "archivos.h"
 #include "gimnasio.h"
 
-void crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym) //crea un idCliente que no exista en mi clientes* Clientes
+u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym) //crea un idCliente que no exista en mi clientes* Clientes
 {
     Cliente aux = new Cliente;
 
@@ -16,7 +16,7 @@ void crearIdCliente(string nombreIng, string apellidoIng, string emailIng, strin
 
     nuevoCliente(gym, aux);
     delete aux;
-    return;
+    return idCreado;
 }
 void nuevoCliente(Gimnasio* gym, Cliente Ing)// agrega el cliente al array
 {
@@ -45,15 +45,15 @@ bool RevisarCliente(u_int idClienteIng, Gimnasio gym)
     return false;
 }
 
-u_int BuscarCliente(Cliente aux, Gimnasio gym)
+u_int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
 {
     u_int idClienteEncontrado;
     for(u_int i=0; i < tamClientes; i++)
     {
-        if((aux.apellido== gym.clientes[i].apellido && aux.nombre== gym.clientes[i].nombre) || aux.email== gym.clientes[i].email || aux.telefono== gym.clientes[i].telefono)
+        if((apellidIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))
             idClienteEncontrado=  gym.clientes[i].idCliente;
         else
-            idClienteEncontrado=nuevoCliente(Gimnasio* gym, aux);
+            idClienteEncontrado=0;
 
     }
     return idClienteEncontrado;
