@@ -22,4 +22,15 @@ typedef gimnasio Gimnasio;
 
 eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, MisAsistencias asist, Gimnasio* gym);
 
+bool hayCupo(u_int idClase, Gimnasio gym); //se encuentra en clases.cpp
+
+//funciones dentro de clientes.cpp:
+u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
+
+void nuevoCliente(Gimnasio* gym, Cliente Ing);
+
+bool RevisarCliente(u_int idClienteIng, Gimnasio gym);
+
+u_int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id
+
 #endif // LIBRERIA_GLOBAL_H

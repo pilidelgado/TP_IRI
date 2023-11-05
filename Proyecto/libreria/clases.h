@@ -16,6 +16,5 @@ struct clase
 };
 typedef clase Clase;
 
-bool hayCupo(u_int idClase, Gimnasio gym);
 
 #endif // LIBRERIA_GLOBAL_H

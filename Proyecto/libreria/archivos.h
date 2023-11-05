@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 #include "libreria.h"
+#include "gimnasio.h"
 
 enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0};
 typedef enum agregarInscripciones eAgregarInscripciones;
