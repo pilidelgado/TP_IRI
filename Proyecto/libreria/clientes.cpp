@@ -1,6 +1,6 @@
 #include "archivos.h"
 #include "gimnasio.h"
-
+//estas funciones se encuentran declaradas en gym.h
 u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym) //crea un idCliente que no exista en mi clientes* Clientes
 {
     Cliente aux = new Cliente;
