@@ -5,6 +5,7 @@
 #include <ctime>
 #include "clientes.h"//
 #include "clases.h"
+#include "archivos.h"
 
 using namespace std;
 

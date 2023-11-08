@@ -1,4 +1,6 @@
 #include <iostream>
+using namespace std;
+
 #include <ctime>
 #include "archivos.h"
 #include "gimnasio.h"
@@ -14,33 +16,33 @@ int main(int argc, char *argv[]) {
     int error;
     MisAsistencias asist;
 
-    for(i=0; i< gym.tamClases; i++)
+    for(u_int i=0; i< gym.tamClases; i++)
         gym.clases[i].reservados[gym.clases[i].cupo_maximo];
 
-    cin>> "Bienvenido al gimnasio Musculito, Ingrese su nombre:">> endl;
-    cout<< nombreIng;
-    cin>> "Ingrese su apellido:">> endl;
-    cout<< apellidoIng;
+    cout << "Bienvenido al gimnasio Musculito, Ingrese su nombre:"<<endl;
+    cin >>nombreIng;
+    cout<< "Ingrese su apellido:"<< endl;
+    cin>> apellidoIng;
     idClienteIng=BuscarCliente(nombreIng,apellidoIng,gym);
 
     if(idClienteIng==0)
     {
-        cin>> "Inscribase en el gimansio, Ingrese su email:">> endl;
-        cout<< emailIng;
-        cin>> "Ingrese su telefono:">> endl;
-        cout<< telefonoIng;
-        cin>> "Ingrese su fecha de nacimiento:">> endl; //INGRESAR FECHA
-        cout<< fechaNacIng;
-        idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,tekefonoIng,fechaNacIng,gym);
+        cout << "Inscribase en el gimansio, Ingrese su email:"<< endl;
+        cin >> emailIng;
+        cout << "Ingrese su telefono:"<<endl;
+        cin >> telefonoIng;
+        cout << "Ingrese su fecha de nacimiento:"<< endl; //INGRESAR FECHA
+        cin >> fechaNacIng;
+        idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,fechaNacIng,gym);
     }
 
-    if(RevisarCliente(idClienteIng,gym);)
+    if(RevisarCliente(idClienteIng,gym)==true)
     {
-        cin>> "Ingrese el nombre de la clase que quiera reservar:">> endl;
-        cout<< nombreClaseIng;
-        cin>> "Ingrese su horario que quiera reservar:">> endl;
-        cout<< horarioIng;
-        error= ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,gym);
+        cout<< "Ingrese el nombre de la clase que quiera reservar:"<<endl;
+        cin>> nombreClaseIng;
+        cout<< "Ingrese su horario que quiera reservar:"<< endl;
+        cin>> horarioIng;
+        error= ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,gym);//definir el error
     }
     
     return 0;

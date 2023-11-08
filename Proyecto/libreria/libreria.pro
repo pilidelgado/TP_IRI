@@ -9,6 +9,7 @@ CONFIG += c++17
 
 SOURCES += \
     Abrir Archivos.cpp \
+    Asistencia.cpp \
     abrirdatos.cpp \
     archivos.cpp \
     clases.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     archivos.h \
+    asistencias.h \
     clases.h \
     clientes.h \
     gimnasio.h \
