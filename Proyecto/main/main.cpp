@@ -9,6 +9,15 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
+    ifstream infile("iriClasesGYM.csv");
+    if(!infile.is_open()) {
+        cout << "Error abriendo el archivo CSV de clases" << endl;
+        return 1;
+    }
+    u_int tamCla=0;
+    Clase * clase_archivo= new Clase[tamCla];
+    leerClases_CSV(infile,clase_archivo,tamCla);
+
     u_int horarioIng=0, idClienteIng=0;
     string nombreIng, apellidoIng, emailIng,  telefonoIng, nombreClaseIng;
     Fecha fechaNacIng;
@@ -45,5 +54,11 @@ int main(int argc, char *argv[]) {
         error= ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,gym);//definir el error
     }
     
+
+
+
+
+
+
     return 0;
 }
