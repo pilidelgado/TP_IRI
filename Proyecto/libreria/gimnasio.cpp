@@ -2,38 +2,41 @@
 #include "archivos.h"
 
 eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, MisAsistencias asist, Gimnasio* gym)
-{
-    u_int i, j, idClaseAReservar, posReserva;
-    int errorResize=0;
-    // hacerla aparte con parametro de gimansio sin *
+{/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
+    u_int i, j, idClaseAReservar, posReserva;// i,j: indices.
+    //int errorResize=0;
 
-    for(i=0; i < gym.tamClases; i++)
-    {
-        if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre)
-        {
-            idClaseAReservar = gym.clases[i].idClase;
-            posReserva = i;
-        }
-        else
-            return eResClase :: ErrNoExisteClase;
-    }
+    posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);
+    idClaseAReservar= buscarIdClase(gym,horarioIng, nombreClaseIng);
 
+    if(posReserva==-1 || idClaseAReservar==-1)
+        return eResClase :: ErrNoExisteClase;//retorno el error
 
-    u_int posCliente = buscarPosAsistencia(asist, idClienteIng); //definir función buscarPosAsistencia: busca la posición del id del cliente
+    else{//si si encontro la clase y la pos:
+        u_int posCliente = buscarPosAsistencia(asist, idClienteIng);
 
-        if(hayCupo(idClaseAReservar, gym)) //definir función hayCupo: controla si hay lugar en la clase pedida por el usuario
-        {
-                if(repetidos(asist.arrayDeAsistencia[posCliente], idCursoAReservar)) //definir funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces
-                    return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
+        if(posCliente==-3)//-3 indica error
+            return eResClase :: ErrNoExisteCliente;//enum de error, devuelvo si no encontre al cliente
 
-                else //si devuelve false, lo inscribo
-                {
-                    gym.clases[posReserva].cupo++;
-                    agregarInscripcion(gym, idClaseAReservar, idClienteIng);
-                    //definir función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
+        else{//si encuentro al cliente:
+                if(hayCupo(idClaseAReservar, gym)) //si es verdadero que hay cupo. funcion que controla si hay lugar en la clase pedida por el usuario
+                {//si hay cupo:
+                    if(repetidos(asist.arrayDeAsistencia[posCliente], idCursoAReservar)) //funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces
+                        return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
+
+                    else //si devuelve false, lo inscribo
+                    {
+                        gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
+                        u_int resultado = agregarInscripcion(gym, idClaseAReservar, idClienteIng);
+                        //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
+                        if(resultado==-1)
+                            return eResClase :: ErrNoHayCupo;
+                    }
                 }
-        }
-
+                else
+                    return eResClase :: ErrNoHayCupo; //retorno que no hay cupo
+            }
+    }
     return eResClase :: ExitoReserva;
 }
 
