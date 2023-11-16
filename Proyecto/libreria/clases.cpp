@@ -14,7 +14,7 @@ bool hayCupo(u_int idClase, Gimnasio gym)//me pasa el id de la clase y la estruc
         return false; //de lo contrario no hay cupo, retorno falso
 }
 
-u_int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng){
+u_int buscarIdClase(Gimnasio *gym, u_int horarioIng, string nombreClaseIng){
     u_int idClaseAReservar= -1;
     for(u_int i=0; i < gym.tamClases; i++) //for que recorre el array de clases
     {
