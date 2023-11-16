@@ -9,6 +9,135 @@ using namespace std;
 #include <sstream>
 #include "gimnasio.cpp"
 
+
+int main (){
+
+}
+void leerClases_CSV(const char* iriClasesGYM, gimnasio& miGimnasio) {
+    ifstream archivo(iriClasesGYM);
+    if (!archivo.is_open()) { //si no puedo abrir el archivo
+        cout << "Error abriendo el archivo CSV de clases" << endl;
+        return;
+    }
+
+    // Lee la primera línea del archivo (encabezado) si es necesario
+    string encabezado;
+    getline(archivo, encabezado);
+
+    // Lee los datos de cada línea del archivo
+    while (!archivo.eof()) {
+        string linea;
+        getline(archivo, linea);
+
+        if (linea.empty()) {
+            continue;  // Salta líneas vacías
+        }
+
+        stringstream ss(linea);
+        Clase nuevaClase;
+
+        // Parsea los valores de la línea
+        ss >> nuevaClase.idClase >> nuevaClase.nombre >> nuevaClase.horario;
+
+        // Aumenta el tamaño del array de clases y copia la nueva clase
+        gimnasio nuevoGimnasio;
+        nuevoGimnasio.tamClases = miGimnasio.tamClases + 1;
+        nuevoGimnasio.clases = new Clase[nuevoGimnasio.tamClases];
+
+        // Copia las clases existentes al nuevo array
+        for (u_int i = 0; i < miGimnasio.tamClases; ++i) {
+            nuevoGimnasio.clases[i] = miGimnasio.clases[i];
+        }
+
+        // Agrega la nueva clase al final del array
+        nuevoGimnasio.clases[miGimnasio.tamClases] = nuevaClase;
+
+        // Libera la memoria del antiguo array
+        delete[] miGimnasio.clases;
+
+        // Actualiza miGimnasio con el nuevo array
+        miGimnasio = nuevoGimnasio;
+    }
+
+    archivo.close();
+}
+
+void leerClientes_CSV(const char* nombreArchivo, gimnasio& miGimnasio) {
+    ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+        cout << "Error abriendo el archivo CSV de clientes" << endl;
+        return;
+    }
+
+    // Lee la primera línea del archivo (encabezado) si es necesario
+    string encabezado;
+    getline(archivo, encabezado);
+
+    // Lee los datos de cada línea del archivo
+    while (!archivo.eof()) {
+        string linea;
+        getline(archivo, linea);
+
+        if (linea.empty()) {
+            continue;  // Salta líneas vacías
+        }
+
+        stringstream ss(linea);
+        Cliente nuevoCliente;
+
+        // Parsea los valores de la línea
+        ss >> nuevoCliente.idCliente >> nuevoCliente.nombre >> nuevoCliente.apellido
+            >> nuevoCliente.email >> nuevoCliente.telefono
+            >> nuevoCliente.fechaNacimiento.dia >> nuevoCliente.fechaNacimiento.mes >> nuevoCliente.fechaNacimiento.anio
+            >> nuevoCliente.estado;
+
+        // Aumenta el tamaño del array de clientes y copia el nuevo cliente
+        gimnasio nuevoGimnasio;
+        nuevoGimnasio.tamClientes = miGimnasio.tamClientes + 1;
+        nuevoGimnasio.clientes = new Cliente[nuevoGimnasio.tamClientes];
+
+        // Copia los clientes existentes al nuevo array
+        for (u_int i = 0; i < miGimnasio.tamClientes; ++i) {
+            nuevoGimnasio.clientes[i] = miGimnasio.clientes[i];
+        }
+
+        // Agrega el nuevo cliente al final del array
+        nuevoGimnasio.clientes[miGimnasio.tamClientes] = nuevoCliente;
+
+        // Libera la memoria del antiguo array
+        delete[] miGimnasio.clientes;
+
+        // Actualiza miGimnasio con el nuevo array
+        miGimnasio = nuevoGimnasio;
+    }
+
+    archivo.close();
+}
+
+
+int main() {
+    const char* archivoClases = "clases.csv";
+    const char* archivoClientes = "clientes.csv";
+
+    gimnasio miGimnasio;
+    miGimnasio.clases = nullptr;  // Inicializa a nullptr para que sea seguro delete[] más adelante
+    miGimnasio.tamClases = 0;
+    miGimnasio.clientes = nullptr;  // Inicializa a nullptr para que sea seguro delete[] más adelante
+    miGimnasio.tamClientes = 0;
+
+    leerClases_CSV(archivoClases, miGimnasio);
+    leerClientes_CSV(archivoClientes, miGimnasio);
+
+    // Haz lo que necesites con los datos cargados
+
+    // Libera la memoria asignada para el array de clases
+    delete[] miGimnasio.clases;
+    // Libera la memoria asignada para el array de clientes
+    delete[] miGimnasio.clientes;
+    return 0;
+}
+
+/*
 int main(int argc, char *argv[]) {
 
     ifstream infile;
@@ -65,4 +194,4 @@ int main(int argc, char *argv[]) {
 
     infile.close();
     return 0;
-}
+} */
