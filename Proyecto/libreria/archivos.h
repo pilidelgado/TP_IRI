@@ -23,4 +23,6 @@ typedef misAsistencias MisAsistencias;
 
 void leerClases_CSV(ifstream& infile, Asistencia* &asistencia_archivos, u_int tamAsistenciaArchivos);
 
+void resize(Clase* &clase_archivos, u_int &tamC);
+
 #endif // LIBRERIA_GLOBAL_H

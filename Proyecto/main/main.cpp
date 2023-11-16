@@ -9,7 +9,8 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-    ifstream infile("iriClasesGYM.csv");
+    ifstream infile;
+    infile.open("iriClasesGYM.csv");
     if(!infile.is_open()) {
         cout << "Error abriendo el archivo CSV de clases" << endl;
         return 1;
@@ -20,7 +21,7 @@ int main(int argc, char *argv[]) {
 
     u_int horarioIng=0, idClienteIng=0;
     string nombreIng, apellidoIng, emailIng,  telefonoIng, nombreClaseIng;
-    Fecha fechaNacIng;
+    Fecha Fechaing;
     Gimnasio gym;
     int error;
     MisAsistencias asist;
@@ -34,15 +35,20 @@ int main(int argc, char *argv[]) {
     cin>> apellidoIng;
     idClienteIng=BuscarCliente(nombreIng,apellidoIng,gym);
 
+
     if(idClienteIng==0)
     {
         cout << "Inscribase en el gimansio, Ingrese su email:"<< endl;
         cin >> emailIng;
         cout << "Ingrese su telefono:"<<endl;
         cin >> telefonoIng;
-        cout << "Ingrese su fecha de nacimiento:"<< endl; //INGRESAR FECHA
-        cin >> fechaNacIng;
-        idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,fechaNacIng,gym);
+        cout << "Ingrese su el dia de su fecha de nacimiento:"<< endl;
+        cin >> Fechaing.dia;
+        cout << "Ingrese su el mes de su fecha de nacimiento:"<< endl;
+        cin >> Fechaing.mes;
+        cout << "Ingrese su el anio de su fecha de nacimiento:"<< endl;
+        cin >> Fechaing.anio;
+        idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,Fechaing,gym);
     }
 
     if(RevisarCliente(idClienteIng,gym)==true)

@@ -7,35 +7,12 @@ using namespace std;
 
 #define ArchivoClase "C:\Users\emmif\source\Dataset TP (1)"
 
-void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int tamC){ //QUÉ DEVUELVE LA FUNCIÓN? NECESITA PARÁMETROS?
+void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int &tamC){
 
     ifstream infile("iriClasesGYM.csv");
     if(!infile.is_open()) {
-        cout << "Error abriendo el archivo CSV de clases" << endl;
         return 1; //cambiar después por un error perteneciente a un enum!!
     }
-
-    string header;
-    getline(infile, header);
-    char delimitador = ',';
-    stringstream s;
-
-    while(infile.good()) {
-        string linea;
-        getline(infile, linea);
-        s<<linea;
-        getline(s,)
-
-
-        string campo;
-        istringstream iss(linea);
-        while(getline(iss, campo, delimitador)) {
-            cout << campo << " ";
-        }
-        cout << endl;
-    }
-
-    infile.close();
 
     string header;
     stringstream s;
@@ -59,7 +36,24 @@ void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int tamC){ //QU�
     }
 
     infile.close();
-    return 0; //cambiar después por un éxito perteneciente a un enum!!
+    return; //cambiar después por un éxito perteneciente a un enum!!
+}
+
+void resize(Clase* &clase_archivos, u_int &tamC)
+{
+    if(clase_archivos==nullptr){
+        if(tamC<=0)
+            clase_archivos = new Clase[tamC++];
+        return;
+    }
+
+    Clase * aux= new Clase[tamC++];
+    for(u_int i=0; i<tamC-1;i++){
+        aux[i]=clase_archivos[i];
+    }
+
+    delete[] clase_archivos;
+    clase_archivos=aux;
 }
 
 int leerAsistencias_BIN(){
