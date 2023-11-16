@@ -1,5 +1,4 @@
 #include "archivos.h"
-#include "gimnasio.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -7,11 +6,28 @@ using namespace std;
 
 #define ArchivoClase "C:\Users\emmif\source\Dataset TP (1)"
 
-void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int &tamC){
+void resize(Clase* &clase_archivos, u_int &tamC)
+{
+    if(clase_archivos==nullptr){
+        if(tamC<=0)
+            clase_archivos = new Clase[tamC++];
+        return;
+    }
+
+    Clase * aux= new Clase[tamC++];
+    for(u_int i=0; i<tamC-1;i++){
+        aux[i]=clase_archivos[i];
+    }
+
+    delete[] clase_archivos;
+    clase_archivos=aux;
+}
+
+void leerClases_CSV(Clase* &clase_archivos, u_int &tamC){
 
     ifstream infile("iriClasesGYM.csv");
     if(!infile.is_open()) {
-        return 1; //cambiar después por un error perteneciente a un enum!!
+        return; //cambiar después por un error perteneciente a un enum!!
     }
 
     string header;
@@ -31,7 +47,7 @@ void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int &tamC){
         getline(s,auxNombre,coma);
         clase_archivos[tamC].nombre=auxNombre;
         getline(s,auxHorario,coma);
-        clase_archivos[tamC].horario=auxHorario;
+        clase_archivos[tamC].horario= stoi(auxHorario);
         resize(clase_archivos,tamC);//llamar funcion resize que le vaya agregando uno al tamC segun el archivo
     }
 
@@ -39,22 +55,6 @@ void leerClases_CSV(ifstream& infile, Clase* &clase_archivos, u_int &tamC){
     return; //cambiar después por un éxito perteneciente a un enum!!
 }
 
-void resize(Clase* &clase_archivos, u_int &tamC)
-{
-    if(clase_archivos==nullptr){
-        if(tamC<=0)
-            clase_archivos = new Clase[tamC++];
-        return;
-    }
-
-    Clase * aux= new Clase[tamC++];
-    for(u_int i=0; i<tamC-1;i++){
-        aux[i]=clase_archivos[i];
-    }
-
-    delete[] clase_archivos;
-    clase_archivos=aux;
-}
 
 int leerAsistencias_BIN(){
 

@@ -5,8 +5,8 @@
 u_int buscarPosAsistencia(MisAsistencias asist, u_int idCliente)
 {
     u_int pos=-3;//inicializo en -1 por si no llego a encontrar al cliente
-    for (int i = 0; i < asist.tamAsist ; i++) { // como se el tamaño del array de Asistencia
-        if(asist.arrayDeAsistencia[i]->idCliente == idCliente)//busco la posicion del cliente que me pasan en mi array de asistencia
+    for (u_int i = 0; i < asist.tamAsist ; i++) { // como se el tamaño del array de Asistencia
+        if(asist.arrayDeAsistencia[i].idCliente == idCliente)//busco la posicion del cliente que me pasan en mi array de asistencia
             pos=i;//devuelvo la pos
     }
     return pos;
@@ -14,7 +14,7 @@ u_int buscarPosAsistencia(MisAsistencias asist, u_int idCliente)
 
 bool repetidos(Asistencia asist, u_int idClase) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
 {
-    for (int i = 0; i < asist.cantInscripciones ; i++) {//for que recorre la cantidad de veces q se inscribio el cliente
+    for (u_int i = 0; i < asist.cantInscripciones ; i++) {//for que recorre la cantidad de veces q se inscribio el cliente
         if(asist.CursosInscriptos[i].idClase == idClase) //compara si ya se anoto a la clase
             return true;
     }

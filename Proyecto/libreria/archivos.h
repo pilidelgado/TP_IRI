@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <ctime>
+#include "clases.h"
 #include "libreria.h"
 
 /*Que tenemos aca?
@@ -31,6 +32,7 @@ typedef misAsistencias MisAsistencias;
 
 void leerClases_CSV(ifstream& infile, Asistencia* &asistencia_archivos, u_int tamAsistenciaArchivos);
 //parametros que pasamos: el archivo, el tamaño de asistencia y
+
 void resize(Clase* &clase_archivos, u_int &tamC);
 
 #endif // LIBRERIA_GLOBAL_H

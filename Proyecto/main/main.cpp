@@ -2,10 +2,12 @@
 using namespace std;
 
 #include <ctime>
+#include "clases.h"
 #include "archivos.h"
 #include "gimnasio.h"
 #include <fstream>
 #include <sstream>
+#include "gimnasio.cpp"
 
 int main(int argc, char *argv[]) {
 
@@ -15,9 +17,10 @@ int main(int argc, char *argv[]) {
         cout << "Error abriendo el archivo CSV de clases" << endl;
         return 1;
     }
-    u_int tamCla=0;
+
+    u_int tamCla = 0;
     Clase * clase_archivo= new Clase[tamCla];
-    leerClases_CSV(infile,clase_archivo,tamCla);
+   // leerClases_CSV(infile,clase_archivo,tamCla);
 
     u_int horarioIng=0, idClienteIng=0;
     string nombreIng, apellidoIng, emailIng,  telefonoIng, nombreClaseIng;
@@ -26,8 +29,8 @@ int main(int argc, char *argv[]) {
     int error;
     MisAsistencias asist;
 
-    for(u_int i=0; i< gym.tamClases; i++)
-        gym.clases[i].reservados[gym.clases[i].cupo_maximo];
+    //for(u_int i=0; i< gym.tamClases; i++)
+      //  gym.clases[i].reservados.gym.clases[i].cupo_maximo;
 
     cout << "Bienvenido al gimnasio Musculito, Ingrese su nombre:"<<endl;
     cin >>nombreIng;
@@ -48,7 +51,7 @@ int main(int argc, char *argv[]) {
         cin >> Fechaing.mes;
         cout << "Ingrese su el anio de su fecha de nacimiento:"<< endl;
         cin >> Fechaing.anio;
-        idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,Fechaing,gym);
+        //idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,Fechaing,gym);
     }
 
     if(RevisarCliente(idClienteIng,gym)==true)
@@ -59,12 +62,7 @@ int main(int argc, char *argv[]) {
         cin>> horarioIng;
         error= ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,gym);//definir el error
     }
-    
 
-
-
-
-
-
+    infile.close();
     return 0;
 }

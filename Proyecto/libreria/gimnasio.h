@@ -6,6 +6,7 @@
 #include "clientes.h"//
 #include "clases.h"
 #include "archivos.h"
+#include "libreria.h"
 
 using namespace std;
 
@@ -30,9 +31,9 @@ u_int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng); //bu
 u_int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng);
 
 //funciones dentro de clientes.cpp:
-u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
+//u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
 
-void nuevoCliente(Gimnasio* gym, Cliente Ing);
+//void nuevoCliente(Gimnasio* gym, Cliente Ing);
 
 bool RevisarCliente(u_int idClienteIng, Gimnasio gym);
 

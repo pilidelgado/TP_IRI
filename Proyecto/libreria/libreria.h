@@ -5,8 +5,8 @@
 #include <string>
 #include <fstream>
 
-#define BLK 10;
-#define NMAX 200;
+#define BLK 10
+#define NMAX 200
 
 using namespace std;
 typedef unsigned int u_int;
