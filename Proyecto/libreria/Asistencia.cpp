@@ -2,9 +2,9 @@
 #include "asistencias.h" //llamo donde estan definidas mis funciones
 #include "gimnasio.h"
 
-u_int buscarPosAsistencia(MisAsistencias asist, u_int idCliente)
+int buscarPosAsistencia(MisAsistencias asist, int idCliente)
 {
-    u_int pos=-3;//inicializo en -1 por si no llego a encontrar al cliente
+    int pos=-3;//inicializo en -1 por si no llego a encontrar al cliente
     for (u_int i = 0; i < asist.tamAsist ; i++) { // como se el tamaño del array de Asistencia
         if(asist.arrayDeAsistencia[i].idCliente == idCliente)//busco la posicion del cliente que me pasan en mi array de asistencia
             pos=i;//devuelvo la pos
@@ -12,7 +12,7 @@ u_int buscarPosAsistencia(MisAsistencias asist, u_int idCliente)
     return pos;
 }
 
-bool repetidos(Asistencia asist, u_int idClase) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
+bool repetidos(Asistencia asist, int idClase) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
 {
     for (u_int i = 0; i < asist.cantInscripciones ; i++) {//for que recorre la cantidad de veces q se inscribio el cliente
         if(asist.CursosInscriptos[i].idClase == idClase) //compara si ya se anoto a la clase
@@ -55,10 +55,10 @@ bool repetidos(Asistencia asist, u_int idClase) //paso como parametro asistencia
 
 }*/
 
-u_int agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente) //es *gym ya que modifico sus datos
+int agregarInscripcion(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
 //le paso la estructura de gym, el id de clase a reservar y el id del cliente que quiere reservar la clase
 {
-    u_int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cunaod indica error
+    int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cunaod indica error
     for(u_int i=0; i<gym->clases[idClase].cupo_maximo; i++)
     //recorro el array especifico de la clase dada hasta mi cupo maximo
     {

@@ -39,7 +39,7 @@ u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, stri
 }
 */
 
-bool RevisarCliente(u_int idClienteIng, Gimnasio gym)
+bool RevisarCliente(int idClienteIng, Gimnasio gym)
 {
     for(u_int i=0; i < gym.tamClientes; i++)
     {
@@ -49,9 +49,9 @@ bool RevisarCliente(u_int idClienteIng, Gimnasio gym)
     return false;
 }
 
-u_int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
+int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
 {
-    u_int idClienteEncontrado;
+    u_int idClienteEncontrado=-1;//en caso de no encontrarlo devuelve -1
     for(u_int i=0; i < gym.tamClientes; i++)
     {
         if((apellidoIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))

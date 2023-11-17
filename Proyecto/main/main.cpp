@@ -9,43 +9,36 @@ using namespace std;
 #include <sstream>
 #include "gimnasio.cpp"
 
-
-int main (){
-
-}
-void leerClases_CSV(const char* iriClasesGYM, gimnasio& miGimnasio) {
-    ifstream archivo(iriClasesGYM);
-    if (!archivo.is_open()) { //si no puedo abrir el archivo
-        cout << "Error abriendo el archivo CSV de clases" << endl;
+/*
+void leerClases_CSV(const char* iriClasesGYM, Gimnasio& miGimnasio) {
+    std::ifstream archivo(iriClasesGYM);
+    if (!archivo.is_open()) {
+        std::cout << "Error abriendo el archivo CSV de clases" << std::endl;
         return;
     }
 
-    // Lee la primera línea del archivo (encabezado) si es necesario
-    string encabezado;
+    // Lee la primera línea del archivo (encabezado)
+    std::string encabezado;
     getline(archivo, encabezado);
 
     // Lee los datos de cada línea del archivo
     while (!archivo.eof()) {
-        string linea;
+        std::string linea;
         getline(archivo, linea);
 
-        if (linea.empty()) {
-            continue;  // Salta líneas vacías
-        }
-
-        stringstream ss(linea);
+        std::stringstream ss(linea);
         Clase nuevaClase;
 
-        // Parsea los valores de la línea
+        // Lee los valores de la línea
         ss >> nuevaClase.idClase >> nuevaClase.nombre >> nuevaClase.horario;
 
         // Aumenta el tamaño del array de clases y copia la nueva clase
-        gimnasio nuevoGimnasio;
+        Gimnasio nuevoGimnasio;
         nuevoGimnasio.tamClases = miGimnasio.tamClases + 1;
         nuevoGimnasio.clases = new Clase[nuevoGimnasio.tamClases];
 
         // Copia las clases existentes al nuevo array
-        for (u_int i = 0; i < miGimnasio.tamClases; ++i) {
+        for (u_int i = 0; i < miGimnasio.tamClases; i++) {
             nuevoGimnasio.clases[i] = miGimnasio.clases[i];
         }
 
@@ -112,9 +105,9 @@ void leerClientes_CSV(const char* nombreArchivo, gimnasio& miGimnasio) {
     }
 
     archivo.close();
-}
+}*/
 
-
+/*
 int main() {
     const char* archivoClases = "clases.csv";
     const char* archivoClientes = "clientes.csv";
@@ -135,7 +128,7 @@ int main() {
     // Libera la memoria asignada para el array de clientes
     delete[] miGimnasio.clientes;
     return 0;
-}
+}*/
 
 /*
 int main(int argc, char *argv[]) {

@@ -23,20 +23,20 @@ struct gimnasio
 
 typedef gimnasio Gimnasio;
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, MisAsistencias asist, Gimnasio* gym);
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio* gym);
 
 //se encuentra en clases.cpp
-bool hayCupo(u_int idClase, Gimnasio gym);
-u_int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
-u_int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng);
+bool hayCupo(int idClase, Gimnasio gym);
+int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
+int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng);
 
 //funciones dentro de clientes.cpp:
 //u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
 
 //void nuevoCliente(Gimnasio* gym, Cliente Ing);
 
-bool RevisarCliente(u_int idClienteIng, Gimnasio gym);
+bool RevisarCliente(int idClienteIng, Gimnasio gym);
 
-u_int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id
+int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id
 
 #endif // LIBRERIA_GLOBAL_H

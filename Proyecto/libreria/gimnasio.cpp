@@ -2,9 +2,9 @@
 #include "archivos.h"
 #include "asistencias.h"
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClienteIng, MisAsistencias asist, Gimnasio &gym)
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio &gym)
 {/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
-    u_int i, j, idClaseAReservar, posReserva;// i,j: indices.
+    int idClaseAReservar, posReserva;
     //int errorResize=0;
 
     posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);
@@ -14,7 +14,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClient
         return eResClase :: ErrNoExisteClase;//retorno el error
 
     else{//si si encontro la clase y la pos:
-        u_int posCliente = buscarPosAsistencia(asist, idClienteIng);
+        int posCliente = buscarPosAsistencia(asist, idClienteIng);
 
         if(posCliente==-3)//-3 indica error
             return eResClase :: ErrNoExisteCliente;//enum de error, devuelvo si no encontre al cliente
@@ -28,7 +28,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, u_int idClient
                     else //si devuelve false, lo inscribo
                     {
                         gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
-                        u_int resultado = agregarInscripcion(&gym, idClaseAReservar, idClienteIng);
+                        int resultado = agregarInscripcion(&gym, idClaseAReservar, idClienteIng);
                         //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
                         if(resultado==-1)
                             return eResClase :: ErrNoHayCupo;
