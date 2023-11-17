@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ctime>
 #include "clases.h"
-#include "gimnasio.h"
 #include "libreria.h"
 
 /*Que tenemos aca?
@@ -30,9 +29,6 @@ struct misAsistencias {
     Asistencia* arrayDeAsistencia;//array
 };
 typedef misAsistencias MisAsistencias;
-
-void leerClases_CSV(Gimnasio& miGimnasio);
-void leerClientes_CSV(gimnasio& miGimnasio);
 
 void resize(Clase* &clase_archivos, u_int &tamC);
 

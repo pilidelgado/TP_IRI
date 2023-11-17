@@ -41,7 +41,17 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
     return eResClase :: ExitoReserva;
 }
 
-//time(NULL) lo pongo en una variable y lo ´pongfo en la funcion de agregar
-// memoria dinamica solo en resize
+string nombreClaseAleatorio() {
+    // Nombres de las clases
+    std::string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
 
+    // Inicializa la semilla para la generación de números aleatorios con la hora actual
+    std::srand(static_cast<unsigned int>(std::time(0)));
+
+    // Genera un índice aleatorio dentro del rango de la lista de nombres
+    int indiceAleatorio = std::rand() % (sizeof(nombres) / sizeof(nombres[0]));
+
+    // Devuelve el nombre seleccionado aleatoriamente
+    return nombres[indiceAleatorio];
+}
 

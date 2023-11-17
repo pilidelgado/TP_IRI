@@ -20,4 +20,7 @@ eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/
 
 int agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente);
 
+void leerClases_CSV(Gimnasio& miGimnasio);
+void leerClientes_CSV(gimnasio& miGimnasio);
+
 #endif // LIBRERIA_GLOBAL_H

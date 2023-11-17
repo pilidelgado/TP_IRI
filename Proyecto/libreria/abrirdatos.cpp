@@ -1,5 +1,6 @@
 #include "archivos.h"
 #include "gimnasio.h"
+#include "asistencias.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -114,6 +115,49 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
 
     archivo.close();
 }
+
+MisAsistencias leerArchivoBinario() {
+    MisAsistencias misAsistencias;
+    // Abre el archivo binario en modo lectura
+    ifstream archivo("asistencias_1697673600000", ios::binary);
+
+    if (!archivo) {
+        cerr << "Error al abrir el archivo: " << "asistencias_1697673600000" << endl;
+
+    }
+
+    // Lee la cantidad de asistencias
+    archivo.read(reinterpret_cast<char*>(&misAsistencias.tamAsist), sizeof(misAsistencias.tamAsist));
+
+    // Reserva memoria para el array de Asistencia
+    misAsistencias.arrayDeAsistencia = new Asistencia[misAsistencias.tamAsist];
+
+    // Lee cada asistencia del archivo
+    for (u_int i = 0; i < misAsistencias.tamAsist; ++i) {
+        // Lee idCliente y cantInscripciones
+        archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].idCliente), sizeof(misAsistencias.arrayDeAsistencia[i].idCliente));
+        archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].cantInscripciones), sizeof(misAsistencias.arrayDeAsistencia[i].cantInscripciones));
+
+        // Reserva memoria para el array de Inscripcion
+        misAsistencias.arrayDeAsistencia[i].CursosInscriptos = new Inscripcion[misAsistencias.arrayDeAsistencia[i].cantInscripciones];
+
+        // Lee cada Inscripcion
+        for (u_int j = 0; j < misAsistencias.arrayDeAsistencia[i].cantInscripciones; ++j) {
+            archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].idClase), sizeof(misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].idClase));
+            archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion), sizeof(misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion));
+        }
+    }
+
+    // Cierra el archivo
+    archivo.close();
+
+    return misAsistencias;
+}
+
+
+
+
+
 
 
 int leerAsistencias_BIN(){

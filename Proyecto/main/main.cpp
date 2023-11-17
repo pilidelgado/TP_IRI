@@ -1,91 +1,42 @@
 #include <iostream>
 using namespace std;
-
 #include <ctime>
-#include "clases.h"
 #include "gimnasio.h"
-#include "archivos.h"
+#include "asistencias.h"
 #include <fstream>
 #include <sstream>
-#include "gimnasio.cpp"
-
-
+#include <cstdlib>
+#include <iostream>
 
 
 int main() {
-
-
-    gimnasio miGimnasio;
-    miGimnasio.tamClases = 0;
-    miGimnasio.tamClientes = 0;
-
-    leerClases_CSV(&miGimnasio);
-    leerClientes_CSV(&miGimnasio);
-
-
-
-    // Libera la memoria asignada para el array de clases
-    delete[] miGimnasio.clases;
-    // Libera la memoria asignada para el array de clientes
-    delete[] miGimnasio.clientes;
-    return 0;
-}
-
-/*
-int main(int argc, char *argv[]) {
-
-    ifstream infile;
-    infile.open("iriClasesGYM.csv");
-    if(!infile.is_open()) {
-        cout << "Error abriendo el archivo CSV de clases" << endl;
-        return 1;
-    }
-
-    u_int tamCla = 0;
-    Clase * clase_archivo= new Clase[tamCla];
-   // leerClases_CSV(infile,clase_archivo,tamCla);
-
-    u_int horarioIng=0, idClienteIng=0;
-    string nombreIng, apellidoIng, emailIng,  telefonoIng, nombreClaseIng;
-    Fecha Fechaing;
     Gimnasio gym;
-    int error;
+    //inicializo a 0 los tamaños de los arrays de la estructura gimnasio
+    gym.tamClases = 0;
+    gym.tamClientes = 0;
+
+    //leo archivos csv de clases y clientes
+    leerClases_CSV(gym);
+    leerClientes_CSV(gym);
+
     MisAsistencias asist;
 
-    //for(u_int i=0; i< gym.tamClases; i++)
-      //  gym.clases[i].reservados.gym.clases[i].cupo_maximo;
+    cout << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
+    cout << "Ingrese su Id de cliente:" << endl;
+    u_int idClienteIng = rand() %  249;
 
-    cout << "Bienvenido al gimnasio Musculito, Ingrese su nombre:"<<endl;
-    cin >>nombreIng;
-    cout<< "Ingrese su apellido:"<< endl;
-    cin>> apellidoIng;
-    idClienteIng=BuscarCliente(nombreIng,apellidoIng,gym);
-
-
-    if(idClienteIng==0)
+    if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
     {
-        cout << "Inscribase en el gimansio, Ingrese su email:"<< endl;
-        cin >> emailIng;
-        cout << "Ingrese su telefono:"<<endl;
-        cin >> telefonoIng;
-        cout << "Ingrese su el dia de su fecha de nacimiento:"<< endl;
-        cin >> Fechaing.dia;
-        cout << "Ingrese su el mes de su fecha de nacimiento:"<< endl;
-        cin >> Fechaing.mes;
-        cout << "Ingrese su el anio de su fecha de nacimiento:"<< endl;
-        cin >> Fechaing.anio;
-        //idClienteIng=crearIdCliente(nombreIng,apellidoIng,emailIng,telefonoIng,Fechaing,gym);
-    }
-
-    if(RevisarCliente(idClienteIng,gym)==true)
-    {
-        cout<< "Ingrese el nombre de la clase que quiera reservar:"<<endl;
-        cin>> nombreClaseIng;
+        cout << "Ingrese el nombre de la clase que quiera reservar:"<<endl;
+        string nombreClaseIng = nombreClaseAleatorio();
         cout<< "Ingrese su horario que quiera reservar:"<< endl;
-        cin>> horarioIng;
-        error= ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,gym);//definir el error
+        u_int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
+        eResClase resultados = ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,&gym);//llamo a la función de reservar clases
+        if(resultados == 0)
+            cout << "Reserva hecha correctamente" << endl;
+        else
+            cout << "Hubo un problema a la hora de hacer la reserva, vuelva a intentarlo" << endl;
     }
 
-    infile.close();
-    return 0;
-} */
+ return 0;
+}

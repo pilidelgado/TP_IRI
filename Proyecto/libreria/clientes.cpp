@@ -2,6 +2,31 @@
 //estas funciones se encuentran declaradas en gym.h
 
 
+bool RevisarCliente(int idClienteIng, Gimnasio gym)
+{
+    for(u_int i=0; i < gym.tamClientes; i++)
+    {
+        if(gym.clientes[i].idCliente==idClienteIng && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
+            return true;
+    }
+    return false;
+}
+
+int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
+{
+    u_int idClienteEncontrado=-1;//en caso de no encontrarlo devuelve -1
+    for(u_int i=0; i < gym.tamClientes; i++)
+    {
+        if((apellidoIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))
+            idClienteEncontrado=  gym.clientes[i].idCliente;
+        else
+            idClienteEncontrado=0;
+
+    }
+    return idClienteEncontrado;
+}
+
+
 /*
 void nuevoCliente(Gimnasio* gym, Cliente Ing)// agrega el cliente al array
 {
@@ -38,27 +63,3 @@ u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, stri
     return idCreado;
 }
 */
-
-bool RevisarCliente(int idClienteIng, Gimnasio gym)
-{
-    for(u_int i=0; i < gym.tamClientes; i++)
-    {
-        if(gym.clientes[i].idCliente==idClienteIng)
-            return true;
-    }
-    return false;
-}
-
-int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
-{
-    u_int idClienteEncontrado=-1;//en caso de no encontrarlo devuelve -1
-    for(u_int i=0; i < gym.tamClientes; i++)
-    {
-        if((apellidoIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))
-            idClienteEncontrado=  gym.clientes[i].idCliente;
-        else
-            idClienteEncontrado=0;
-
-    }
-    return idClienteEncontrado;
-}

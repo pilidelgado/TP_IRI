@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <ctime>
-#include "clientes.h"//
+#include "clientes.h"
 #include "clases.h"
 #include "archivos.h"
 #include "libreria.h"
@@ -39,4 +39,5 @@ bool RevisarCliente(int idClienteIng, Gimnasio gym);
 
 int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id
 
+string nombreClaseAleatorio();
 #endif // LIBRERIA_GLOBAL_H
