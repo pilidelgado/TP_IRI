@@ -72,6 +72,7 @@ void leerClases_CSV(Gimnasio& miGimnasio) {
 }
 
 void leerClientes_CSV(gimnasio& miGimnasio) {
+
     ifstream archivo("iriClientesGYM");
     if (!archivo.is_open()) {
         cout << "Error abriendo el archivo CSV de clientes" << endl;
@@ -116,84 +117,57 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
     archivo.close();
 }
 
-MisAsistencias leerArchivoBinario() {
+void leerArchivoBinario(MisAsistencias& misAsistencias) {
     MisAsistencias misAsistencias;
     // Abre el archivo binario en modo lectura
     ifstream archivo("asistencias_1697673600000", ios::binary);
 
-    if (!archivo) {
-        cerr << "Error al abrir el archivo: " << "asistencias_1697673600000" << endl;
-
+    if (!archivo.is_open()) {
+        cout <<"Error al abrir el archivo: " << endl;
     }
 
-    // Lee la cantidad de asistencias
-    archivo.read(reinterpret_cast<char*>(&misAsistencias.tamAsist), sizeof(misAsistencias.tamAsist));
+    while(!eof.archivo()){
 
-    // Reserva memoria para el array de Asistencia
-    misAsistencias.arrayDeAsistencia = new Asistencia[misAsistencias.tamAsist];
+        Asistencia nuevaAsistencia;
 
-    // Lee cada asistencia del archivo
-    for (u_int i = 0; i < misAsistencias.tamAsist; ++i) {
-        // Lee idCliente y cantInscripciones
-        archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].idCliente), sizeof(misAsistencias.arrayDeAsistencia[i].idCliente));
-        archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].cantInscripciones), sizeof(misAsistencias.arrayDeAsistencia[i].cantInscripciones));
+        archivo.read((char*)& nuevaAsistencia.idCliente,sizeof(u_int);
+        archivo.read((char*)& nuevaAsistencia.cantInscripciones,sizeof(u_int);
 
-        // Reserva memoria para el array de Inscripcion
-        misAsistencias.arrayDeAsistencia[i].CursosInscriptos = new Inscripcion[misAsistencias.arrayDeAsistencia[i].cantInscripciones];
+        Inscripcion * auxInscripciones= Inscripcion[nuevaAsistencia.cantInscripciones];
 
-        // Lee cada Inscripcion
-        for (u_int j = 0; j < misAsistencias.arrayDeAsistencia[i].cantInscripciones; ++j) {
-            archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].idClase), sizeof(misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].idClase));
-            archivo.read(reinterpret_cast<char*>(&misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion), sizeof(misAsistencias.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion));
+        for(u_int i=0;i<nuevaAsistencia.cantInscripciones;i++){
+        archivo.read((char*)& auxInscripciones->idClase,sizeof(u_int);
+        archivo.read((char*)& auxInscripciones->fechaInscripcion,sizeof(time_t);}
+
+        nuevaAsistencia.CursosInscriptos = auxInscripciones;
+
+     // Aumenta el tamaño del array y copia la nueva asistencia
+        MisAsistencias nuevoAsistencias; //se crea una estructura de mis asistencias
+        nuevoAsistencias.tamAsist = misAsistencias.tamAsist + 1; //por cada linea leida, aumenta en uno el tamaño del array
+        nuevoAsistencias.arrayDeAsistencia = new MisAsistencias[nuevoAsistencias.tamAsist];//array de misasistencias dinámico
+      // Reserva memoria para el array de Asistencia
+
+      // Copia los existentes al nuevo array
+        for (u_int i = 0; i < misAsistencias.tamAsist; ++i) {
+            nuevoAsistencias.arrayDeAsistencia[i] = misAsistencias.arrayDeAsistencia[i];
         }
-    }
 
+        // Agrega la estructura nueva al final del array
+        nuevoAsistencias.arrayDeAsistencia[misAsistencias.tamAsist] = nuevaAsistencia;
+
+        // Libera la memoria del antiguo array
+        delete[] misAsistencias.arrayDeAsistencia;
+        delete[] auxInscripciones;
+
+        // Actualiza miGimnasio con el nuevo array
+        misAsistencias = nuevoAsistencias;
+    }
     // Cierra el archivo
     archivo.close();
 
-    return misAsistencias;
+    return;
 }
 
-
-
-
-
-
-
-int leerAsistencias_BIN(){
-
-    ifstream infile("iriClientesGYM.csv");
-    if(!infile.is_open()) {
-        cout << "Error abriendo el archivo binario de asistencias" << endl;
-        return 1; //cambiar después por un error perteneciente a un enum!!
-    }
-
-    char buffer[1024];
-    while(infile.good()) {
-        infile.read(buffer, sizeof(buffer));
-    }
-
-    infile.close();
-    return 0; //cambiar después por un éxito perteneciente a un enum!!
-}
-
-
-
-int escribirAsistencias_BIN(){
-
-    ofstream outfile("iriClientesGYM.csv", ios::binary);
-    if(!outfile.is_open()) {
-        cout << "Error abriendo el archivo binario de asistencias" << endl;
-        return 1;
-    }
-
-    char datos[] = "acá va lo que queremos escribir en el archivo";
-    outfile.write(datos, sizeof(datos));
-
-    outfile.close();
-
-    return 0;
-}
 
 
 

@@ -10,8 +10,7 @@
 
 using namespace std;
 
-enum resClase{ErrNoHayCupo=-4,ErrNoExisteCliente = -3,ErrNoExisteClase= -2,
-                ErrClienteRepetido=-1, ExitoReserva=0};
+enum resClase{ErrNoHayCupo=-4,ErrNoExisteCliente = -3,ErrNoExisteClase= -2,ErrClienteRepetido=-1, ExitoReserva=0};
 typedef enum resClase eResClase;
 
 struct gimnasio
