@@ -25,8 +25,8 @@ int buscarIdClase(Gimnasio *gym, u_int horarioIng, string nombreClaseIng){
         {//busca el id coparando a partir del horario ingresado y el nombre de la clase
            idClaseAReservar = gym->clases[i].idClase;
         }
-        return idClaseAReservar;
     }
+    return idClaseAReservar;
 }
 /*QUE HACE ESTA FUNCION?
  * Dada mi estructura de gimnasio, un horario ingresado por el usuario y un
