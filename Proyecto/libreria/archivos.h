@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 #include "clases.h"
+#include "gimnasio.h"
 #include "libreria.h"
 
 /*Que tenemos aca?
@@ -30,8 +31,8 @@ struct misAsistencias {
 };
 typedef misAsistencias MisAsistencias;
 
-void leerClases_CSV(ifstream& infile, Asistencia* &asistencia_archivos, u_int tamAsistenciaArchivos);
-//parametros que pasamos: el archivo, el tamaño de asistencia y
+void leerClases_CSV(Gimnasio& miGimnasio);
+void leerClientes_CSV(gimnasio& miGimnasio);
 
 void resize(Clase* &clase_archivos, u_int &tamC);
 

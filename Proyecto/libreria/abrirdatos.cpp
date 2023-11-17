@@ -1,4 +1,5 @@
 #include "archivos.h"
+#include "gimnasio.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -23,36 +24,95 @@ void resize(Clase* &clase_archivos, u_int &tamC)
     clase_archivos=aux;
 }
 
-void leerClases_CSV(Clase* &clase_archivos, u_int &tamC){
+void leerClases_CSV(Gimnasio& miGimnasio) {
 
-    ifstream infile("iriClasesGYM.csv");
-    if(!infile.is_open()) {
-        return; //cambiar después por un error perteneciente a un enum!!
+    ifstream archivo("iriClasesGYM");
+    if (!archivo.is_open()) {
+        cout << "Error abriendo el archivo CSV de clases" << std::endl;
+        return;
     }
 
-    string header;
-    stringstream s;
-    string auxidClases;
-    string auxNombre;
-    string auxHorario;
-    char coma=',';
-    getline(infile, header);
+    //Lee la primera línea del archivo
+    string encabezado;
+    getline(archivo, encabezado);
 
-    while(infile.good()) {
+    //Lee los datos de cada línea del archivo
+    while (!archivo.eof()) { //mientras el archivo esté abierto
         string linea;
-        getline(infile, linea);
-        s<<linea;
-        getline(s,auxidClases,coma);
-        clase_archivos[tamC].idClase=stoi(auxidClases);
-        getline(s,auxNombre,coma);
-        clase_archivos[tamC].nombre=auxNombre;
-        getline(s,auxHorario,coma);
-        clase_archivos[tamC].horario= stoi(auxHorario);
-        resize(clase_archivos,tamC);//llamar funcion resize que le vaya agregando uno al tamC segun el archivo
+        getline(archivo, linea);
+
+        stringstream ss(linea);
+        Clase nuevaClase; //me creo un struct de clase
+
+        //Lee los valores de la línea
+        ss >> nuevaClase.idClase >> nuevaClase.nombre >> nuevaClase.horario;
+
+        // Aumenta el tamaño del array de clases y copia la nueva clase
+        Gimnasio nuevoGimnasio; //me creo un struct de gimnasio
+        nuevoGimnasio.tamClases = miGimnasio.tamClases + 1; //por cada clase leida, se suma una al tamaño
+        nuevoGimnasio.clases = new Clase[nuevoGimnasio.tamClases]; //creo un array dinámico de las clases almacenadas en el gimnasio
+
+        // Copia las clases existentes al nuevo array de clases
+        for (u_int i = 0; i < miGimnasio.tamClases; i++) {
+            nuevoGimnasio.clases[i] = miGimnasio.clases[i];
+        }
+
+        // Agrega la nueva clase al final del array
+        nuevoGimnasio.clases[miGimnasio.tamClases] = nuevaClase;
+
+        // Libera la memoria del antiguo array
+        delete[] miGimnasio.clases;
+
+        // Actualiza miGimnasio con el nuevo array
+        miGimnasio = nuevoGimnasio;
     }
 
-    infile.close();
-    return; //cambiar después por un éxito perteneciente a un enum!!
+    archivo.close();
+}
+
+void leerClientes_CSV(gimnasio& miGimnasio) {
+    ifstream archivo("iriClientesGYM");
+    if (!archivo.is_open()) {
+        cout << "Error abriendo el archivo CSV de clientes" << endl;
+        return;
+    }
+
+    // Lee la primera línea del archivo
+    string encabezado;
+    getline(archivo, encabezado);
+
+    // Lee los datos de cada línea del archivo
+    while (!archivo.eof()) { //mientras el archivo no esté cerrado
+        string linea;
+        getline(archivo, linea);
+
+        stringstream ss(linea);
+        Cliente nuevoCliente; //creo una estructura de clientes
+
+        //lee los valores de la línea
+        ss >> nuevoCliente.idCliente >> nuevoCliente.nombre >> nuevoCliente.apellido >> nuevoCliente.email >> nuevoCliente.telefono >> nuevoCliente.fechaNac.dia >> nuevoCliente.fechaNac.mes >> nuevoCliente.fechaNac.anio >> nuevoCliente.estado;
+
+        // Aumenta el tamaño del array de clientes y copia el nuevo cliente
+        gimnasio nuevoGimnasio; //se crea una estructura de gimnasio
+        nuevoGimnasio.tamClientes = miGimnasio.tamClientes + 1; //por cada linea leida, aumenta en uno el tamaño del array de clientes
+        nuevoGimnasio.clientes = new Cliente[nuevoGimnasio.tamClientes]; //array de clientes dinámico
+
+        // Copia los clientes existentes al nuevo array
+        for (u_int i = 0; i < miGimnasio.tamClientes; ++i) {
+            nuevoGimnasio.clientes[i] = miGimnasio.clientes[i];
+        }
+
+        // Agrega la estructura nueva de clientes al final del array
+        nuevoGimnasio.clientes[miGimnasio.tamClientes] = nuevoCliente;
+
+        // Libera la memoria del antiguo array
+        delete[] miGimnasio.clientes;
+
+        // Actualiza miGimnasio con el nuevo array
+        miGimnasio = nuevoGimnasio;
+    }
+
+    archivo.close();
 }
 
 
