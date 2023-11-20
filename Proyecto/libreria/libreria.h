@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
+#include <sstream>
 
 #define BLK 10
 #define NMAX 200

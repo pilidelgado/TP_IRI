@@ -1,12 +1,6 @@
 #include <iostream>
 using namespace std;
-#include <ctime>
-#include "gimnasio.h"
-#include "asistencias.h"
-#include <fstream>
-#include <sstream>
-#include <cstdlib>
-#include <iostream>
+#include "abrirArchivos.h"
 
 
 int main() {

@@ -10,17 +10,12 @@ CONFIG += c++17
 SOURCES += \
     Abrir \
     Asistencia.cpp \
-    abrirdatos.cpp \
-    archivos.cpp \
-    clases.cpp \
-    clientes.cpp \
+    abrirArchivos.cpp \
     gimnasio.cpp
 
 HEADERS += \
-    archivos.h \
+    abrirArchivos.h \
     asistencias.h \
-    clases.h \
-    clientes.h \
     gimnasio.h \
     libreria.h \
     libreria_global.h

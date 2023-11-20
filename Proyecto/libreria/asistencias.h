@@ -1,29 +1,44 @@
 #ifndef ASISTENCIAS_H
 #define ASISTENCIAS_H
 
-#include <iostream>
-#include <ctime>
 #include "libreria.h"
-#include "gimnasio.h"
-#include "archivos.h" //llamo donde estan declarados mis structs
+
 
 /*enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0}; //enum de mis errores
 typedef enum agregarInscripciones eAgregarInscripciones;*/
+
+/*Que tenemos aca?
+    -definicion struct inscripcion (que leemos del archivo binario)
+        - definicion struct asistencia (que leemos del archivo binario)
+        - definicion del struct misAsistencias que contiene un array de asistencias de cada cliente, y su tamaño
+        - funcion  rezice asistencia
+        - funcion para leer el archivo csv de clase*/
+
+//MIS ESTRUCTURAS:
+typedef struct {
+    u_int idClase;
+    time_t fechaInscripcion;//a q hora se inscibio al curso
+} Inscripcion;
+
+typedef struct {
+    u_int idCliente, cantInscripciones;//cantidad del array
+    Inscripcion* CursosInscriptos;//array
+} Asistencia;
+
+struct misAsistencias {
+    u_int tamAsist;//cantidad del array
+    Asistencia* arrayDeAsistencia;//array
+};
+typedef misAsistencias MisAsistencias;
+
+//DECLARACION DE FUNCIONES:
 
 int buscarPosAsistencia(MisAsistencias asist, u_int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
 bool repetidos(Asistencia asist, u_int idClase); //funcion booleana que se fija si ya se anoto en esa clase
 
+
+
 /*bool hayEspacio(Asistencia asist);
-
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/
-
-int agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente);
-
-void leerClases_CSV(Gimnasio& miGimnasio);
-
-void leerClientes_CSV(gimnasio& miGimnasio);
-
-void leerArchivoBinario(MisAsistencias& misAsistencias);
-
 #endif // LIBRERIA_GLOBAL_H

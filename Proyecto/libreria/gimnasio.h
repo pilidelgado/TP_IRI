@@ -1,19 +1,40 @@
 #ifndef GIMNASIO_H
 #define GIMNASIO_H
 
-#include <iostream>
-#include <ctime>
-#include "clientes.h"
-#include "clases.h"
-#include "archivos.h"
-#include "libreria.h"
+#include "asistencias.h" //llamo a las estructuras de esta libreria
 
 using namespace std;
 
 enum resClase{ErrNoHayCupo=-4,ErrNoExisteCliente = -3,ErrNoExisteClase= -2,ErrClienteRepetido=-1, ExitoReserva=0};
 typedef enum resClase eResClase;
 
-struct gimnasio
+//ESTRUCTURAS (TIPOS DE DATOS):
+struct fecha //estructura de fecha
+{
+    u_int dia, mes, anio;
+};
+typedef fecha Fecha;
+
+struct cliente //estructura de cliente
+{
+    string nombre, apellido, email, telefono;
+    int idCliente;
+    Fecha fechaNac;
+    float estado; //para saber si tiene la cuota al dia (menor a 0 debe, 0 todo ok, mayor a 0 pago por adelantado)
+};
+typedef cliente Cliente;
+
+struct clase //estructura de clase
+{
+    u_int horario, cupo,   cupo_maximo; //cantidad de personas anotadas
+    int idClase; //hora de la clase
+    string nombre; //yoga, streching, etc.
+
+    int* reservados; // reservar el dato de la cantidad del array en el main sabiendo que clase es
+};//array reservados: esta inicializado en 0, y se va guartdando el idCliente segun las inscrip
+typedef clase Clase;
+
+struct gimnasio //estructura de gimnasio que contiene:
 {
     Cliente* clientes;//array de clientes
     Clase* clases; //array de clases
@@ -39,4 +60,8 @@ bool RevisarCliente(int idClienteIng, Gimnasio gym);
 int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id
 
 string nombreClaseAleatorio();
+
+int agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente);
+
+
 #endif // LIBRERIA_GLOBAL_H

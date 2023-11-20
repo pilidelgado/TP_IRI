@@ -1,6 +1,4 @@
 #include "gimnasio.h"
-#include "archivos.h"
-#include "asistencias.h"
 
 eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio &gym)
 {/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
@@ -45,13 +43,143 @@ string nombreClaseAleatorio() {
     // Nombres de las clases
     std::string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
 
-    // Inicializa la semilla para la generación de números aleatorios con la hora actual
-    std::srand(static_cast<unsigned int>(std::time(0)));
-
     // Genera un índice aleatorio dentro del rango de la lista de nombres
     int indiceAleatorio = std::rand() % (sizeof(nombres) / sizeof(nombres[0]));
 
     // Devuelve el nombre seleccionado aleatoriamente
     return nombres[indiceAleatorio];
 }
+
+
+bool hayCupo(int idClase, Gimnasio gym)//me pasa el id de la clase y la estructura del gym
+{
+    int pos=0;//declaro mi indice y posicion:
+    for (u_int i = 0; i < gym.tamClases; i++) { //for que recorre el array de clases
+            if(gym.clases[i].idClase == idClase) //si encuentro el id me guardo la pos
+                pos=i; //busco la pos de la clase con el id q me pasaron y me guardo su posicion en el array de clases dentro de gym
+    }
+    if(gym.clases[pos].cupo< gym.clases[pos].cupo_maximo) //si la cantidad de inscriptos es menor al maximo que tiene esa clase
+            return true;//devuelvo q hay cupo
+    else
+            return false; //de lo contrario no hay cupo, retorno falso
+}
+/*QUE HACE ESTA FUNCION?
+ * dada un idClase y mi estructura de gymnasio que posee el array de clases, y cupo que es la cantidad de inscriptos en esa clase que tiene como
+maximo la variable cupo_maximo. busca primero en el array de clases, la posicion de la clase pedida por el usuario, y luego se fija si el cupo de
+aquella clase es menor al cupo maximo, en caso que lo sea, retorna verdadero y en el caso contrario, retorna falso*/
+
+int buscarIdClase(Gimnasio *gym, u_int horarioIng, string nombreClaseIng){
+    int idClaseAReservar= -1;
+    for(u_int i=0; i < gym->tamClases; i++) //for que recorre el array de clases
+    {
+            if(horarioIng == gym->clases[i].horario && nombreClaseIng == gym->clases[i].nombre)
+            {//busca el id coparando a partir del horario ingresado y el nombre de la clase
+                idClaseAReservar = gym->clases[i].idClase;
+            }
+    }
+    return idClaseAReservar;
+}
+/*QUE HACE ESTA FUNCION?
+ * Dada mi estructura de gimnasio, un horario ingresado por el usuario y un
+ * nombre de la clase que este quiere reservar, va a recorrer el array
+de clases que se encuentra dentro de gym, comparando si la
+clase de aquella posicion tienen el mismo nombre y el mismo horario, en caso que esto pase
+se guarda el id de la clase que quiere reservar el cliente en la variable entera
+ idClaseAReservar, la cual esta inicializada en -1 por si no llega a encontrarla */
+
+int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng){
+    int posReserva=-1;
+    for(u_int i=0; i < gym.tamClases; i++) //for que recorre el array de clases
+    {
+            if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre)
+            {//busca el id coparando a partir del horario ingresado y el nombre de la clase
+                posReserva = i;
+            }
+            return posReserva;
+    }
+}
+
+
+
+bool RevisarCliente(int idClienteIng, Gimnasio gym)
+{
+    for(u_int i=0; i < gym.tamClientes; i++)
+    {
+            if(gym.clientes[i].idCliente==idClienteIng && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
+                return true;
+    }
+    return false;
+}
+
+int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
+{
+    u_int idClienteEncontrado=-1;//en caso de no encontrarlo devuelve -1
+    for(u_int i=0; i < gym.tamClientes; i++)
+    {
+            if((apellidoIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))
+                idClienteEncontrado=  gym.clientes[i].idCliente;
+            else
+                idClienteEncontrado=0;
+
+    }
+    return idClienteEncontrado;
+}
+
+
+/*
+void nuevoCliente(Gimnasio* gym, Cliente Ing)// agrega el cliente al array
+{
+    Cliente* aux = new Cliente[gym->tamClientes +1];
+
+    for(u_int i = 0; i < gym->tamClientes +1 ; i++)
+    {
+        if(i< gym->tamClientes)
+            aux[i] = gym->clientes[i];
+        else
+            aux[i]= Ing;
+    }
+    delete[] aux;
+    gym->clientes = aux;
+    gym->tamClientes++;
+    return;
+}
+
+u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio &gym) //crea un idCliente que no exista en mi clientes* Clientes
+{
+    Cliente *aux = new Cliente;
+
+    u_int idCreado= gym.tamClientes + 1;
+    aux->apellido=apellidoIng;
+    aux->email=emailIng;
+    aux->telefono=telefonoIng;
+    aux->nombre=nombreIng;
+    aux->estado=0;
+    aux->idCliente=idCreado;
+    aux->fechaNac=fechaNacIng;
+
+    nuevoCliente(gym, aux);
+    delete aux;
+    return idCreado;
+}
+*/
+
+int agregarInscripcion(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
+//le paso la estructura de gym, el id de clase a reservar y el id del cliente que quiere reservar la clase
+{
+    int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cunaod indica error
+    for(u_int i=0; i<gym->clases[idClase].cupo_maximo; i++)
+    //recorro el array especifico de la clase dada hasta mi cupo maximo
+    {
+            if(gym->clases[idClase].reservados[i]==0)//mi array de reservados por clase esta inicializado en 0, en caso de que alguien se inscruba me guardo su id de cliente
+            {
+                gym->clases[idClase].reservados[i]= idCliente; //me guardo el idCliente en mi array de reservados
+                reservaRes =0; //si me agrego a un cliente, cambio el resultado
+                break; //hago un break para no copiarme al mismo clientes muchas veces
+            }
+    }
+
+    return reservaRes;
+
+}
+
 
