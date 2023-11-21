@@ -12,29 +12,24 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
         return eResClase :: ErrNoExisteClase;//retorno el error
 
     else{//si si encontro la clase y la pos:
-        int posCliente = buscarPosAsistencia(asist, idClienteIng);
 
-        if(posCliente==-3)//-3 indica error
-            return eResClase :: ErrNoExisteCliente;//enum de error, devuelvo si no encontre al cliente
+        if(hayCupo(idClaseAReservar, gym)&& !repetidos(gym, posReserva, idClienteIng)) //si es verdadero que hay cupo y es falso que esta repetido(funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces)(funcion que controla si hay lugar en la clase pedida por el usuario)
+            return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
 
-        else{//si encuentro al cliente:
-                if(hayCupo(idClaseAReservar, gym)) //si es verdadero que hay cupo. funcion que controla si hay lugar en la clase pedida por el usuario
-                {//si hay cupo:
-                    if(repetidos(asist.arrayDeAsistencia[posCliente], idClaseAReservar)) //funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces
-                        return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
+        else //si devuelve false, lo inscribo
+        {
+            gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
+            int resultado = agregarAResevados(&gym, idClaseAReservar, idClienteIng);
+            //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
+            if(resultado==-1)
+                return eResClase :: ErrInscripcion;
 
-                    else //si devuelve false, lo inscribo
-                    {
-                        gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
-                        int resultado = agregarInscripcion(&gym, idClaseAReservar, idClienteIng);
-                        //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
-                        if(resultado==-1)
-                            return eResClase :: ErrNoHayCupo;
-                    }
-                }
-                else
-                    return eResClase :: ErrNoHayCupo; //retorno que no hay cupo
-            }
+            int posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+            time_t fechaInscripcion;
+            int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
+            if(error == ErrInscripcion)
+                return eResClase :: ErrInscripcion;
+        }
     }
     return eResClase :: ExitoReserva;
 }
@@ -125,6 +120,14 @@ int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
     return idClienteEncontrado;
 }
 
+bool repetidos(Gimnasio gym, int posClase, int idCliente ) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
+{
+    for (u_int i = 0; i < gym.clases[posClase].cupo_maximo ; i++) {//for que recorre la cantidad de veces q se inscribio el cliente
+            if(gym.clases[posClase].reservados[i] == idCliente) //compara si ya se anoto a la clase
+                return true;
+    }
+    return false;
+}
 
 /*
 void nuevoCliente(Gimnasio* gym, Cliente Ing)// agrega el cliente al array
@@ -157,13 +160,13 @@ u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, stri
     aux->idCliente=idCreado;
     aux->fechaNac=fechaNacIng;
 
-    nuevoCliente(gym, aux);
+    nuevoCliente(&gym, aux);
     delete aux;
     return idCreado;
 }
 */
 
-int agregarInscripcion(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
+int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
 //le paso la estructura de gym, el id de clase a reservar y el id del cliente que quiere reservar la clase
 {
     int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cunaod indica error

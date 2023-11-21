@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum resClase{ErrNoHayCupo=-4,ErrNoExisteCliente = -3,ErrNoExisteClase= -2,ErrClienteRepetido=-1, ExitoReserva=0};
+enum resClase{ErrInscripcion=-3,ErrNoExisteClase= -2,ErrClienteRepetido=-1, ExitoReserva=0};
 typedef enum resClase eResClase;
 
 //ESTRUCTURAS (TIPOS DE DATOS):
@@ -29,7 +29,6 @@ struct clase //estructura de clase
     u_int horario, cupo,   cupo_maximo; //cantidad de personas anotadas
     int idClase; //hora de la clase
     string nombre; //yoga, streching, etc.
-
     int* reservados; // reservar el dato de la cantidad del array en el main sabiendo que clase es
 };//array reservados: esta inicializado en 0, y se va guartdando el idCliente segun las inscrip
 typedef clase Clase;
@@ -50,7 +49,6 @@ bool hayCupo(int idClase, Gimnasio gym);
 int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
 int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng);
 
-//funciones dentro de clientes.cpp:
 //u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
 
 //void nuevoCliente(Gimnasio* gym, Cliente Ing);
@@ -61,7 +59,9 @@ int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devu
 
 string nombreClaseAleatorio();
 
-int agregarInscripcion(Gimnasio * gym, u_int idClase, u_int idCliente);
+int agregarAResevados(Gimnasio * gym, u_int idClase, u_int idCliente);
+
+bool repetidos(Gimnasio gym, int posClase, int idCliente);
 
 
 #endif // LIBRERIA_GLOBAL_H

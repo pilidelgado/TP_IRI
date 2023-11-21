@@ -4,8 +4,8 @@
 #include "libreria.h"
 
 
-/*enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0}; //enum de mis errores
-typedef enum agregarInscripciones eAgregarInscripciones;*/
+enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0}; //enum de mis errores
+typedef enum agregarInscripciones eAgregarInscripciones;
 
 /*Que tenemos aca?
     -definicion struct inscripcion (que leemos del archivo binario)
@@ -35,7 +35,7 @@ typedef misAsistencias MisAsistencias;
 
 int buscarPosAsistencia(MisAsistencias asist, u_int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
-bool repetidos(Asistencia asist, u_int idClase); //funcion booleana que se fija si ya se anoto en esa clase
+eAgregarInscripciones agregarInscripciones(MisAsistencias* asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
 
 
 
