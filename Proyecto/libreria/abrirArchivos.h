@@ -11,6 +11,6 @@ void leerClases_CSV(Gimnasio& miGimnasio);
 
 void leerClientes_CSV(gimnasio& miGimnasio);
 
-void leerArchivoBinario(MisAsistencias& misAsistencias);
+/*void leerArchivoBinario(MisAsistencias& misAsistencias);*/
 
 #endif // LIBRERIA_GLOBAL_H

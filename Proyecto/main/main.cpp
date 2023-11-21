@@ -12,7 +12,6 @@ int main() {
     //leo archivos csv de clases y clientes
     leerClases_CSV(gym);
     leerClientes_CSV(gym);
-    leerArchivoBinario(asist);
 
     // Inicializa las clases
     for(u_int i=0; i<gym.tamClases; i++)

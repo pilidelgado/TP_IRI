@@ -110,7 +110,7 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
     archivo.close();
 }
 
-void leerArchivoBinario(MisAsistencias& misAsistencias) {
+/*void leerArchivoBinario(MisAsistencias& misAsistencias) {
     MisAsistencias misAsistencias;
     // Abre el archivo binario en modo lectura
     ifstream archivo("asistencias_1697673600000", ios::binary);
@@ -159,4 +159,4 @@ void leerArchivoBinario(MisAsistencias& misAsistencias) {
     archivo.close();
 
     return;
-}
+}*/

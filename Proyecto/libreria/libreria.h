@@ -1,7 +1,6 @@
 #ifndef LIBRERIA_H
 #define LIBRERIA_H
 
-#include <iostream>
 #include <string>
 #include <fstream>
 #include <ctime>
