@@ -35,8 +35,11 @@ typedef misAsistencias MisAsistencias;
 
 int buscarPosAsistencia(MisAsistencias asist, u_int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
-eAgregarInscripciones agregarInscripciones(MisAsistencias* asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
+eAgregarInscripciones agregarInscripciones(MisAsistencias* &asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
 
+void AgregarAsistencia(MisAsistencias* &asist,idClienteIng,idClaseAReservar,fechaInscripcion);
+
+Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam);
 
 
 /*bool hayEspacio(Asistencia asist);

@@ -119,20 +119,22 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
         cout <<"Error al abrir el archivo: " << endl;
     }
 
-    while(!eof.archivo()){
+    while(!archivo.eof()){
 
         Asistencia nuevaAsistencia;
 
-        archivo.read((char*)& nuevaAsistencia.idCliente,sizeof(u_int);
-        archivo.read((char*)& nuevaAsistencia.cantInscripciones,sizeof(u_int);
+        archivo.read((char *)& nuevaAsistencia.idCliente,sizeof(u_int);
+        archivo.read((char *)& nuevaAsistencia.cantInscripciones,sizeof(u_int);
 
-        Inscripcion * auxInscripciones= Inscripcion[nuevaAsistencia.cantInscripciones];
+
+        Inscripcion * registrados= Inscripcion[nuevaAsistencia.cantInscripciones];
+        Inscripcion * auxInscripciones= registrados;
 
         for(u_int i=0;i<nuevaAsistencia.cantInscripciones;i++){
-        archivo.read((char*)& auxInscripciones->idClase,sizeof(u_int);
-        archivo.read((char*)& auxInscripciones->fechaInscripcion,sizeof(time_t);}
+            archivo.read((char *)auxInscripciones,sizeof(Inscripcion);
+            auxInscripciones++;}
 
-        nuevaAsistencia.CursosInscriptos = auxInscripciones;
+        nuevaAsistencia.CursosInscriptos = registrados;
 
      // Aumenta el tamaño del array y copia la nueva asistencia
         MisAsistencias nuevoAsistencias; //se crea una estructura de mis asistencias

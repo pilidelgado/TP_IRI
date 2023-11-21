@@ -23,9 +23,10 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
             //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
             if(resultado==-1)
                 return eResClase :: ErrInscripcion;
-
-            int posAsistencia= buscarPosAsistencia(asist,idClienteIng);
             time_t fechaInscripcion;
+            int posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+            if(posAsistencia==-3)
+                AgregarAsistencia(asist,idClienteIng,idClaseAReservar,fechaInscripcion);
             int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;

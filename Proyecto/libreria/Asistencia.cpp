@@ -10,9 +10,18 @@ int buscarPosAsistencia(MisAsistencias asist, int idCliente)
     return pos;
 }
 
-eAgregarInscripciones agregarInscripciones(MisAsistencias* asist, int posAsistencia, int idClase, time_t fechadeinscripcion)
+void AgregarAsistencia(MisAsistencias* &asist,idClienteIng,idClaseAReservar,fechaInscripcion)
 {
 
+}
+
+eAgregarInscripciones agregarInscripciones(MisAsistencias* &asist, int posAsistencia, int idClase, time_t fechadeinscripcion)
+{
+
+}
+
+Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam)
+{
 
 }
 
