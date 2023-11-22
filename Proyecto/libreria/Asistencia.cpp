@@ -11,7 +11,6 @@ int buscarPosAsistencia(MisAsistencias asist, int idCliente)
     return pos;
 }
 
-
 Asistencia* resizeAsistencia(MisAsistencias* asist)
 {
     Asistencia * aux= new Asistencia[asist->tamAsist++];
@@ -22,8 +21,8 @@ Asistencia* resizeAsistencia(MisAsistencias* asist)
             aux[i]=asist->arrayDeAsistencia[i];
     }
 
-    delete[] aux;
     return aux;
+    delete[] aux;
 }
 
 void AgregarAsistencia(MisAsistencias* &asist,u_int idClienteIng, u_int idClaseAReservar,time_t fechaInscripcion)
@@ -43,17 +42,18 @@ Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
 
     if( aux!= nullptr)
     {
-        for(u_int i=0; i<cantInscripciones; i++)
+        for(u_int i=0; i < cantInscripciones; i++)
             aux[i]=asistencia->CursosInscriptos[i];
     }
 
-    delete[] aux;
     return aux;
+    delete[] aux;
+
 }
 
 eAgregarInscripciones agregarInscripciones(MisAsistencias* &asist, int posAsistencia, int idClase, time_t fechadeinscripcion)
 {
-    asist->arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion(asist->arrayDeAsistencia[posAsistencia], asist->arrayDeAsistencia[posAsistencia].cantInscripciones);
+    asist->arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion(&asist->arrayDeAsistencia[posAsistencia], asist->arrayDeAsistencia[posAsistencia].cantInscripciones);
     asist->arrayDeAsistencia[posAsistencia].cantInscripciones++;
     asist->arrayDeAsistencia[posAsistencia].CursosInscriptos[asist->arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion=fechadeinscripcion;
     asist->arrayDeAsistencia[posAsistencia].CursosInscriptos[asist->arrayDeAsistencia[posAsistencia].cantInscripciones].idClase=idClase;

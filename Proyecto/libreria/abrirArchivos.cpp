@@ -1,6 +1,6 @@
 #include "abrirArchivos.h" // incluye gimnasio.h --> incluye asistencias.h --> incluye libreria.h
 
-void resize(Clase* &clase_archivos, u_int &tamC)
+void resize(Clase* &clase_archivos, int &tamC)
 {
     if(clase_archivos==nullptr){
         if(tamC<=0)
@@ -9,7 +9,7 @@ void resize(Clase* &clase_archivos, u_int &tamC)
     }
 
     Clase * aux= new Clase[tamC++];
-    for(u_int i=0; i<tamC-1;i++){
+    for(int i=0; i<tamC-1;i++){
         aux[i]=clase_archivos[i];
     }
 
@@ -46,7 +46,7 @@ void leerClases_CSV(Gimnasio& miGimnasio) {
         nuevoGimnasio.clases = new Clase[nuevoGimnasio.tamClases]; //creo un array dinámico de las clases almacenadas en el gimnasio
 
         // Copia las clases existentes al nuevo array de clases
-        for (u_int i = 0; i < miGimnasio.tamClases; i++) {
+        for (int i = 0; i < miGimnasio.tamClases; i++) {
             nuevoGimnasio.clases[i] = miGimnasio.clases[i];
         }
 
@@ -92,7 +92,7 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
         nuevoGimnasio.clientes = new Cliente[nuevoGimnasio.tamClientes]; //array de clientes dinámico
 
         // Copia los clientes existentes al nuevo array
-        for (u_int i = 0; i < miGimnasio.tamClientes; ++i) {
+        for (int i = 0; i < miGimnasio.tamClientes; ++i) {
             nuevoGimnasio.clientes[i] = miGimnasio.clientes[i];
         }
 
@@ -108,6 +108,25 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
 
     archivo.close();
 }
+
+void escribirBinario(int idCliente, int idClase, time_t fechaInsc){
+    ofstream archivoBin("asistencias_noviembre.dat", ios::binary);
+    if(!archivoBin.is_open()){
+        //eror de un enum. ERROR AL ABRIR ARCHIVO
+        return;
+    }
+
+    archivoBin.write((char*)&idCliente, sizeof(int));
+    //se convierte el puntero del entero idCliente a un puntero tipo char.
+    archivoBin.write((char*)&idClase, sizeof(int));
+    archivoBin.write((char*)&fechaInsc, sizeof(time_t));
+
+    archivoBin.close();
+    return;
+}
+
+
+
 
 /*void leerArchivoBinario(MisAsistencias& misAsistencias) {
     MisAsistencias misAsistencias;

@@ -5,11 +5,13 @@
 
 //FUNCIONES ARCHIVOS:
 
-void resize(Clase* &clase_archivos, u_int &tamC);
+void resize(Clase* &clase_archivos, int &tamC);
 
 void leerClases_CSV(Gimnasio& miGimnasio);
 
 void leerClientes_CSV(gimnasio& miGimnasio);
+
+void escribirBinario(int idCliente, int idClase, time_t fechaInsc);
 
 /*void leerArchivoBinario(MisAsistencias& misAsistencias);*/
 

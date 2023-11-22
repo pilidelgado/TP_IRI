@@ -11,7 +11,7 @@ typedef enum resClase eResClase;
 //ESTRUCTURAS (TIPOS DE DATOS):
 struct fecha //estructura de fecha
 {
-    u_int dia, mes, anio;
+    int dia, mes, anio;
 };
 typedef fecha Fecha;
 
@@ -26,7 +26,7 @@ typedef cliente Cliente;
 
 struct clase //estructura de clase
 {
-    u_int horario, cupo,   cupo_maximo; //cantidad de personas anotadas
+    int horario, cupo,   cupo_maximo; //cantidad de personas anotadas
     int idClase; //hora de la clase
     string nombre; //yoga, streching, etc.
     int* reservados; // reservar el dato de la cantidad del array en el main sabiendo que clase es
@@ -37,16 +37,17 @@ struct gimnasio //estructura de gimnasio que contiene:
 {
     Cliente* clientes;//array de clientes
     Clase* clases; //array de clases
-    u_int tamClases, tamClientes; //el tamaño de ambos arrays
+    int tamClases, tamClientes; //el tamaño de ambos arrays
 };
 typedef gimnasio Gimnasio;
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio* gym);
+eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio* gym);
 
-//se encuentra en clases.cpp
 bool hayCupo(int idClase, Gimnasio gym);
-int buscarIdClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
-int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng);
+
+int buscarIdClase(Gimnasio *gym, int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
+
+int buscarPosClase(Gimnasio gym, int horarioIng, string nombreClaseIng);
 
 //u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
 
@@ -58,7 +59,7 @@ int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devu
 
 string nombreClaseAleatorio();
 
-int agregarAResevados(Gimnasio * gym, u_int idClase, u_int idCliente);
+int agregarAResevados(Gimnasio * gym, int idClase, int idCliente);
 
 bool repetidos(Gimnasio gym, int posClase, int idCliente);
 
