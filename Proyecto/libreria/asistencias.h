@@ -37,7 +37,7 @@ int buscarPosAsistencia(MisAsistencias asist, u_int idCliente);//funcion que bus
 
 eAgregarInscripciones agregarInscripciones(MisAsistencias* &asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
 
-void AgregarAsistencia(MisAsistencias* &asist,idClienteIng,idClaseAReservar,fechaInscripcion);
+void AgregarAsistencia(MisAsistencias* &asist,int idClienteIng,int idClaseAReservar, time_t fechaInscripcion);
 
 Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam);
 
