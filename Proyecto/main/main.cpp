@@ -3,8 +3,9 @@ using namespace std;
 #include "abrirArchivos.h"
 
 
-int main() {
+int main(){
     Gimnasio gym;
+    MisAsistencias asist;
     //inicializo a 0 los tamaños de los arrays de la estructura gimnasio
     gym.tamClases = 0;
     gym.tamClientes = 0;
@@ -26,7 +27,7 @@ int main() {
         string nombreClaseIng = nombreClaseAleatorio();
         cout<< "Ingrese su horario que quiera reservar:"<< endl;
         u_int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
-        eResClase resultados = ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,&gym);//llamo a la función de reservar clases
+        eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, &gym);//llamo a la función de reservar clases
         switch(resultados) {
         case -3:{
             cout << "Hubo un error en la inscripción"<<endl <<"Vuelva a intentarlo" << endl;
@@ -44,7 +45,7 @@ int main() {
                 cout << "Reserva hecha correctamente"<<endl;
                 break;
         }
+       }
     }
-
- return 0;
+    return 0;
 }

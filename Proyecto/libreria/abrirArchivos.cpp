@@ -1,5 +1,4 @@
-#include "abrirArchivos.h"
-
+#include "abrirArchivos.h" // incluye gimnasio.h --> incluye asistencias.h --> incluye libreria.h
 
 void resize(Clase* &clase_archivos, u_int &tamC)
 {

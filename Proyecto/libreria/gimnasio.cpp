@@ -6,7 +6,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
     //int errorResize=0;
 
     posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);
-    idClaseAReservar= buscarIdClase(gym,horarioIng, nombreClaseIng);
+    idClaseAReservar= buscarIdClase(gym, horarioIng, nombreClaseIng);
 
     if(posReserva== -1 || idClaseAReservar== -1)
         return eResClase :: ErrNoExisteClase;//retorno el error
@@ -23,21 +23,22 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
             //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
             if(resultado==-1)
                 return eResClase :: ErrInscripcion;
-            time_t fechaInscripcion;
+            time_t fechaInscripcion = 0;
             int posAsistencia= buscarPosAsistencia(asist,idClienteIng);
-            if(posAsistencia==-3)
+            if(posAsistencia== -3)
                 AgregarAsistencia(asist,idClienteIng,idClaseAReservar,fechaInscripcion);
             int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;
         }
     }
-    return eResClase :: ExitoReserva;
+    return ExitoReserva;
 }
 
+// AgregarAsistencia(MisAsistencias* &asist,int idClienteIng,int idClaseAReservar, time_t fechaInscripcion);
 string nombreClaseAleatorio() {
     // Nombres de las clases
-    std::string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
+    string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
 
     // Genera un índice aleatorio dentro del rango de la lista de nombres
     int indiceAleatorio = std::rand() % (sizeof(nombres) / sizeof(nombres[0]));
@@ -87,23 +88,27 @@ int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng){
     int posReserva=-1;
     for(u_int i=0; i < gym.tamClases; i++) //for que recorre el array de clases
     {
-            if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre)
-            {//busca el id coparando a partir del horario ingresado y el nombre de la clase
-                posReserva = i;
-            }
-            return posReserva;
+      if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre){//busca el id coparando a partir del horario ingresado y el nombre de la clase
+        posReserva = i;
+        return posReserva; //si lo encuentra, lo retorna
+      }
     }
+    return posReserva; //si no lo encuentra, retorna -1
 }
 
 bool RevisarCliente(int idClienteIng, Gimnasio gym){
     for(u_int i=0; i < gym.tamClientes; i++)
     {
-     if(gym.clientes[i].idCliente==idClienteIng
-            && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
-                return true;
+      if(gym.clientes[i].idCliente==idClienteIng && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
+       return true; //si lo encuentra, retorna true
     }
-}/*QUE HACE LA FUNCION? recorre mi array de clases buscando si el cliente que me pasan segun el id
- tiene la cuota al dia, es decir que su estado es positivo; si esto pasa retorno verdadero de lo contrario retorno falso */
+    return false; //si no lo encuentra, retorna false
+}
+
+/*
+ QUE HACE LA FUNCION? recorre mi array de clases buscando si el cliente que me pasan segun el id
+ tiene la cuota al dia, es decir que su estado es positivo; si esto pasa retorno verdadero de lo contrario retorno falso
+*/
 
 int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
 {
@@ -185,7 +190,7 @@ int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya q
 }
 
 void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
-    for(u_int i=0; i<tamArray; i++)
+    for(int i= 0; i < tamArray; i++)
     {
         if(arrayClases[i].nombre == "Spinning"){
             arrayClases[i].cupo_maximo =45; //inicilizo el cupo cupo_maximo

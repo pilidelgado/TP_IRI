@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ctime>
 #include <sstream>
+#include <iostream>
 
 #define BLK 10
 #define NMAX 200

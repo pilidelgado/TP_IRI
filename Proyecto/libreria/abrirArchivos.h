@@ -1,7 +1,7 @@
 #ifndef ABRIRARCHIVOS_H
 #define ABRIRARCHIVOS_H
 
-#include "gimnasio.h"
+#include "gimnasio.h" //incluye asistencias.h --> incluye libreria.h
 
 //FUNCIONES ARCHIVOS:
 
