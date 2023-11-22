@@ -48,4 +48,4 @@ Asistencia* resizeAsistencia(MisAsistencias* asist);
 
 /*bool hayEspacio(Asistencia asist);
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/
-#endif // LIBRERIA_GLOBAL_H
+#endif // ASISTENCIAS_H

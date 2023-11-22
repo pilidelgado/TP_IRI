@@ -1,5 +1,5 @@
-#include "asistencias.h" // que incluye libreria.h
-#include "gimnasio.h"
+
+#include <gimnasio.h>
 
 int buscarPosAsistencia(MisAsistencias asist, int idCliente)
 {

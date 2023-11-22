@@ -1,6 +1,14 @@
 #ifndef LIBRERIA_H
 #define LIBRERIA_H
 
+#include "libreria_global.h"
+
+class LIBRERIA_EXPORT Libreria
+{
+public:
+    Libreria();
+};
+
 #include <string>
 #include <fstream>
 #include <ctime>
@@ -13,6 +21,4 @@
 using namespace std;
 typedef unsigned int u_int;
 
-
-
-#endif // LIBRERIA_GLOBAL_H
+#endif // LIBRERIA_H

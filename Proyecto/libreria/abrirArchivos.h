@@ -13,4 +13,4 @@ void leerClientes_CSV(gimnasio& miGimnasio);
 
 /*void leerArchivoBinario(MisAsistencias& misAsistencias);*/
 
-#endif // LIBRERIA_GLOBAL_H
+#endif // ABRIRARCHIVOS_H

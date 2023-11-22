@@ -65,4 +65,4 @@ bool repetidos(Gimnasio gym, int posClase, int idCliente);
 void inicializarArrayClases0(Clase *&arrayClases, int tamArray);//funcion que inicializa el array de clases con 0 en el array de reservados, y sus respectivos cupos maximos
 
 
-#endif // LIBRERIA_GLOBAL_H
+#endif // GIMNASIO_H
