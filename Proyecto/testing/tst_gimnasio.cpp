@@ -131,36 +131,24 @@ TEST_CASE("Funcion HayCupo"){
 
 
 TEST_CASE("Revisar Cliente"){
+    Gimnasio gym;//creo una variable de tipo un Gimnasio
+    gym.tamClientes = 3;
+    gym.clientes = new Cliente[gym.tamClientes];//creo un array dinamico de clientes para mi gym
 
-    Gimnasio gymAux;
+    // Inicializo los clientes
+    gym.clientes[0].idCliente = 1;
+    gym.clientes[0].estado = 0;  //cuota al día
+    gym.clientes[1].idCliente = 2;
+    gym.clientes[1].estado = -1;  //cuota adeudada
+    gym.clientes[2].idCliente = 3;
+    gym.clientes[2].estado = 22;  //cuota por adelantado
 
-    gymAux.tamClientes=3;//voy a tener 3 clientes de base
-    //agrego algunos clientes en mi array de clientes dentro de gymAux:
-    gymAux.clientes[0].nombre= "Lucas";
-    gymAux.clientes[0].apellido= "Fernandez";
-    gymAux.clientes[0].email= "lucas@mail.com";
-    gymAux.clientes[0].telefono = "0000";
-    gymAux.clientes[0].fechaNac = {4,12,2003};
-    gymAux.clientes[0].idCliente = 0;
+    //verifico los resultados
+    REQUIRE(RevisarCliente(1, gym) == true);//tiene la cuota al día
+    CHECK(RevisarCliente(2, gym) == false); //le falta pagar
+    CHECK(RevisarCliente(3, gym) == true); //pago por adelantado
 
-    gymAux.clientes[1].nombre= "Raul";
-    gymAux.clientes[1].apellido= "Flores";
-    gymAux.clientes[1].email= "raul@mail.com";
-    gymAux.clientes[1].telefono = "0001";
-    gymAux.clientes[1].fechaNac = {6,2,2003};
-    gymAux.clientes[1].idCliente = 1;
-
-    gymAux.clientes[2].nombre= "Lola";
-    gymAux.clientes[2].apellido= "Garcia";
-    gymAux.clientes[2].email= "lola@mail.com";
-    gymAux.clientes[2].telefono = "0002";
-    gymAux.clientes[2].fechaNac = {18,3,2001};
-    gymAux.clientes[2].idCliente = 2;
-
-    CHECK(RevisarCliente(0,gymAux)==true);
-    CHECK(RevisarCliente(22,gymAux)==false);
-
-
+    delete[] gym.clientes;//libero la memoria
 }
 
 TEST_CASE("Funcion buscar id de cliente por nombre y apellido"){
@@ -209,4 +197,29 @@ TEST_CASE("Funcion NombreClaseAleatorio") {
         string nombre2 = nombreClaseAleatorio();
         CHECK(nombre1 == nombre2);
     }
+}
+
+TEST_CASE("Funcion Inicializar array de clases en 0"){
+    int tamArray = 6;// Creo un array dinamico de Clase
+    Clase* arrayClases = new Clase[tamArray];
+
+    arrayClases[0].nombre = "Spinning";// Inicializo los nombres de las clases
+    arrayClases[1].nombre = "Yoga";
+    arrayClases[2].nombre = "Pilates";
+    arrayClases[3].nombre = "Stretching";
+    arrayClases[4].nombre = "Zumba ";
+    arrayClases[5].nombre = "Boxeo";
+
+    inicializarArrayClases0(arrayClases, tamArray);// Llamo a mi función
+
+    // Verifico algunos valores de cupo_maximo, cupo y reservados
+    REQUIRE(arrayClases[0].cupo_maximo == 45);
+    CHECK(arrayClases[3].cupo == 0);
+    CHECK(arrayClases[1].reservados[0] == 0);
+
+    // Libero la memoria tanto de reservados como de array de clases
+    for(int i = 0; i < tamArray; i++) {//como al crear un array de clases dinamico, genere respectivamente otros arrays dinamicos pero esta vez de reservados los elimino
+        delete arrayClases[i].reservados;
+    }
+    delete arrayClases;//libero la memoria
 }

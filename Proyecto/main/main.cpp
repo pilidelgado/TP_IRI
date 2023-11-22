@@ -8,62 +8,17 @@ int main() {
     //inicializo a 0 los tamaños de los arrays de la estructura gimnasio
     gym.tamClases = 0;
     gym.tamClientes = 0;
-    MisAsistencias asist;
+            //MisAsistencias asist; //comentado xq falta resolver est parte
     //leo archivos csv de clases y clientes
     leerClases_CSV(gym);
     leerClientes_CSV(gym);
 
-    // Inicializa las clases
-    for(u_int i=0; i<gym.tamClases; i++)
-    {
-        if(gym.clases[i].nombre == "Spinning")
-        {
-            gym.clases[i].cupo_maximo =45; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-        if(gym.clases[i].nombre == "Yoga")
-        {
-            gym.clases[i].cupo_maximo =25; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-        if(gym.clases[i].nombre == "Pilates")
-        {
-            gym.clases[i].cupo_maximo =15; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-        if(gym.clases[i].nombre == "Stretching")
-        {
-            gym.clases[i].cupo_maximo =40; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-        if(gym.clases[i].nombre == "Zumba ")
-        {
-            gym.clases[i].cupo_maximo =50; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-        if(gym.clases[i].nombre == "Boxeo")
-        {
-            gym.clases[i].cupo_maximo =30; //inicilizo el cupo cupo_maximo
-            gym.clases[i].cupo =0;
-            for(u_int j=0;j<gym.clases[i].cupo_maximo; j++)
-                gym.clases[i].reservados[j]=0;//inicializo el array de reservados
-        }
-    }
-
+    // Llamo a mi funcion que inicializa mi array de clases:
+    inicializarArrayClases0(gym.clases, gym.tamClases);
 
     cout << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
     cout << "Ingrese su Id de cliente:" << endl;
-    u_int idClienteIng = rand() %  249;
+    u_int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
 
     if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
     {
@@ -72,10 +27,23 @@ int main() {
         cout<< "Ingrese su horario que quiera reservar:"<< endl;
         u_int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
         eResClase resultados = ReservaClases(horarioIng,nombreClaseIng,idClienteIng,asist,&gym);//llamo a la función de reservar clases
-        if(resultados == 0)
-            cout << "Reserva hecha correctamente" << endl;
-        else
-            cout << "Hubo un problema a la hora de hacer la reserva, vuelva a intentarlo" << endl;
+        switch(resultados) {
+        case -3:{
+            cout << "Hubo un error en la inscripción"<<endl <<"Vuelva a intentarlo" << endl;
+                break;
+        }
+        case -2:{
+            cout << "La clase ingresada no existe"<<endl<<"Vuelva a intentarlo" << endl;
+                break;
+        }
+        case -1:{
+            cout << "El cliente ya se encuentra anotado" << endl;
+                break;
+        }
+        case 0:{
+                cout << "Reserva hecha correctamente"<<endl;
+                break;
+        }
     }
 
  return 0;

@@ -39,7 +39,6 @@ struct gimnasio //estructura de gimnasio que contiene:
     Clase* clases; //array de clases
     u_int tamClases, tamClientes; //el tamaño de ambos arrays
 };
-
 typedef gimnasio Gimnasio;
 
 eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio* gym);
@@ -62,6 +61,8 @@ string nombreClaseAleatorio();
 int agregarAResevados(Gimnasio * gym, u_int idClase, u_int idCliente);
 
 bool repetidos(Gimnasio gym, int posClase, int idCliente);
+
+void inicializarArrayClases0(Clase *&arrayClases, int tamArray);//funcion que inicializa el array de clases con 0 en el array de reservados, y sus respectivos cupos maximos
 
 
 #endif // LIBRERIA_GLOBAL_H

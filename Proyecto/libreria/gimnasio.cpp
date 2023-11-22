@@ -95,17 +95,15 @@ int buscarPosClase(Gimnasio gym, u_int horarioIng, string nombreClaseIng){
     }
 }
 
-
-
-bool RevisarCliente(int idClienteIng, Gimnasio gym)
-{
+bool RevisarCliente(int idClienteIng, Gimnasio gym){
     for(u_int i=0; i < gym.tamClientes; i++)
     {
-            if(gym.clientes[i].idCliente==idClienteIng && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
+     if(gym.clientes[i].idCliente==idClienteIng
+            && gym.clientes->estado >= 0) //revisa que el cliente exista y tenga la cuota al dia
                 return true;
     }
-    return false;
-}
+}/*QUE HACE LA FUNCION? recorre mi array de clases buscando si el cliente que me pasan segun el id
+ tiene la cuota al dia, es decir que su estado es positivo; si esto pasa retorno verdadero de lo contrario retorno falso */
 
 int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
 {
@@ -185,5 +183,66 @@ int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya q
     return reservaRes;
 
 }
+
+void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
+    for(u_int i=0; i<tamArray; i++)
+    {
+        if(arrayClases[i].nombre == "Spinning"){
+            arrayClases[i].cupo_maximo =45; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Yoga"){
+            arrayClases[i].cupo_maximo =25; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Pilates")
+        {
+            arrayClases[i].cupo_maximo =15; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Stretching")
+        {
+            arrayClases[i].cupo_maximo =40; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Zumba ")
+        {
+            arrayClases[i].cupo_maximo =50; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Boxeo")
+        {
+            arrayClases[i].cupo_maximo =30; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+        if(arrayClases[i].nombre == "Musculacion")
+        {
+            arrayClases[i].cupo_maximo =30; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
+            for(u_int j=0;j<arrayClases[i].cupo_maximo; j++)
+                arrayClases[i].reservados[j]=0;//inicializo el array de reservados
+        }
+    }
+}/*QUE HACE LA FUNCION? Dado un array de clientes y su respectivo tamaño, compara los nombres y segun sea el caso
+ inicializa esa clase especifica: cambia el cupo maximo, hace que el tamaño del array reservados sea cupo maximo, y pone el cupo en 0, ya que no hay nadie */
 
 
