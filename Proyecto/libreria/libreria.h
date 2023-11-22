@@ -15,4 +15,4 @@ typedef unsigned int u_int;
 
 
 
-#endif // LIBRERIA_H
+#endif // LIBRERIA_GLOBAL_H

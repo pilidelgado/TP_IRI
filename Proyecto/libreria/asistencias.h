@@ -43,6 +43,8 @@ void AgregarAsistencia(MisAsistencias& asist,int idClienteIng,int idClaseAReserv
 
 Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam);
 
+Asistencia* resizeAsistencia(MisAsistencias* asist);
+
 
 /*bool hayEspacio(Asistencia asist);
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/
