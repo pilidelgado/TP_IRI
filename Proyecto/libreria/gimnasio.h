@@ -41,7 +41,7 @@ struct gimnasio //estructura de gimnasio que contiene:
 };
 typedef gimnasio Gimnasio;
 
-eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio* gym);
+eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias* &asist, Gimnasio* gym);
 
 bool hayCupo(int idClase, Gimnasio gym);
 

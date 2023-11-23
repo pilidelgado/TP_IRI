@@ -221,7 +221,7 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
 
 //Función principal:
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias asist, Gimnasio &gym)
+eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias* &asist, Gimnasio &gym)
 {/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
     int idClaseAReservar, posReserva;
     //int errorResize=0;

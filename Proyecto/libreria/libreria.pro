@@ -9,7 +9,7 @@ CONFIG += c++17
 
 SOURCES += \
     abrirArchivos.cpp \
-    asistencia_copy.cpp \
+    asistencias_copy.cpp \
     gimnasio.cpp \
 
 HEADERS += \
