@@ -257,7 +257,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
 
             if(posAsistencia== -3) //si es -3 significa q nunca se incribio a ninguna clase
                 AgregarAsistencia(asist,idClienteIng,idClaseAReservar,fechaInscripcion);
-            //si posAsistencia!=-3 significa que ya se habia inscripto a otras clases
+            //si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
             int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;
