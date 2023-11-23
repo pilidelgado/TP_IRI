@@ -17,6 +17,7 @@ Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
     if( aux!= nullptr)
     {
         for(int i=0; i<asist->tamAsist; i++)
+
             aux[i]=asist->arrayDeAsistencia[i];
     }
 

@@ -263,6 +263,7 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
                 return eResClase :: ErrInscripcion;
 
             time_t fechaInsc = time(nullptr); //se guarda en la variable el tiempo en segundos desde el 1/01/1970
+
             escribirBinario(idClienteIng, idClaseAReservar, fechaInsc);
         }
     }

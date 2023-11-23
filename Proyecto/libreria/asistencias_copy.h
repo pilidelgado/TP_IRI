@@ -1,5 +1,5 @@
-#ifndef ASISTENCIAS_H
-#define ASISTENCIAS_H
+#ifndef ASISTENCIAS_COPY_H
+#define ASISTENCIAS_COPY_H
 
 #include "libreria.h"
 
@@ -48,4 +48,4 @@ Asistencia* resizeAsistencia(MisAsistencias* asist);
 
 /*bool hayEspacio(Asistencia asist);
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/
-#endif // ASISTENCIAS_H
+#endif // ASISTENCIAS_COPY_H

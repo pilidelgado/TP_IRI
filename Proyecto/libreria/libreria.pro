@@ -8,13 +8,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Asistencia.cpp \
     abrirArchivos.cpp \
+    asistencia_copy.cpp \
     gimnasio.cpp \
 
 HEADERS += \
     abrirArchivos.h \
-    asistencias.h \
+    asistencias_copy.h \
     gimnasio.h \
     libreria.h \
     libreria_global.h \
