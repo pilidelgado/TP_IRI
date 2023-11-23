@@ -35,7 +35,7 @@ typedef misAsistencias MisAsistencias;
 
 //DECLARACION DE FUNCIONES:
 
-int buscarPosAsistencia(MisAsistencias asist, u_int idCliente);//funcion que busca el cliente en el  array de mis asistencias
+int buscarPosAsistencia(MisAsistencias asist, int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
 eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
 

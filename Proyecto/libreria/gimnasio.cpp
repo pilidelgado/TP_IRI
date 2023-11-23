@@ -21,7 +21,7 @@ int buscarIdClase(Gimnasio *gym, int horarioIng, string nombreClaseIng){
 int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
 //le paso la estructura de gym, el id de clase a reservar y el id del cliente que quiere reservar la clase
 {
-    int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cunaod indica error
+    int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cundo indica error
     for(int i=0; i<gym->clases[idClase].cupo_maximo; i++)
     //recorro el array especifico de la clase dada hasta mi cupo maximo
     {
@@ -32,9 +32,10 @@ int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya q
             break; //hago un break para no copiarme al mismo clientes muchas veces
         }
     }
-
     return reservaRes;
-}
+} /*QUE HACE LA FUNCION? recorre el array de reservados de mi clase pedida y en caso de encontrar
+una posicion donde no este un id, me guardo el id del cliente en esa posicion, retorno 0 si pude reservar
+y -1 en caso contrario (indica error)*/
 
 // AgregarAsistencia(MisAsistencias* &asist,int idClienteIng,int idClaseAReservar, time_t fechaInscripcion);
 string nombreClaseAleatorio() {
@@ -96,25 +97,23 @@ bool RevisarCliente(int idClienteIng, Gimnasio gym){
  tiene la cuota al dia, es decir que su estado es positivo; si esto pasa retorno verdadero de lo contrario retorno falso
 */
 
-int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym)
-{
+int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym){
     int idClienteEncontrado=-1;//en caso de no encontrarlo devuelve -1
     for(int i=0; i < gym.tamClientes; i++)
     {
         if((apellidoIng== gym.clientes[i].apellido && nombreIng== gym.clientes[i].nombre))
-            idClienteEncontrado=  gym.clientes[i].idCliente;
-        else
-            idClienteEncontrado=0;
-
+            idClienteEncontrado =  gym.clientes[i].idCliente;
     }
     return idClienteEncontrado;
-}
+}/*QUE HACE LA FUNCION? dado un nombre y un apellido, recorre el array de clientes que se encuentra
+dentro de gym  comparando el nombre y el apellido, si lo encuentra retorno su posicion en el array
+de lo contrario retorno -1 (no encontre al cliente) */
 
 bool repetidos(Gimnasio gym, int posClase, int idCliente ) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
 {
     for (int i = 0; i < gym.clases[posClase].cupo_maximo ; i++) {//for que recorre la cantidad de veces q se inscribio el cliente
         if(gym.clases[posClase].reservados[i] == idCliente) //compara si ya se anoto a la clase
-            return true;
+            return true;//retorna verdadero si ya esta anotado y falso si no
     }
     return false;
 }
@@ -227,30 +226,38 @@ eResClase ReservaClases (u_int horarioIng, string nombreClaseIng, int idClienteI
     int idClaseAReservar, posReserva;
     //int errorResize=0;
 
-    posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);
-    idClaseAReservar= buscarIdClase(&gym, horarioIng, nombreClaseIng);
+    posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
+    idClaseAReservar= buscarIdClase(&gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
 
     if(posReserva== -1 || idClaseAReservar== -1)
         return eResClase :: ErrNoExisteClase;//retorno el error
 
-    else{//si si encontro la clase y la pos:
+    else{//si si encontro la clase y su pos:
 
-        if(hayCupo(idClaseAReservar, gym)&& !repetidos(gym, posReserva, idClienteIng)) //si es verdadero que hay cupo y es falso que esta repetido(funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces)(funcion que controla si hay lugar en la clase pedida por el usuario)
-            return eResClase :: ErrClienteRepetido; //error, si me devuelve true es porque está repetido
+        if(!hayCupo(idClaseAReservar, gym) || repetidos(gym, posReserva, idClienteIng))
+            /*si es verdadero que hay cupo y es falso que esta repetido
+             * (funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces)
+             * (funcion que controla si hay lugar en la clase pedida por el usuario)
+            */
+            return eResClase :: ErrClienteRepetido; //error: o el cliente esta repetido o no hay cupo en la clase
 
         else //si devuelve false, lo inscribo
         {
             gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
             int resultado = agregarAResevados(&gym, idClaseAReservar, idClienteIng);
+            // agregarAResevados: funcion que agrega el id del cliente en el array de reservados de la clase que quiere reservar
+
             //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
+
             if(resultado==-1)
-                return eResClase :: ErrInscripcion;
-            time_t fechaInscripcion = 0;
-            int posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+                return eResClase :: ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
+            time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
-            if(posAsistencia== -3)
+            int posAsistencia= buscarPosAsistencia(asist,idClienteIng); //busco la posicion de mi cliente en el array de asistencias
+
+            if(posAsistencia== -3) //si es -3 significa q nunca se incribio a ninguna clase
                 AgregarAsistencia(asist,idClienteIng,idClaseAReservar,fechaInscripcion);
-
+            //si posAsistencia!=-3 significa que ya se habia inscripto a otras clases
             int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;
