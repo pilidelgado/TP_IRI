@@ -1,5 +1,4 @@
 //test asistencia:
-#include "asistencias_copy.h" //llamo a la header donde estan declaradas las funciones
 #include <catch2/catch.hpp>
 
 TEST_CASE("My first test with Catch2", "[fancy]")
