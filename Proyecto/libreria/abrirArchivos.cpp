@@ -20,51 +20,82 @@ void resize(Clase* &clase_archivos, int &tamC)
 
 void leerClases_CSV(Gimnasio& miGimnasio) {
 
-    ifstream archivo("iriClasesGYM");
-    if (!archivo.is_open()) {
-        cout << "Error abriendo el archivo CSV de clases" << std::endl;
-        return;
-    }
+    ifstream archivo;//me creo una variable del tipo ifstream
+    archivo.open("iriClasesGYM",ios::in);
+
+    if (!archivo)
+        cout << "Error abriendo el archivo CSV de clases" << endl;
 
     //Lee la primera línea del archivo
-    string encabezado;
-    getline(archivo, encabezado);
+    string linea;
+    getline(archivo, linea);
 
     //Lee los datos de cada línea del archivo
-    while (!archivo.eof()) { //mientras el archivo esté abierto
-        string linea;
+    while (getline(archivo, linea))  //mientras el archivo esté abierto
+        miGimnasio.tamClientes++;//cuento la cantidad de clases que voy a tener
+
+    archivo.clear();
+    archivo.seekg(0, ios::beg); //reiniciar el índice
+
+    getline(archivo, linea); // vuelvo a leer el encabezado
+
+    for(u_int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
+        stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
 
-        stringstream ss(linea);
-        Clase nuevaClase; //me creo un struct de clase
-
-        //Lee los valores de la línea
-        ss >> nuevaClase.idClase >> nuevaClase.nombre >> nuevaClase.horario;
-
-        // Aumenta el tamaño del array de clases y copia la nueva clase
-        Gimnasio nuevoGimnasio; //me creo un struct de gimnasio
-        nuevoGimnasio.tamClases = miGimnasio.tamClases + 1; //por cada clase leida, se suma una al tamaño
-        nuevoGimnasio.clases = new Clase[nuevoGimnasio.tamClases]; //creo un array dinámico de las clases almacenadas en el gimnasio
-
-        // Copia las clases existentes al nuevo array de clases
-        for (int i = 0; i < miGimnasio.tamClases; i++) {
-            nuevoGimnasio.clases[i] = miGimnasio.clases[i];
-        }
-
-        // Agrega la nueva clase al final del array
-        nuevoGimnasio.clases[miGimnasio.tamClases] = nuevaClase;
-
-        // Libera la memoria del antiguo array
-        delete[] miGimnasio.clases;
-
-        // Actualiza miGimnasio con el nuevo array
-        miGimnasio = nuevoGimnasio;
+        string id, hora;
+        getline(dato,id,',');
+        miGimnasio.clases[i].idClase= stoi(id); //paso mi dato de string a entero
+        getline(dato,miGimnasio.clases[i].nombre,',');
+        getline(dato,hora,',');
+        miGimnasio.clases[i].horario = stoi(hora); //paso mi dato de string a entero
     }
+    archivo.close();
+}
+void leerClientes_CSV(gimnasio& miGimnasio) {
+    ifstream archivo;
+    archivo.open("iriClientesGYM", ios::in); //me creo una variable del tipo ifstream
 
+    if (!archivo)
+        cout << "Error abriendo el archivo CSV de clases" << endl;
+
+    //Lee la primera línea del archivo
+    string linea;
+    getline(archivo, linea);
+
+    //Lee los datos de cada línea del archivo
+    while (getline(archivo, linea))  //mientras el archivo esté abierto
+        miGimnasio.tamClientes++;//cuento la cantidad de clientes que voy a tener
+
+    archivo.clear();
+    archivo.seekg(0, ios::beg); //reiniciar el índice
+
+    getline(archivo, linea); // vuelvo a leer el encabezado
+
+    for(u_int i=0; i<miGimnasio.tamClientes; i++){
+        getline(archivo, linea);
+        stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
+
+        string id,sdia,smes,sanyo,sestado;//mis variables del tipo string para pasar
+        getline(dato,id,',');
+        miGimnasio.clientes[i].idCliente= stoi(id); //paso mi dato de string a entero
+        getline(dato,miGimnasio.clientes[i].nombre,',');
+        getline(dato,miGimnasio.clientes[i].apellido,',');
+        getline(dato,miGimnasio.clientes[i].email,',');
+        getline(dato,miGimnasio.clientes[i].telefono,',');
+        getline(dato,sdia,'-');
+        miGimnasio.clientes[i].fechaNac.dia= stoi(sdia);
+        getline(dato,smes,'-');
+        miGimnasio.clientes[i].fechaNac.mes= stoi(smes);
+        getline(dato,sanyo,',');
+        miGimnasio.clientes[i].fechaNac.anio= stoi(sanyo);
+        getline(dato,sestado,',');
+        miGimnasio.clientes[i].estado= stoi(sestado);
+    }
     archivo.close();
 }
 
-void leerClientes_CSV(gimnasio& miGimnasio) {
+/*void leerClientes_CSV(gimnasio& miGimnasio) {
 
     ifstream archivo("iriClientesGYM");
     if (!archivo.is_open()) {
@@ -108,7 +139,7 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
     }
 
     archivo.close();
-}
+}*/
 
 void escribirBinario(int idCliente, int idClase, time_t fechaInsc){
     ofstream archivoBin("asistencias_noviembre.dat", ios::binary);
