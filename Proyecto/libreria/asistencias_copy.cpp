@@ -44,7 +44,7 @@ void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReserv
 }
 //Inscripcion* resizeInscripcion(MisAsistencias* asist,
 //u_int cantInscripciones, u_int nuevoTam);
-Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones)
+Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
 {
     Inscripcion * aux= new Inscripcion[cantInscripciones++];
 
@@ -58,10 +58,40 @@ Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripcion
     delete[] aux;
 }
 
-eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia,
+/*VERSION VIEJA
+ * Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones)
+{
+    Inscripcion * aux= new Inscripcion[cantInscripciones++];
+
+    if( aux!= nullptr)
+    {
+        for(u_int i=0; i < cantInscripciones; i++)
+            aux[i]=asistencia->CursosInscriptos[i];
+    }
+
+    return aux;
+    delete[] aux;
+}*/
+
+eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
                                            int idClase,time_t fechadeinscripcion)
-/*me pasa como parametros el array de mis asistencias para moficiar, la posicion del cliente
+{
+    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion
+        (&asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones);
+
+    asist.arrayDeAsistencia[posAsistencia].cantInscripciones++;
+    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion=fechadeinscripcion;
+    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].idClase=idClase;
+
+    return ExitoAgregado;
+}/*me pasa como parametros el array de mis asistencias para moficiar, la posicion del cliente
 en mi array de aistencia, su id y el momento en el q se esta inscribiendo*/
+
+
+/*VERSION VIEJA:
+ * eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia,
+                                           int idClase,time_t fechadeinscripcion)
+
 {
     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion
         (asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones);
@@ -71,7 +101,7 @@ en mi array de aistencia, su id y el momento en el q se esta inscribiendo*/
     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].idClase=idClase;
 
     return ExitoAgregado;
-}
+}*/
 
 /*UNA POSIBLE CORRECION A ESTAS TRES FUNCIONES:
 void AgregarAsistencia(MisAsistencias* &asist,int idClienteIng, int idClaseAReservar,

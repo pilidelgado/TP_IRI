@@ -36,14 +36,17 @@ typedef misAsistencias MisAsistencias;
 
 int buscarPosAsistencia(MisAsistencias asist, int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
-eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
+//eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia, int idClase, time_t fechadeinscripcion);
 
 void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar,
                        time_t fechaDeInscripcion);
 
-//Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam); VIEJO
-Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones); //Nuevo
+eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
+                                           int idClase,time_t fechadeinscripcion);
 
+//Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam); VIEJO
+//Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones);
+Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones);//Nuevo
 Asistencia* resizeAsistencia(MisAsistencias* asist);
 
 
