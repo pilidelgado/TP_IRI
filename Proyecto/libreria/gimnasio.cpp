@@ -231,6 +231,7 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
     int idClaseAReservar, posReserva;
     //int errorResize=0;
 
+
     posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
     idClaseAReservar= buscarIdClase(&gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
 

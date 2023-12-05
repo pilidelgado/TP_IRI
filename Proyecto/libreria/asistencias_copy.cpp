@@ -64,7 +64,7 @@ eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistenc
 en mi array de aistencia, su id y el momento en el q se esta inscribiendo*/
 {
     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion
-        (&asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones);
+        (asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones);
 
     asist.arrayDeAsistencia[posAsistencia].cantInscripciones++;
     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion=fechadeinscripcion;
