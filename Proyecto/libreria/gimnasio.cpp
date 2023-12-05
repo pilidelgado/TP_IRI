@@ -6,6 +6,7 @@
 maximo la variable cupo_maximo. busca primero en el array de clases, la posicion de la clase pedida por el usuario, y luego se fija si el cupo de
 aquella clase es menor al cupo maximo, en caso que lo sea, retorna verdadero y en el caso contrario, retorna falso*/
 
+
 int buscarIdClase(Gimnasio *gym, int horarioIng, string nombreClaseIng){
     int idClaseAReservar= -1;
     for(int i=0; i < gym->tamClases; i++) //for que recorre el array de clases
@@ -38,6 +39,7 @@ una posicion donde no este un id, me guardo el id del cliente en esa posicion, r
 y -1 en caso contrario (indica error)*/
 
 // AgregarAsistencia(MisAsistencias* &asist,int idClienteIng,int idClaseAReservar, time_t fechaInscripcion);
+
 string nombreClaseAleatorio() {
     // Nombres de las clases
     string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
@@ -70,6 +72,7 @@ de clases que se encuentra dentro de gym, comparando si la
 clase de aquella posicion tienen el mismo nombre y el mismo horario, en caso que esto pase
 se guarda el id de la clase que quiere reservar el cliente en la variable entera
  idClaseAReservar, la cual esta inicializada en -1 por si no llega a encontrarla */
+
 
 int buscarPosClase(Gimnasio gym, int horarioIng, string nombreClaseIng){
     int posReserva=-1;
@@ -108,6 +111,7 @@ int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym){
 }/*QUE HACE LA FUNCION? dado un nombre y un apellido, recorre el array de clientes que se encuentra
 dentro de gym  comparando el nombre y el apellido, si lo encuentra retorno su posicion en el array
 de lo contrario retorno -1 (no encontre al cliente) */
+
 
 bool repetidos(Gimnasio gym, int posClase, int idCliente ) //paso como parametro asistencia, en un cliente y un id de clase cual voy a comparar para ese cliente si ya esta repetido o no
 {
@@ -221,7 +225,7 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
 
 //Función principal:
 
-eResClase ReservaClases (u_int horarioIng, string nombreClaseIng,
+eResClase ReservaClases (int horarioIng, string nombreClaseIng,
                         int idClienteIng, MisAsistencias &asist, Gimnasio &gym)
 {/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
     int idClaseAReservar, posReserva;

@@ -17,6 +17,7 @@ void resize(Clase* &clase_archivos, int &tamC)
     clase_archivos=aux;
 }
 
+
 void leerClases_CSV(Gimnasio& miGimnasio) {
 
     ifstream archivo("iriClasesGYM");

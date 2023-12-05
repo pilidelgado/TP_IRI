@@ -42,8 +42,9 @@ void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReserv
     asist.arrayDeAsistencia[asist.tamAsist-1].CursosInscriptos[0].idClase=idClaseAReservar;
     return;
 }
-
-Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
+//Inscripcion* resizeInscripcion(MisAsistencias* asist,
+//u_int cantInscripciones, u_int nuevoTam);
+Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones)
 {
     Inscripcion * aux= new Inscripcion[cantInscripciones++];
 
@@ -57,7 +58,8 @@ Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
     delete[] aux;
 }
 
-eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia, int idClase,time_t fechadeinscripcion)
+eAgregarInscripciones agregarInscripciones(MisAsistencias asist, int posAsistencia,
+                                           int idClase,time_t fechadeinscripcion)
 /*me pasa como parametros el array de mis asistencias para moficiar, la posicion del cliente
 en mi array de aistencia, su id y el momento en el q se esta inscribiendo*/
 {
@@ -70,7 +72,7 @@ en mi array de aistencia, su id y el momento en el q se esta inscribiendo*/
 
     return ExitoAgregado;
 }
-//
+
 /*UNA POSIBLE CORRECION A ESTAS TRES FUNCIONES:
 void AgregarAsistencia(MisAsistencias* &asist,int idClienteIng, int idClaseAReservar,
                        time_t fechaDeInscripcion)

@@ -11,23 +11,26 @@ int main(){
     gym.tamClientes = 0;
             //MisAsistencias asist; //comentado xq falta resolver est parte
     //leo archivos csv de clases y clientes
-    leerClases_CSV(gym);
-    leerClientes_CSV(gym);
+    leerClases_CSV(gym); //void leerClases_CSV(Gimnasio& miGimnasio);
+    leerClientes_CSV(gym); //void leerClientes_CSV(gimnasio& miGimnasio);
 
     // Llamo a mi funcion que inicializa mi array de clases:
     inicializarArrayClases0(gym.clases, gym.tamClases);
+    //void inicializarArrayClases0(Clase *&arrayClases, int tamArray)
 
     cout << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
     cout << "Ingrese su Id de cliente:" << endl;
-    u_int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
+    int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
 
     if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
     {
         cout << "Ingrese el nombre de la clase que quiera reservar:"<<endl;
         string nombreClaseIng = nombreClaseAleatorio();
         cout<< "Ingrese su horario que quiera reservar:"<< endl;
-        u_int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
-        eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, gym);//llamo a la función de reservar clases
+        int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
+        eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng,
+                                        asist, gym);//llamo a la función de reservar clases
+
         switch(resultados) {
         case -3:{
             cout << "Hubo un error en la inscripción"<<endl <<"Vuelva a intentarlo" << endl;
