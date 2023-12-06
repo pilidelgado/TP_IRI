@@ -39,7 +39,7 @@ void leerClases_CSV(Gimnasio& miGimnasio) {
 
     getline(archivo, linea); // vuelvo a leer el encabezado
 
-    for(u_int i=0; i<miGimnasio.tamClientes; i++){
+    for(int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
         stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
 
@@ -72,7 +72,7 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
 
     getline(archivo, linea); // vuelvo a leer el encabezado
 
-    for(u_int i=0; i<miGimnasio.tamClientes; i++){
+    for(int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
         stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
 
