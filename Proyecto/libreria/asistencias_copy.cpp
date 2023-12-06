@@ -90,7 +90,9 @@ Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
 eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
                                            int idClase, time_t fechadeinscripcion)
 {
-    if (posAsistencia < asist.tamAsist && asist.arrayDeAsistencia[posAsistencia].CursosInscriptos != nullptr) {
+    if (posAsistencia < asist.tamAsist && asist.arrayDeAsistencia != nullptr &&
+        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos != nullptr)
+    {
         asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = resizeInscripcion
             (&asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones);
 
@@ -100,11 +102,12 @@ eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsisten
         asist.arrayDeAsistencia[posAsistencia].cantInscripciones++;
 
         return ExitoAgregado;
-    } else {
+    }
+    else {
         return ErrNoSeAgrego;
-
     }
 }
+
 /*eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
                                            int idClase,time_t fechadeinscripcion)
 {
