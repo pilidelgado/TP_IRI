@@ -75,16 +75,15 @@ se guarda el id de la clase que quiere reservar el cliente en la variable entera
 
 
 int buscarPosClase(Gimnasio gym, int horarioIng, string nombreClaseIng){
-    int posReserva=-1;
     for(int i=0; i < gym.tamClases; i++) //for que recorre el array de clases
     {
         if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre){//busca el id coparando a partir del horario ingresado y el nombre de la clase
-            posReserva = i;
-            return posReserva; //si lo encuentra, lo retorna
+            return i;
         }
     }
-    return posReserva; //si no lo encuentra, retorna -1
+    return -1; //si no lo encuentra, retorna -1
 }
+
 
 bool RevisarCliente(int idClienteIng, Gimnasio gym){
     for(int i=0; i < gym.tamClientes; i++)

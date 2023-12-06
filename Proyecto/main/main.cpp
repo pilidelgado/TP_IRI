@@ -34,17 +34,18 @@ int main(){
     inicializarArrayClases0(gym.clases, gym.tamClases);
     //void inicializarArrayClases0(Clase *&arrayClases, int tamArray)
 
-    cout << endl << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
-    cout << "Ingrese su Id de cliente:" << endl;
-    int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
+    cout << endl << "\tBienvenido a gimnasio Musculito."<<endl<< "\tIngrese los datos pedidos a continuacion:" << endl<<endl;
 
+    int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
+    cout << "Ingrese su Id de cliente:\t" << idClienteIng <<endl;
 
     if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
     {
-        cout << "Ingrese el nombre de la clase que quiera reservar:"<<endl;
+
         string nombreClaseIng = nombreClaseAleatorio();
-        cout<< "Ingrese su horario que quiera reservar:"<< endl;
+        cout << "Ingrese el nombre de la clase que quiera reservar:\t"<<nombreClaseIng<<endl;
         int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
+        cout<< "Ingrese su horario que quiera reservar:\t"<< horarioIng<<endl;
         eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, gym);//llamo a la función de reservar clases
 
         switch(resultados) {

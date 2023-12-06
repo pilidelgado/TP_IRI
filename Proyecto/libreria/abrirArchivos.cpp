@@ -42,7 +42,7 @@ void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio) {
 
     stringstream dato;
 
-    for(int i=0; i<miGimnasio.tamClientes; i++){
+    for(int i=0; i<miGimnasio.tamClases; i++){
         getline(archivo, linea);
         dato.clear();
         dato << linea; //12)leo una línea del archivo y separó cada dato individual de ella
@@ -54,8 +54,12 @@ void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio) {
         miGimnasio.clases[i].horario = stoi(hora); //paso mi dato de string a entero
     }
     archivo.close();
+    cout<<endl<<"Exitos al abrir el archivo de clases"<<endl<<endl;
 }
 void leerClientes_CSV(ifstream &archivo, gimnasio& miGimnasio) {
+
+    if (!archivo.is_open())
+        cout << "Error abriendo el archivo CSV de clientes" << endl;
 
     //Lee la primera línea del archivo
     string linea;
@@ -98,9 +102,10 @@ void leerClientes_CSV(ifstream &archivo, gimnasio& miGimnasio) {
         miGimnasio.clientes[i].fechaNac.anio= stoi(sanyo);
 
         getline(dato,sestado,',');
-        miGimnasio.clientes[i].estado= stoi(sestado);
+        miGimnasio.clientes[i].estado= (float) stoi(sestado);
     }
     archivo.close();
+    cout<<endl<<"Exitos al abrir el archivo de clientes"<<endl<<endl;
 }
 
 /*void leerClientes_CSV(gimnasio& miGimnasio) {
