@@ -18,7 +18,7 @@ int main(){
     inicializarArrayClases0(gym.clases, gym.tamClases);
     //void inicializarArrayClases0(Clase *&arrayClases, int tamArray)
 
-    cout << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
+    cout << endl << "Bienvenido a gimnasio Musculito. Ingrese los datos pedidos a continuación:" << endl;
     cout << "Ingrese su Id de cliente:" << endl;
     int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
 
