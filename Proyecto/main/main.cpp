@@ -6,6 +6,7 @@ using namespace std;
 int main(){
     Gimnasio gym;
     MisAsistencias asist;
+    asist.tamAsist =0; //inicializo mi tamaño del arrat
     //inicializo a 0 los tamaños de los arrays de la estructura gimnasio
     gym.tamClases = 0;
     gym.tamClientes = 0; //MisAsistencias asist; //comentado xq falta resolver est parte
