@@ -30,20 +30,23 @@ void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio) {
 
     //Lee los datos de cada línea del archivo
     while (getline(archivo, linea)){  //mientras el archivo esté abierto
-        miGimnasio.tamClientes++;//cuento la cantidad de clases que voy a tener
+        miGimnasio.tamClases++;//cuento la cantidad de clases que voy a tener
     }
+
+    miGimnasio.clases= new Clase[miGimnasio.tamClases];
 
     archivo.clear();
     archivo.seekg(0, ios::beg); //reiniciar el índice
 
     getline(archivo, linea); // vuelvo a leer el encabezado
 
+    stringstream dato;
 
     for(int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
-        stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
-
-        string id, hora;
+        dato.clear();
+        dato << linea; //12)leo una línea del archivo y separó cada dato individual de ella
+        string id,hora;
         getline(dato,id,',');
         miGimnasio.clases[i].idClase= stoi(id); //paso mi dato de string a entero
         getline(dato,miGimnasio.clases[i].nombre,',');
@@ -63,28 +66,37 @@ void leerClientes_CSV(ifstream &archivo, gimnasio& miGimnasio) {
         miGimnasio.tamClientes++;//cuento la cantidad de clientes que voy a tener
     }
 
+    miGimnasio.clientes= new Cliente[miGimnasio.tamClientes];
+
     archivo.clear();
     archivo.seekg(0, ios::beg); //reiniciar el índice
 
     getline(archivo, linea); // vuelvo a leer el encabezado
-
+    stringstream dato, aux;
     for(int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
-        stringstream dato(linea); //12)leo una línea del archivo y separó cada dato individual de ella
+        dato.clear();
+        dato << linea;//12)leo una línea del archivo y separó cada dato individual de ella
 
-        string id,sdia,smes,sanyo,sestado;//mis variables del tipo string para pasar
+        string id,sdia,smes,sanyo,sestado,fecha;//mis variables del tipo string para pasar
         getline(dato,id,',');
         miGimnasio.clientes[i].idCliente= stoi(id); //paso mi dato de string a entero
         getline(dato,miGimnasio.clientes[i].nombre,',');
         getline(dato,miGimnasio.clientes[i].apellido,',');
         getline(dato,miGimnasio.clientes[i].email,',');
         getline(dato,miGimnasio.clientes[i].telefono,',');
-        getline(dato,sdia,'-');
+        getline(dato,fecha,',');
+
+        aux.clear();
+        aux<<fecha;
+
+        getline(aux,sdia,'-');
         miGimnasio.clientes[i].fechaNac.dia= stoi(sdia);
-        getline(dato,smes,'-');
+        getline(aux,smes,'-');
         miGimnasio.clientes[i].fechaNac.mes= stoi(smes);
-        getline(dato,sanyo,',');
+        getline(aux,sanyo,',');
         miGimnasio.clientes[i].fechaNac.anio= stoi(sanyo);
+
         getline(dato,sestado,',');
         miGimnasio.clientes[i].estado= stoi(sestado);
     }
