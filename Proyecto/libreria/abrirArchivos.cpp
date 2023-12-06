@@ -57,7 +57,7 @@ void leerClientes_CSV(gimnasio& miGimnasio) {
     archivo.open("iriClientesGYM", ios::in); //me creo una variable del tipo ifstream
 
     if (!archivo)
-        cout << "Error abriendo el archivo CSV de clases" << endl;
+        cout << "Error abriendo el archivo CSV de clientes" << endl;
 
     //Lee la primera línea del archivo
     string linea;
