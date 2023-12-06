@@ -25,8 +25,7 @@ Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
     delete[] aux;
 }
 
-void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar,
-                       time_t fechaDeInscripcion)
+void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar, time_t fechaDeInscripcion)
 {
     asist.arrayDeAsistencia= resizeAsistencia(&asist);
     asist.tamAsist++;

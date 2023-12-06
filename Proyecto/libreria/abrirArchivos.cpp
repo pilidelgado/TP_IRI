@@ -18,12 +18,9 @@ void resize(Clase* &clase_archivos, int &tamC)
 }
 
 
-void leerClases_CSV(Gimnasio& miGimnasio) {
+void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio) {
 
-    ifstream archivo;//me creo una variable del tipo ifstream
-    archivo.open("C:\\Users\\emmif\\source\\Trabajo Gym\\TP_IRI\\iriClasesGYM.csv",ios::in);
-
-    if (!archivo)
+    if (!archivo.is_open())
         cout << "Error abriendo el archivo CSV de clases" << endl;
 
     //Lee la primera línea del archivo
@@ -32,13 +29,15 @@ void leerClases_CSV(Gimnasio& miGimnasio) {
 
 
     //Lee los datos de cada línea del archivo
-    while (getline(archivo, linea))  //mientras el archivo esté abierto
+    while (getline(archivo, linea)){  //mientras el archivo esté abierto
         miGimnasio.tamClientes++;//cuento la cantidad de clases que voy a tener
+    }
 
     archivo.clear();
     archivo.seekg(0, ios::beg); //reiniciar el índice
 
     getline(archivo, linea); // vuelvo a leer el encabezado
+
 
     for(int i=0; i<miGimnasio.tamClientes; i++){
         getline(archivo, linea);
@@ -53,20 +52,16 @@ void leerClases_CSV(Gimnasio& miGimnasio) {
     }
     archivo.close();
 }
-void leerClientes_CSV(gimnasio& miGimnasio) {
-    ifstream archivo;
-    archivo.open("C:\\Users\\emmif\\source\\Trabajo Gym\\TP_IRI\\iriClientesGYM.csv", ios::in); //me creo una variable del tipo ifstream
-
-    if (!archivo)
-        cout << "Error abriendo el archivo CSV de clientes" << endl;
+void leerClientes_CSV(ifstream &archivo, gimnasio& miGimnasio) {
 
     //Lee la primera línea del archivo
     string linea;
     getline(archivo, linea);
 
     //Lee los datos de cada línea del archivo
-    while (getline(archivo, linea))  //mientras el archivo esté abierto
+    while (getline(archivo, linea)){  //mientras el archivo esté abierto
         miGimnasio.tamClientes++;//cuento la cantidad de clientes que voy a tener
+    }
 
     archivo.clear();
     archivo.seekg(0, ios::beg); //reiniciar el índice
