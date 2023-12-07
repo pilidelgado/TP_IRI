@@ -275,20 +275,26 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                         Asistencia *aux = new Asistencia[asist.tamAsist]; //me creo array dinámico
                         posAsistencia = asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
 
-                        aux.cantInscripciones = 1;
-                        aux.idCliente = idClienteIng;
+                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; i++) {
+                            aux[i] = asist.arrayDeAsistencia[i];
+                        }
+
+                        aux[posAsistencia].cantInscripciones = 1;
+                        aux[posAsistencia].idCliente = idClienteIng;
 
                         Inscripcion* auxIns = new Inscripcion[aux.cantInscripciones];
                         auxIns[0].fechaInscripcion = fechaInscripcion;
                         auxIns[0].idClase = idClaseAReservar;
                         for (int i = 0; i < aux.cantInscripciones; ++i) {
-                            aux.CursosInscriptos[i] = auxIns[i];
+                            aux[posAsistencia].CursosInscriptos[i] = auxIns[i];
 
                         }
+
                         delete[] auxIns;
 
-                        asist.arrayDeAsistencia[posAsistencia] = aux;
-                        delete aux;
+                        asist.arrayDeAsistencia = aux;
+
+                        delete [] aux;
 
                     }
                     if (posAsistencia != -3) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
