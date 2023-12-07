@@ -11,11 +11,6 @@ int main(){
     gym.tamClases = 0;
     gym.tamClientes = 0; //MisAsistencias asist; //comentado xq falta resolver est parte
 
-    asist.arrayDeAsistencia[0].cantInscripciones=0;
-    asist.arrayDeAsistencia[0].idCliente=0;
-    asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=0;
-    asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=0;
-
     ifstream archivo_clases;//me creo una variable del tipo ifstream
     archivo_clases.open("C:\\Users\\emmif\\source\\Trabajo Gym\\TP_IRI\\iriClasesGYM.csv",ios::in);
 
@@ -102,6 +97,20 @@ int main(){
 
     // Cerrar el archivo binario
     archivoBin.close();
+
+
+    for(u_int i = 0; i < gym.tamClases; i++){
+       delete[]gym.clases[i];
+    }
+    for(u_int i = 0; i < gym.tamClientes; i++){
+       delete[]gym.clientes[i];
+    }
+    for(u_int i = 0; i < asist.tamAsist; i++){
+       for(u_int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; j++){
+            delete[]asist.arrayDeAsistencia[i].CursosInscriptos[j];
+       }
+       delete[]asist.arrayDeAsistencia[i];
+    }
 
 
     return 0;
