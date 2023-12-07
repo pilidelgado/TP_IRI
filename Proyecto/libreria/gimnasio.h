@@ -49,10 +49,6 @@ int buscarIdClase(Gimnasio gym, int horarioIng, string nombreClaseIng); //busco 
 
 int buscarPosClase(Gimnasio gym, int horarioIng, string nombreClaseIng);
 
-//u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio gym);
-
-//void nuevoCliente(Gimnasio* gym, Cliente Ing);
-
 bool RevisarCliente(int idClienteIng, Gimnasio gym);
 
 int BuscarCliente(string nombreIng, string apellidoIng, Gimnasio gym);// me devuelve su id

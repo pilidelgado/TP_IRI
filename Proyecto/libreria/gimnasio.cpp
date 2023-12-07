@@ -38,8 +38,6 @@ int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya q
 una posicion donde no este un id, me guardo el id del cliente en esa posicion, retorno 0 si pude reservar
 y -1 en caso contrario (indica error)*/
 
-// AgregarAsistencia(MisAsistencias* &asist,int idClienteIng,int idClaseAReservar, time_t fechaInscripcion);
-
 string nombreClaseAleatorio() {
     // Nombres de las clases
     string nombres[6] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
@@ -120,43 +118,6 @@ bool repetidos(Gimnasio gym, int posClase, int idCliente ) //paso como parametro
     }
     return false;
 }
-
-/*
-void nuevoCliente(Gimnasio* gym, Cliente Ing)// agrega el cliente al array
-{
-    Cliente* aux = new Cliente[gym->tamClientes +1];
-
-    for(u_int i = 0; i < gym->tamClientes +1 ; i++)
-    {
-        if(i< gym->tamClientes)
-            aux[i] = gym->clientes[i];
-        else
-            aux[i]= Ing;
-    }
-    delete[] aux;
-    gym->clientes = aux;
-    gym->tamClientes++;
-    return;
-}
-
-u_int crearIdCliente(string nombreIng, string apellidoIng, string emailIng, string telefonoIng, Fecha fechaNacIng, Gimnasio &gym) //crea un idCliente que no exista en mi clientes* Clientes
-{
-    Cliente *aux = new Cliente;
-
-    u_int idCreado= gym.tamClientes + 1;
-    aux->apellido=apellidoIng;
-    aux->email=emailIng;
-    aux->telefono=telefonoIng;
-    aux->nombre=nombreIng;
-    aux->estado=0;
-    aux->idCliente=idCreado;
-    aux->fechaNac=fechaNacIng;
-
-    nuevoCliente(&gym, aux);
-    delete aux;
-    return idCreado;
-}
-*/
 
 void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
     for(int i= 0; i < tamArray; i++)
