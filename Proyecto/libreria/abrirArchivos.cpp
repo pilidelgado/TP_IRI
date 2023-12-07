@@ -72,8 +72,8 @@ void leerClientes_CSV(ifstream &archivo2, Gimnasio &miGimnasio) {
 
     miGimnasio.clientes= new Cliente[miGimnasio.tamClientes];
 
-    archivo.clear();
-    archivo.seekg(0, ios::beg); //reiniciar el índice
+    archivo2.clear();
+    archivo2.seekg(0, ios::beg); //reiniciar el índice
 
     getline(archivo2, linea); // vuelvo a leer el encabezado
     stringstream dato, aux;
@@ -108,7 +108,8 @@ void leerClientes_CSV(ifstream &archivo2, Gimnasio &miGimnasio) {
     cout<<endl<<"Exitos al abrir el archivo de clientes"<<endl<<endl;
 }
 
-void escribirBinario(ofstream &archivoBin, MisAsistencias &asist){
+/*VERSION VIEJA
+ * void escribirBinario(ofstream &archivoBin, MisAsistencias &asist){
 
     if(archivoBin.is_open()){
         for (int i = 0; i < asist.tamAsist; ++i) {
@@ -124,7 +125,9 @@ void escribirBinario(ofstream &archivoBin, MisAsistencias &asist){
     archivoBin.close();
 
     return;
-}
+}*/
+
+
 
 
 

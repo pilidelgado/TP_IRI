@@ -35,9 +35,9 @@ int main(){
     inicializarArrayClases0(gym.clases, gym.tamClases);
     //void inicializarArrayClases0(Clase *&arrayClases, int tamArray)
 
-    int N= -1;
+    int N= 1;
 
-    for (int i = 0; i != N; i++) {
+    for (int i = 0; N!=-1; i++) {
         cout << endl << "\tBienvenido a gimnasio Musculito."<<endl<< "\tIngrese los datos pedidos a continuacion:" << endl<<endl;
 
         int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
@@ -82,17 +82,7 @@ int main(){
         }
 
        cout << endl << "\tPresione 1 para realizar otra reserva o -1 para finalizar."<<endl;
-       cin>> i;
+       cin>> N;
     }
-
-
-    ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
-    if(!archivoBin.is_open()){
-       cout << "Error al crear el archivo binario" <<endl<<endl;//eror de un enum. ERROR AL ABRIR ARCHIVO
-       return;
-    }
-
-    escribirBinario(archivoBin,asist);
-
     return 0;
 }

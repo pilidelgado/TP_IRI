@@ -9,11 +9,11 @@ aquella clase es menor al cupo maximo, en caso que lo sea, retorna verdadero y e
 
 int buscarIdClase(Gimnasio gym, int horarioIng, string nombreClaseIng){
     int idClaseAReservar= -1;
-    for(int i=0; i < gym->tamClases; i++) //for que recorre el array de clases
+    for(int i=0; i < gym.tamClases; i++) //for que recorre el array de clases
     {
-        if(horarioIng == gym->clases[i].horario && nombreClaseIng == gym->clases[i].nombre)
+        if(horarioIng == gym.clases[i].horario && nombreClaseIng == gym.clases[i].nombre)
         {//busca el id coparando a partir del horario ingresado y el nombre de la clase
-            idClaseAReservar = gym->clases[i].idClase;
+            idClaseAReservar = gym.clases[i].idClase;
         }
     }
     return idClaseAReservar;
@@ -42,10 +42,10 @@ y -1 en caso contrario (indica error)*/
 
 string nombreClaseAleatorio() {
     // Nombres de las clases
-    string nombres[] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
+    string nombres[6] = {"Spinning", "Yoga", "Pilates", "Stretching", "Zumba", "Boxeo"};
 
     // Genera un índice aleatorio dentro del rango de la lista de nombres
-    int indiceAleatorio = rand() % (sizeof(nombres) / sizeof(nombres[0]));
+    int indiceAleatorio = rand() % 6;
 
     // Devuelve el nombre seleccionado aleatoriamente
     return nombres[indiceAleatorio];
@@ -220,7 +220,30 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
  inicializa esa clase especifica: cambia el cupo maximo, hace que el tamaño del array reservados sea cupo maximo, y pone el cupo en 0, ya que no hay nadie */
 
 
+void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
+    if (archivoBin.is_open()) {
+        // Escribir cada elemento de arrayDeAsistencia
+        for (int i = 0; i < asist.tamAsist; ++i) {
+            // Escribir el Cliente completo en el archivo
+            archivoBin.write((char*)&asist.arrayDeAsistencia[i].idCliente, sizeof(int));
+            archivoBin.write((char*)&asist.arrayDeAsistencia[i].cantInscripciones, sizeof(int));
 
+            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j)
+                archivoBin.write((char*)&asist.arrayDeAsistencia[i].CursosInscriptos[j], sizeof(Inscripcion));
+        }
+
+        // Verificar si hubo errores durante la escritura
+        if (!archivoBin) {
+            cout << "Error al escribir en el archivo binario." << endl;
+        } else {
+            cout << "Escritura exitosa en el archivo binario." << endl;
+        }
+    } else {
+        cout << "Error al abrir el archivo binario." << endl;
+    }
+
+    archivoBin.close();
+}
 
 //Función principal:
 
@@ -232,7 +255,7 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
 
 
     posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
-    idClaseAReservar= buscarIdClase(&gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
+    idClaseAReservar= buscarIdClase(gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
 
     if(posReserva== -1 || idClaseAReservar== -1)
         return eResClase :: ErrNoExisteClase;//retorno el error
@@ -259,24 +282,59 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
             time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
             int posAsistencia=0;
-            if(asist.tamAsist!=1){
+            if(asist.tamAsist>=1){
                 posAsistencia= buscarPosAsistencia(asist,idClienteIng);
                 //busco la posicion de mi cliente en el array de asistencia
                 if(posAsistencia== -3){//si es -3 significa q nunca se incribio a ninguna clase
-                    posAsistencia=asist.tamAsist+1;//la posicion en la q voy a guardar es en la ultima
+
                     asist.tamAsist+1;//aumento un lugar en mi array de asistencias
+                    posAsistencia=asist.tamAsist;//la posicion en la q voy a guardar es en la ultima
+                    asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
+
+                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones=1;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].idClase=idClaseAReservar;
+                    asist.arrayDeAsistencia[posAsistencia].idCliente=idClienteIng;
+                }
+                if(posAsistencia!= -3){//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones= asist.arrayDeAsistencia[posAsistencia].cantInscripciones+1;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+
+
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion=fechaInscripcion;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].idClase=idClaseAReservar;
+                    /*                    int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
+                    if(error == ErrInscripcion)
+                        return eResClase :: ErrInscripcion;*/
                 }
 
             }
             else{
                 posAsistencia=0;
+                asist.tamAsist=asist.tamAsist+1;
+                asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
+
+                asist.arrayDeAsistencia[0].cantInscripciones=1;
+                asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[0].cantInscripciones];
+
+                asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
+                asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=idClaseAReservar;
+                asist.arrayDeAsistencia[0].idCliente=idClienteIng;
+            }
+            // Crear un archivo binario para escribir en él
+            ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
+            if(!archivoBin.is_open()){
+                cout << "Error al crear el archivo binario" <<endl<<endl;
+                return eResClase :: ErrInscripcion;
             }
 
-            //si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+            // Llamar a la función escribirBinario
+            escribirBinario(archivoBin, asist);
 
-            int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
-            if(error == ErrInscripcion)
-                return eResClase :: ErrInscripcion;
+            // Cerrar el archivo binario
+            archivoBin.close();
         }
     }
     return ExitoReserva;

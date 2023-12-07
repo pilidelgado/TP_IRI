@@ -3,8 +3,9 @@
 
 #include "libreria.h"
 
-enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0}; //enum de mis errores
-typedef enum agregarInscripciones eAgregarInscripciones;
+
+//enum agregarInscripciones { ErrNoSeAgrego= -1, ExitoAgregado=0}; //enum de mis errores
+//typedef enum agregarInscripciones eAgregarInscripciones;
 
 
 /*Que tenemos aca?
@@ -35,16 +36,16 @@ typedef misAsistencias MisAsistencias;
 //DECLARACION DE FUNCIONES:
 
 int buscarPosAsistencia(MisAsistencias asist, int idCliente);//funcion que busca el cliente en el  array de mis asistencias
-
+/*
 void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar, time_t fechaDeInscripcion);
 
 eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia, int idClase,time_t fechadeinscripcion);
 
 //Inscripcion* resizeInscripcion(MisAsistencias* asist,u_int cantInscripciones, u_int nuevoTam); VIEJO
 //Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones);
-Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones);//Nuevo
+Inscripcion* resizeInscripcion(Asistencia* asistencia, int cantInscripciones);//Nuevo
 Asistencia* resizeAsistencia(MisAsistencias* asist);
-
+*/
 
 /*bool hayEspacio(Asistencia asist);
 eResizeInscriptos resizeCantInscripciones(Asistencia asist , u_int nuevoTam);*/

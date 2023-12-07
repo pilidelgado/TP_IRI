@@ -11,8 +11,6 @@ void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio);
 
 void leerClientes_CSV(ifstream &archivo2, Gimnasio& miGimnasio);
 
-void escribirBinario(ofstream &archivoBin, MisAsistencias &asist);
-
 /*void leerArchivoBinario(MisAsistencias& misAsistencias);*/
 
 #endif // ABRIRARCHIVOS_H

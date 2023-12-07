@@ -10,7 +10,111 @@ int buscarPosAsistencia(MisAsistencias asist, int idCliente)
     return pos;
 }
 
-Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
+/*Asistencia* resizeAsistencia(MisAsistencias* asist) {
+    Asistencia* aux = new Asistencia[asist->tamAsist + 1];
+
+    // Copia los datos del array original a aux
+    for (int i = 0; i < asist->tamAsist; i++)
+        aux[i] = asist->arrayDeAsistencia[i];
+
+    // Libera la memoria del array original
+    //delete[] asist->arrayDeAsistencia;
+
+    // Hace que asist->arrayDeAsistencia apunte al nuevo array aux
+    asist->arrayDeAsistencia = aux;
+
+    // Incrementa asist->tamAsist después de completar la reasignación
+    asist->tamAsist++;
+
+    return asist->arrayDeAsistencia;
+}*/
+
+/*void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar, time_t fechaDeInscripcion)
+{
+    asist.arrayDeAsistencia= resizeAsistencia(&asist);
+    int indice = asist.tamAsist - 1;
+    //es asist.tamAsist-1 ya que aumente el tamaño de mi array, pero como este empieza en 0, y yo quiero agregar en la ultima posicion, tengo que hacerlo en la del tamaño -1
+    //Ej: si asist->tamAsist era =3, cuendo entro a esta funcion asist->tamAsist++;
+      //asist->tamAsist=4, y yo tengo inicializado asist[0],[1],[2] y ahora tengo que modificar [3] (3=4-1)*/
+
+/*asist.arrayDeAsistencia[indice].cantInscripciones= 1;
+asist.arrayDeAsistencia[indice].idCliente = idClienteIng;
+
+//delete[] asist.arrayDeAsistencia[indice].CursosInscriptos; //libero el array anterior antes de asignar uno nuevo
+
+asist.arrayDeAsistencia[indice].CursosInscriptos = resizeInscripcion(&asist.arrayDeAsistencia[indice], 1);
+
+
+asist.arrayDeAsistencia[indice].CursosInscriptos[0].fechaInscripcion =fechaDeInscripcion;
+asist.arrayDeAsistencia[indice].CursosInscriptos[0].idClase=idClaseAReservar;
+}*/
+/*
+Inscripcion* resizeInscripcion(Asistencia* asistencia, int cantInscripciones)
+{
+    Inscripcion * aux= new Inscripcion[cantInscripciones + 1];
+
+    if( aux!= nullptr)
+    {
+        for(int i=0; i < cantInscripciones; i++)
+            aux[i]=asistencia->CursosInscriptos[i];
+    }
+
+    cantInscripciones++; // Incrementa cantInscripciones después de copiar los elementos
+
+    return aux;
+}
+
+eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
+                                           int idClase, time_t fechadeinscripcion)
+{
+    if (posAsistencia < asist.tamAsist && asist.arrayDeAsistencia != nullptr &&
+        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos != nullptr)
+    {
+        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos= resizeInscripcion(&asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones + 1);
+
+        int indice = asist.arrayDeAsistencia[posAsistencia].cantInscripciones;
+        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[indice].fechaInscripcion = fechadeinscripcion;
+        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[indice].idClase = idClase;
+
+        asist.arrayDeAsistencia[posAsistencia].cantInscripciones++;
+
+        return ExitoAgregado;
+    }
+    else {
+        return ErrNoSeAgrego;
+    }
+}
+*/
+            //LAS DE ARRIBA ESTAN BIEN
+
+/*VERSION VIEJA
+ * Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
+{
+    Inscripcion * aux= new Inscripcion[cantInscripciones++];
+
+    if( aux!= nullptr)
+    {
+        for(u_int i=0; i < cantInscripciones; i++)
+            aux[i]=asistencia->CursosInscriptos[i];
+    }
+
+    return aux;
+}
+ * Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones)
+{
+    Inscripcion * aux= new Inscripcion[cantInscripciones++];
+
+    if( aux!= nullptr)
+    {
+        for(u_int i=0; i < cantInscripciones; i++)
+            aux[i]=asistencia->CursosInscriptos[i];
+    }
+
+    return aux;
+    delete[] aux;
+}*/
+/*VERSION VIEJA:
+ * Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
 {
     Asistencia* aux = new Asistencia[asist->tamAsist + 1];
 
@@ -28,9 +132,7 @@ Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
 
     return aux;
 }
-
-
-/*VERSION VIEJA:
+ *
 Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
 {
     Asistencia* aux = new Asistencia[asist->tamAsist + 1];
@@ -67,72 +169,7 @@ Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
     delete[] aux;
 }*/
 
-void AgregarAsistencia(MisAsistencias asist,int idClienteIng, int idClaseAReservar, time_t fechaDeInscripcion)
-{
-    asist.arrayDeAsistencia= resizeAsistencia(&asist);
-    int indice = asist.tamAsist - 1;
-    //es asist.tamAsist-1 ya que aumente el tamaño de mi array, pero como este empieza en 0, y yo quiero agregar en la ultima posicion, tengo que hacerlo en la del tamaño -1
-    /*Ej: si asist->tamAsist era =3, cuendo entro a esta funcion asist->tamAsist++;
-     * asist->tamAsist=4, y yo tengo inicializado asist[0],[1],[2] y ahora tengo que modificar [3] (3=4-1)*/
-    asist.arrayDeAsistencia[indice].cantInscripciones= 1;
-    asist.arrayDeAsistencia[indice].idCliente = idClienteIng;
 
-    delete[] asist.arrayDeAsistencia[indice].CursosInscriptos; //libero el array anterior antes de asignar uno nuevo
-
-    asist.arrayDeAsistencia[indice].CursosInscriptos = resizeInscripcion(&asist.arrayDeAsistencia[indice], 1);
-
-
-    asist.arrayDeAsistencia[indice].CursosInscriptos[0].fechaInscripcion =fechaDeInscripcion;
-    asist.arrayDeAsistencia[indice].CursosInscriptos[0].idClase=idClaseAReservar;
-}
-
-
-Inscripcion* resizeInscripcion(Asistencia* asistencia, u_int cantInscripciones)
-{
-    Inscripcion * aux= new Inscripcion[cantInscripciones++];
-
-    if( aux!= nullptr)
-    {
-        for(u_int i=0; i < cantInscripciones; i++)
-            aux[i]=asistencia->CursosInscriptos[i];
-    }
-
-    return aux;
-    delete[] aux;
-}
-
-/*VERSION VIEJA
- * Inscripcion* resizeInscripcion(MisAsistencias* asistencia, u_int cantInscripciones)
-{
-    Inscripcion * aux= new Inscripcion[cantInscripciones++];
-
-    if( aux!= nullptr)
-    {
-        for(u_int i=0; i < cantInscripciones; i++)
-            aux[i]=asistencia->CursosInscriptos[i];
-    }
-
-    return aux;
-    delete[] aux;
-}*/
-eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia, int idClase, time_t fechadeinscripcion)
-{
-    if (posAsistencia < asist.tamAsist && asist.arrayDeAsistencia != nullptr && asist.arrayDeAsistencia[posAsistencia].CursosInscriptos != nullptr)
-    {
-        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = resizeInscripcion(&asist.arrayDeAsistencia[posAsistencia], asist.arrayDeAsistencia[posAsistencia].cantInscripciones + 1);
-
-        int indice = asist.arrayDeAsistencia[posAsistencia].cantInscripciones;
-        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[indice].fechaInscripcion = fechadeinscripcion;
-        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[indice].idClase = idClase;
-
-        asist.arrayDeAsistencia[posAsistencia].cantInscripciones++;
-
-        return ExitoAgregado;
-    }
-    else {
-        return ErrNoSeAgrego;
-    }
-}
 
 /*eAgregarInscripciones agregarInscripciones(MisAsistencias& asist, int posAsistencia,
                                            int idClase,time_t fechadeinscripcion)
