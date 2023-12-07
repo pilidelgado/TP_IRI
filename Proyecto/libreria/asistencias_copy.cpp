@@ -9,6 +9,28 @@ int buscarPosAsistencia(MisAsistencias asist, int idCliente)
     }
     return pos;
 }
+
+Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
+{
+    Asistencia* aux = new Asistencia[asist->tamAsist + 1];
+
+    if (aux != nullptr)
+    {
+        for (int i = 0; i < asist->tamAsist; i++)
+            aux[i] = asist->arrayDeAsistencia[i];
+
+        asist->tamAsist++; // Incrementa el tamaño después de copiar los elementos
+
+        delete[] asist->arrayDeAsistencia;
+
+        asist->arrayDeAsistencia = aux;
+    }
+
+    return aux;
+}
+
+
+/*VERSION VIEJA:
 Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
 {
     Asistencia* aux = new Asistencia[asist->tamAsist + 1];
@@ -27,7 +49,7 @@ Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize
 
     return aux;
 
-}
+}*/
 
 
 /*Asistencia* resizeAsistencia(MisAsistencias* asist) //Funcion resize

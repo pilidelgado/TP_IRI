@@ -258,12 +258,23 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
                 return eResClase :: ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
             time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
-            int posAsistencia= buscarPosAsistencia(asist,idClienteIng); //busco la posicion de mi cliente en el array de asistencias
+            int posAsistencia=0;
+            if(asist.tamAsist!=1){
+                posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+                //busco la posicion de mi cliente en el array de asistencia
+                if(posAsistencia== -3){//si es -3 significa q nunca se incribio a ninguna clase
+                    posAsistencia=asist.tamAsist+1;//la posicion en la q voy a guardar es en la ultima
+                    asist.tamAsist+1;//aumento un lugar en mi array de asistencias
+                }
 
-            if(posAsistencia== -3) //si es -3 significa q nunca se incribio a ninguna clase
-                AgregarAsistencia(asist,idClienteIng,idClaseAReservar,fechaInscripcion);
+            }
+            else{
+                posAsistencia=0;
+            }
+
             //si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
-            int error = agregarInscripciones(asist,posAsistencia,idClaseAReservar,fechaInscripcion);
+
+            int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;
 

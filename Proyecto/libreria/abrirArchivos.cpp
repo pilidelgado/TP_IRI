@@ -161,6 +161,7 @@ void escribirBinario(int idCliente, int idClase, time_t fechaInsc){
         return;
     }
 
+
     archivoBin.write((char*)&idCliente, sizeof(int));
     //se convierte el puntero del entero idCliente a un puntero tipo char.
     archivoBin.write((char*)&idClase, sizeof(int));
