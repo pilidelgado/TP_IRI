@@ -300,64 +300,97 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
 
             if(resultado==-1)
                 return eResClase :: ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
+            else{
+                time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
-            time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
+                int posAsistencia=0;
+                if(asist.tamAsist >= 1){
+                    posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+                    //busco la posicion de mi cliente en el array de asistencia
+                    if(posAsistencia == -3){
+                        //si es -3 significa q nunca se incribio a ninguna clase
 
-            int posAsistencia=0;
-            if(asist.tamAsist >= 1){
-                posAsistencia= buscarPosAsistencia(asist,idClienteIng);
-                //busco la posicion de mi cliente en el array de asistencia
-                if(posAsistencia == -3){
-                    //si es -3 significa q nunca se incribio a ninguna clase
+                        asist.tamAsist = asist.tamAsist+1;//aumento un lugar en mi array de asistencias
+                        asist.arrayDeAsistencia = new Asistencia[asist.tamAsist]; //me creo array dinámico
+                        posAsistencia= asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
 
-                    asist.tamAsist = asist.tamAsist+1;//aumento un lugar en mi array de asistencias
-                    asist.arrayDeAsistencia = new Asistencia[asist.tamAsist]; //me creo array dinámico
-                    posAsistencia= asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
+                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
-                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].idClase=idClaseAReservar;
+                        asist.arrayDeAsistencia[posAsistencia].idCliente=idClienteIng;
 
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].idClase=idClaseAReservar;
-                    asist.arrayDeAsistencia[posAsistencia].idCliente=idClienteIng;
+                        // Crear un archivo binario para escribir en él
+                        ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
+                        if(!archivoBin.is_open()){
+                            cout << "Error al crear el archivo binario" <<endl<<endl;
+                            return eResClase :: ErrInscripcion;
+                        }
 
-                    // Crear un archivo binario para escribir en él
-                    ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
-                    if(!archivoBin.is_open()){
-                        cout << "Error al crear el archivo binario" <<endl<<endl;
-                        return eResClase :: ErrInscripcion;
-                    }
+                        // Llamar a la función escribirBinario
+                        escribirBinario(archivoBin, asist);
 
-                    // Llamar a la función escribirBinario
-                    escribirBinario(archivoBin, asist);
-
-                    // Cerrar el archivo binario
-                    archivoBin.close();
-                    /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
+                        // Cerrar el archivo binario
+                        archivoBin.close();
+                        /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
                         if (!archivoTxt.is_open()) {
                             cout << "Error al crear el archivo binario" << endl << endl;
                             return eResClase::ErrInscripcion;
                         }
                     escribirTxt(archivoTxt, asist);*/
 
-                    /*
+                        /*
                     Deberiamos copiar los datos a arrays nuevos y liberar la memoria dinámica
                     delete[] asist.arrayDeAsistencia;
                     delete[] asist.arrayDeAsistencia[posAsistencia].CursosInscriptos;
                     */
-                }
-                if(posAsistencia!= -3){//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
-                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones= asist.arrayDeAsistencia[posAsistencia].cantInscripciones+1;
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+                    }
+                    if(posAsistencia!= -3){//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones= asist.arrayDeAsistencia[posAsistencia].cantInscripciones+1;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].fechaInscripcion=fechaInscripcion;
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].idClase=idClaseAReservar;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].fechaInscripcion=fechaInscripcion;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].idClase=idClaseAReservar;
 
-                    /*
+                        /*
                     int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
                     if(error == ErrInscripcion)
                         return eResClase :: ErrInscripcion;*/
 
+                        // Crear un archivo binario para escribir en él
+                        ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
+                        if(!archivoBin.is_open()){
+                            cout << "Error al crear el archivo binario" <<endl<<endl;
+                            return eResClase :: ErrInscripcion;
+                        }
+
+                        // Llamar a la función escribirBinario
+                        escribirBinario(archivoBin, asist);
+
+                        // Cerrar el archivo binario
+                        archivoBin.close();
+
+                        /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
+                        if (!archivoTxt.is_open()) {
+                            cout << "Error al crear el archivo binario" << endl << endl;
+                            return eResClase::ErrInscripcion;
+                        }
+                    escribirTxt(archivoTxt, asist);*/
+                    }
+
+                }
+                else{
+                    posAsistencia=0;
+                    asist.tamAsist=asist.tamAsist+1;
+                    asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
+
+                    asist.arrayDeAsistencia[0].cantInscripciones=1;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[0].cantInscripciones];
+
+                    asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
+                    asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=idClaseAReservar;
+                    asist.arrayDeAsistencia[0].idCliente=idClienteIng;
                     // Crear un archivo binario para escribir en él
                     ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
                     if(!archivoBin.is_open()){
@@ -378,39 +411,8 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
                         }
                     escribirTxt(archivoTxt, asist);*/
                 }
-
             }
-            else{
-                posAsistencia=0;
-                asist.tamAsist=asist.tamAsist+1;
-                asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
 
-                asist.arrayDeAsistencia[0].cantInscripciones=1;
-                asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[0].cantInscripciones];
-
-                asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
-                asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=idClaseAReservar;
-                asist.arrayDeAsistencia[0].idCliente=idClienteIng;
-                // Crear un archivo binario para escribir en él
-                ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
-                if(!archivoBin.is_open()){
-                    cout << "Error al crear el archivo binario" <<endl<<endl;
-                    return eResClase :: ErrInscripcion;
-                }
-
-                // Llamar a la función escribirBinario
-                escribirBinario(archivoBin, asist);
-
-                // Cerrar el archivo binario
-                archivoBin.close();
-
-                /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
-                        if (!archivoTxt.is_open()) {
-                            cout << "Error al crear el archivo binario" << endl << endl;
-                            return eResClase::ErrInscripcion;
-                        }
-                    escribirTxt(archivoTxt, asist);*/
-            }
         }
     }
     return ExitoReserva;
