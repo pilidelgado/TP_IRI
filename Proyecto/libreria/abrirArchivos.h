@@ -9,9 +9,9 @@ void resize(Clase* &clase_archivos, int &tamC);
 
 void leerClases_CSV(ifstream &archivo, Gimnasio& miGimnasio);
 
-void leerClientes_CSV(ifstream &archivo2, gimnasio& miGimnasio);
+void leerClientes_CSV(ifstream &archivo2, Gimnasio& miGimnasio);
 
-void escribirBinario(int idCliente, int idClase, time_t fechaInsc);
+void escribirBinario(ofstream &archivoBin, MisAsistencias &asist);
 
 /*void leerArchivoBinario(MisAsistencias& misAsistencias);*/
 

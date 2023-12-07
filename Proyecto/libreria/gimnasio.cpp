@@ -7,7 +7,7 @@ maximo la variable cupo_maximo. busca primero en el array de clases, la posicion
 aquella clase es menor al cupo maximo, en caso que lo sea, retorna verdadero y en el caso contrario, retorna falso*/
 
 
-int buscarIdClase(Gimnasio *gym, int horarioIng, string nombreClaseIng){
+int buscarIdClase(Gimnasio gym, int horarioIng, string nombreClaseIng){
     int idClaseAReservar= -1;
     for(int i=0; i < gym->tamClases; i++) //for que recorre el array de clases
     {
@@ -277,10 +277,6 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
             int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
             if(error == ErrInscripcion)
                 return eResClase :: ErrInscripcion;
-
-            time_t fechaInsc = time(nullptr); //se guarda en la variable el tiempo en segundos desde el 1/01/1970
-
-            escribirBinario(idClienteIng, idClaseAReservar, fechaInsc);
         }
     }
     return ExitoReserva;

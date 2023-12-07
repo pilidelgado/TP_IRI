@@ -45,7 +45,7 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
 
 bool hayCupo(int idClase, Gimnasio gym);
 
-int buscarIdClase(Gimnasio *gym, int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
+int buscarIdClase(Gimnasio gym, int horarioIng, string nombreClaseIng); //busco por hora y por nombre de la clase
 
 int buscarPosClase(Gimnasio gym, int horarioIng, string nombreClaseIng);
 

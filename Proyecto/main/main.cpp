@@ -35,47 +35,64 @@ int main(){
     inicializarArrayClases0(gym.clases, gym.tamClases);
     //void inicializarArrayClases0(Clase *&arrayClases, int tamArray)
 
-    cout << endl << "\tBienvenido a gimnasio Musculito."<<endl<< "\tIngrese los datos pedidos a continuacion:" << endl<<endl;
+    int N= -1;
 
-    int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
-    cout << "Ingrese su Id de cliente:\t" << idClienteIng <<endl;
-    /*//EN CASO DE AGREGARLO MANUAL:
+    for (int i = 0; i != N; i++) {
+        cout << endl << "\tBienvenido a gimnasio Musculito."<<endl<< "\tIngrese los datos pedidos a continuacion:" << endl<<endl;
+
+        int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
+        cout << "Ingrese su Id de cliente:\t" << idClienteIng <<endl;
+        /*//EN CASO DE AGREGARLO MANUAL:
      * cin >> idClienteIng;
     cin.ignore();//para q no me tome el enter */
 
-    if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
-    {
+        if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
+        {
 
-        string nombreClaseIng = nombreClaseAleatorio();
-        cout << "Ingrese el nombre de la clase que quiera reservar:\t"<<nombreClaseIng<<endl;
+            string nombreClaseIng = nombreClaseAleatorio();
+            cout << "Ingrese el nombre de la clase que quiera reservar:\t"<<nombreClaseIng<<endl;
 
-        //getline(cin, nombreClaseIng);
+            //getline(cin, nombreClaseIng);
 
-        int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
-        cout<< "Ingrese su horario que quiera reservar:\t"<< horarioIng<<endl;
+            int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
+            cout<< "Ingrese su horario que quiera reservar:\t"<< horarioIng<<endl;
 
-        //cin >> horarioIng;
+            //cin >> horarioIng;
 
-        eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, gym);//llamo a la función de reservar clases
+            eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, gym);//llamo a la función de reservar clases
 
-        switch(resultados) {
-        case -3:{
-            cout << "Hubo un error en la inscripción"<<endl <<"Vuelva a intentarlo" << endl;
+            switch(resultados) {
+            case -3:{
+                cout << "Hubo un error en la inscripción"<<endl <<"Vuelva a intentarlo" << endl;
+                    break;
+            }
+            case -2:{
+                cout << "La clase ingresada no existe"<<endl<<"Vuelva a intentarlo" << endl;
                 break;
-        }
-        case -2:{
-            cout << "La clase ingresada no existe"<<endl<<"Vuelva a intentarlo" << endl;
+            }
+            case -1:{
+                cout << "El cliente ya se encuentra anotado" << endl;
                 break;
-        }
-        case -1:{
-            cout << "El cliente ya se encuentra anotado" << endl;
-                break;
-        }
-        case 0:{
+            }
+            case 0:{
                 cout << "Reserva hecha correctamente"<<endl;
                 break;
+            }
+            }
         }
-       }
+
+       cout << endl << "\tPresione 1 para realizar otra reserva o -1 para finalizar."<<endl;
+       cin>> i;
     }
+
+
+    ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
+    if(!archivoBin.is_open()){
+       cout << "Error al crear el archivo binario" <<endl<<endl;//eror de un enum. ERROR AL ABRIR ARCHIVO
+       return;
+    }
+
+    escribirBinario(archivoBin,asist);
+
     return 0;
 }
