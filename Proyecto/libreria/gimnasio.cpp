@@ -270,46 +270,58 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                     //busco la posicion de mi cliente en el array de asistencia
                     if (posAsistencia == -3) {
                         //si es -3 significa q nunca se incribio a ninguna clase
+                        Asistencia *aux = new Asistencia[asist.tamAsist];
 
-                        asist.tamAsist = asist.tamAsist + 1;//aumento un lugar en mi array de asistencias
-                        Asistencia *aux = new Asistencia[asist.tamAsist]; //me creo array dinámico
-                        posAsistencia = asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
-
-                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; i++) {
+                        for (int i = 0; i < asist.tamAsist ; i++) {
                             aux[i] = asist.arrayDeAsistencia[i];
                         }
 
-                        aux[posAsistencia].cantInscripciones = 1;
-                        aux[posAsistencia].idCliente = idClienteIng;
 
-                        Inscripcion* auxIns = new Inscripcion[aux.cantInscripciones];
+                        asist.tamAsist = asist.tamAsist + 1;//aumento un lugar en mi array de asistencias
+                         //me creo array dinámico
+                        asist.arrayDeAsistencia= new Asistencia [asist.tamAsist];
+
+                        posAsistencia = asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
+
+                        for (int i = 0; i < asist.tamAsist -1; i++) {
+                            asist.arrayDeAsistencia[i]= aux[i];
+                        }
+
+                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
+                        asist.arrayDeAsistencia[posAsistencia].idCliente = idClienteIng;
+
+                        Inscripcion * auxIns = new Inscripcion[aux.cantInscripciones];
                         auxIns[0].fechaInscripcion = fechaInscripcion;
                         auxIns[0].idClase = idClaseAReservar;
                         for (int i = 0; i < aux.cantInscripciones; ++i) {
-                            aux[posAsistencia].CursosInscriptos[i] = auxIns[i];
+                            asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[i] = auxIns[i];
 
                         }
 
                         delete[] auxIns;
-
-                        asist.arrayDeAsistencia = aux;
-
                         delete [] aux;
 
                     }
                     if (posAsistencia != -3) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
 
-                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones = asist.arrayDeAsistencia[posAsistencia].cantInscripciones + 1;
                         Inscripcion* auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
                         for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; i++) {
-                            auxIns[i] = asist.arrayDeAsistencia[posAsistencia].CursosInscriptos;
+                            auxIns[i] = asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[i];
                         }
 
-                        auxIns[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion = fechaInscripcion;// en la ultima posicion
-                        auxIns.idClase = idClaseAReservar;
+                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones = asist.arrayDeAsistencia[posAsistencia].cantInscripciones + 1;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos= new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
-                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = auxIns;
+                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones -1; i++) {
+                            asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[i]=auxIns[i];
+                        }
+
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].fechaInscripcion = fechaInscripcion;// en la ultima posicion
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].idClase = idClaseAReservar;// en la ultima posicion
+
+
+
                         delete[]auxIns;
 
                         /*
