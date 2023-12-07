@@ -304,7 +304,7 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
                 time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
                 int posAsistencia=0;
-                if(asist.tamAsist >= 1){
+                if(asist.tamAsist > 0){
                     posAsistencia= buscarPosAsistencia(asist,idClienteIng);
                     //busco la posicion de mi cliente en el array de asistencia
                     if(posAsistencia == -3){
