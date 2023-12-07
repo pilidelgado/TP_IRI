@@ -11,6 +11,7 @@ int main(){
     gym.tamClases = 0;
     gym.tamClientes = 0; //MisAsistencias asist; //comentado xq falta resolver est parte
 
+
     ifstream archivo_clases;//me creo una variable del tipo ifstream
     archivo_clases.open("C:\\Users\\emmif\\source\\Trabajo Gym\\TP_IRI\\iriClasesGYM.csv",ios::in);
 
@@ -98,12 +99,20 @@ int main(){
     // Cerrar el archivo binario
     archivoBin.close();
 
-    /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
-                        if (!archivoTxt.is_open()) {
-                            cout << "Error al crear el archivo binario" << endl << endl;
-                            return eResClase::ErrInscripcion;
-                        }
-                    escribirTxt(archivoTxt, asist);*/
+
+    for(u_int i = 0; i < gym.tamClases; i++){
+       delete[]gym.clases[i];
+    }
+    for(u_int i = 0; i < gym.tamClientes; i++){
+       delete[]gym.clientes[i];
+    }
+    for(u_int i = 0; i < asist.tamAsist; i++){
+       for(u_int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; j++){
+            delete[]asist.arrayDeAsistencia[i].CursosInscriptos[j];
+       }
+       delete[]asist.arrayDeAsistencia[i];
+    }
+
 
     return 0;
 }
