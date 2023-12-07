@@ -43,8 +43,8 @@ int main(){
         int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
         cout << "Ingrese su Id de cliente:\t" << idClienteIng <<endl;
         /*//EN CASO DE AGREGARLO MANUAL:
-     * cin >> idClienteIng;
-    cin.ignore();//para q no me tome el enter */
+        * cin >> idClienteIng;
+        cin.ignore();//para q no me tome el enter */
 
         if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
         {

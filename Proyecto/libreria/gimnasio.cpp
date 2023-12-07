@@ -277,28 +277,19 @@ void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
 
 //Función principal:
 
-eResClase ReservaClases (int horarioIng, string nombreClaseIng,
-                        int idClienteIng, MisAsistencias &asist, Gimnasio &gym)
-{/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
+eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias &asist, Gimnasio &gym){/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
     int idClaseAReservar, posReserva;
     //int errorResize=0;
-
 
     posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
     idClaseAReservar= buscarIdClase(gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
 
     if(posReserva== -1 || idClaseAReservar== -1)
         return eResClase :: ErrNoExisteClase;//retorno el error
-
-    else{//si si encontro la clase y su pos:
-
+    else{
+        //si sí encontro la clase y su pos:
         if(!hayCupo(idClaseAReservar, gym) || repetidos(gym, posReserva, idClienteIng))
-            /*si es verdadero que hay cupo y es falso que esta repetido
-             * (funcion repetidos: controla que la persona no esté inscripta en la misma clase dos veces)
-             * (funcion que controla si hay lugar en la clase pedida por el usuario)
-            */
             return eResClase :: ErrClienteRepetido; //error: o el cliente esta repetido o no hay cupo en la clase
-
         else //si devuelve false, lo inscribo
         {
             gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
@@ -309,20 +300,21 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
 
             if(resultado==-1)
                 return eResClase :: ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
+
             time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
             int posAsistencia=0;
-            if(asist.tamAsist>=1){
+            if(asist.tamAsist >= 1){
                 posAsistencia= buscarPosAsistencia(asist,idClienteIng);
                 //busco la posicion de mi cliente en el array de asistencia
-                if(posAsistencia== -3){//si es -3 significa q nunca se incribio a ninguna clase
+                if(posAsistencia == -3){
+                    //si es -3 significa q nunca se incribio a ninguna clase
 
+                    asist.tamAsist = asist.tamAsist+1;//aumento un lugar en mi array de asistencias
+                    asist.arrayDeAsistencia = new Asistencia[asist.tamAsist]; //me creo array dinámico
+                    posAsistencia= asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
 
-                    asist.tamAsist+1;//aumento un lugar en mi array de asistencias
-                    posAsistencia=asist.tamAsist;//la posicion en la q voy a guardar es en la ultima
-                    asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
-
-                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones=1;
+                    asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
                     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
                     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
@@ -347,17 +339,25 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng,
                             return eResClase::ErrInscripcion;
                         }
                     escribirTxt(archivoTxt, asist);*/
+
+                    /*
+                    Deberiamos copiar los datos a arrays nuevos y liberar la memoria dinámica
+                    delete[] asist.arrayDeAsistencia;
+                    delete[] asist.arrayDeAsistencia[posAsistencia].CursosInscriptos;
+                    */
                 }
                 if(posAsistencia!= -3){//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
                     asist.arrayDeAsistencia[posAsistencia].cantInscripciones= asist.arrayDeAsistencia[posAsistencia].cantInscripciones+1;
                     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].fechaInscripcion=fechaInscripcion;
+                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones-1].idClase=idClaseAReservar;
 
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion=fechaInscripcion;
-                    asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].idClase=idClaseAReservar;
-                    /*                    int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
+                    /*
+                    int error = agregarInscripciones(asist, posAsistencia,idClaseAReservar,fechaInscripcion);
                     if(error == ErrInscripcion)
                         return eResClase :: ErrInscripcion;*/
+
                     // Crear un archivo binario para escribir en él
                     ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
                     if(!archivoBin.is_open()){
