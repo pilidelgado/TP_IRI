@@ -1,7 +1,7 @@
 #ifndef GIMNASIO_H
 #define GIMNASIO_H
 
-#include "asistencias_copy.h" //incluye a su vez a libreria.h
+#include "asistencias.h" //incluye a su vez a libreria.h
 
 using namespace std;
 

@@ -106,19 +106,5 @@ int main(){
 */
 
 
-    for(u_int i = 0; i < gym.tamClases; i++){
-       delete[]gym.clases[i];
-    }
-    for(u_int i = 0; i < gym.tamClientes; i++){
-       delete[]gym.clientes[i];
-    }
-    for(u_int i = 0; i < asist.tamAsist; i++){
-       for(u_int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; j++){
-            delete[]asist.arrayDeAsistencia[i].CursosInscriptos[j];
-       }
-       delete[]asist.arrayDeAsistencia[i];
-    }
-
-
     return 0;
 }

@@ -1,5 +1,5 @@
-#ifndef ASISTENCIAS_COPY_H
-#define ASISTENCIAS_COPY_H
+#ifndef ASISTENCIAS_H
+#define ASISTENCIAS_H
 
 #include "libreria.h"
 
@@ -37,4 +37,4 @@ typedef misAsistencias MisAsistencias;
 
 int buscarPosAsistencia(MisAsistencias asist, int idCliente);//funcion que busca el cliente en el  array de mis asistencias
 
-#endif // ASISTENCIAS_COPY_H
+#endif // ASISTENCIAS_H
