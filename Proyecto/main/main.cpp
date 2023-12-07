@@ -84,5 +84,26 @@ int main(){
        cout << endl << "\tPresione 1 para realizar otra reserva o -1 para finalizar."<<endl;
        cin>> N;
     }
+
+    // Crear un archivo binario para escribir en él
+    ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
+    if(!archivoBin.is_open()){
+       cout << "Error al crear el archivo binario" <<endl<<endl;
+       return eResClase :: ErrInscripcion;
+    }
+
+    // Llamar a la función escribirBinario
+    escribirBinario(archivoBin, asist);
+
+    // Cerrar el archivo binario
+    archivoBin.close();
+
+    /*ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
+                        if (!archivoTxt.is_open()) {
+                            cout << "Error al crear el archivo binario" << endl << endl;
+                            return eResClase::ErrInscripcion;
+                        }
+                    escribirTxt(archivoTxt, asist);*/
+
     return 0;
 }
