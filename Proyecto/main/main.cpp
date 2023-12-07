@@ -97,6 +97,13 @@ int main(){
 
     // Cerrar el archivo binario
     archivoBin.close();
+    /* ofstream archivoTxt("PruebaDeAsist.txt", ios::app);
+                       if (!archivoTxt.is_open()) {
+                           cout << "Error al crear el archivo binario" << endl << endl;
+                           return eResClase::ErrInscripcion;
+                       }
+                   escribirTxt(archivoTxt, asist);
+*/
 
 
     for(u_int i = 0; i < gym.tamClases; i++){

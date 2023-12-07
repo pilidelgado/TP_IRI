@@ -238,19 +238,19 @@ void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
 
 //Función principal:
 
-eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias &asist, Gimnasio &gym){/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
+eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng, MisAsistencias& asist, Gimnasio& gym) {/*parametros: horario pedido por el usuario, clase pedida por el usuario, el id del cliengte, mi estructura de MisAsistencia, y la estrcutura del Gym para modificarlo*/
     int idClaseAReservar, posReserva;
     //int errorResize=0;
 
-    posReserva= buscarPosClase(gym,horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
-    idClaseAReservar= buscarIdClase(gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
+    posReserva = buscarPosClase(gym, horarioIng, nombreClaseIng);//Funcion que busca mi posicion de la clase pedida en el array de clases
+    idClaseAReservar = buscarIdClase(gym, horarioIng, nombreClaseIng);//dado el horario pedido y el nombre de la clase, busco el id de esta
 
-    if(posReserva== -1 || idClaseAReservar== -1)
-        return eResClase :: ErrNoExisteClase;//retorno el error
-    else{
+    if (posReserva == -1 || idClaseAReservar == -1)
+        return eResClase::ErrNoExisteClase;//retorno el error
+    else {
         //si sí encontro la clase y su pos:
-        if(!hayCupo(idClaseAReservar, gym) || repetidos(gym, posReserva, idClienteIng))
-            return eResClase :: ErrClienteRepetido; //error: o el cliente esta repetido o no hay cupo en la clase
+        if (!hayCupo(idClaseAReservar, gym) || repetidos(gym, posReserva, idClienteIng))
+            return eResClase::ErrClienteRepetido; //error: o el cliente esta repetido o no hay cupo en la clase
         else //si devuelve false, lo inscribo
         {
             gym.clases[posReserva].cupo++;//aumento el cupo de la clase que me pidio el usuario
@@ -259,51 +259,51 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
 
             //agregarInscripcion=función que agregue los datos de inscripcion de la nueva clase a las clases propias del usuario
 
-            if(resultado==-1)
-                return eResClase :: ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
-            else{
+            if (resultado == -1)
+                return eResClase::ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
+            else {
                 time_t fechaInscripcion = 0; //me guardo la hora en la q estoy inscribiendo
 
-                int posAsistencia=0;
-                if(asist.tamAsist > 0){
-                    posAsistencia= buscarPosAsistencia(asist,idClienteIng);
+                int posAsistencia = 0;
+                if (asist.tamAsist > 0) {
+                    posAsistencia = buscarPosAsistencia(asist, idClienteIng);
                     //busco la posicion de mi cliente en el array de asistencia
-                    if(posAsistencia == -3){
+                    if (posAsistencia == -3) {
                         //si es -3 significa q nunca se incribio a ninguna clase
 
-                        asist.tamAsist = asist.tamAsist+1;//aumento un lugar en mi array de asistencias
-                        Asistencia aux = new Asistencia; //me creo array dinámico
-                        posAsistencia= asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
+                        asist.tamAsist = asist.tamAsist + 1;//aumento un lugar en mi array de asistencias
+                        Asistencia *aux = new Asistencia[asist.tamAsist]; //me creo array dinámico
+                        posAsistencia = asist.tamAsist - 1;//la posicion en la q voy a guardar es en la ultima
 
                         aux.cantInscripciones = 1;
-                        aux.idCliente=idClienteIng;
+                        aux.idCliente = idClienteIng;
 
-                        Inscripcion * auxIns= new Inscripcion[aux.cantInscripciones];
-                        auxIns[0].fechaInscripcion= fechaInscripcion;
-                        auxIns[0].idClase=idClaseAReservar;
+                        Inscripcion* auxIns = new Inscripcion[aux.cantInscripciones];
+                        auxIns[0].fechaInscripcion = fechaInscripcion;
+                        auxIns[0].idClase = idClaseAReservar;
                         for (int i = 0; i < aux.cantInscripciones; ++i) {
-                            aux.CursosInscriptos[i]=auxIns;
+                            aux.CursosInscriptos[i] = auxIns[i];
 
                         }
-                        delete [] auxIns;
+                        delete[] auxIns;
 
-                        asist.arrayDeAsistencia[posAsistencia]=aux;
+                        asist.arrayDeAsistencia[posAsistencia] = aux;
                         delete aux;
 
                     }
-                    if(posAsistencia!= -3){//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+                    if (posAsistencia != -3) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
 
-                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones= asist.arrayDeAsistencia[posAsistencia].cantInscripciones+1;
-                        Inscripcion * auxIns= new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+                        asist.arrayDeAsistencia[posAsistencia].cantInscripciones = asist.arrayDeAsistencia[posAsistencia].cantInscripciones + 1;
+                        Inscripcion* auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
-                        for(int i=0; i<asist.arrayDeAsistencia[posAsistencia].cantInscripciones;i++){
-                            auxIns[i]= asist.arrayDeAsistencia[posAsistencia].CursosInscriptos;
+                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; i++) {
+                            auxIns[i] = asist.arrayDeAsistencia[posAsistencia].CursosInscriptos;
                         }
 
-                        auxIns[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion= fechaInscripcion;// en la ultima posicion
-                        auxIns.idClase=idClaseAReservar;
+                        auxIns[asist.arrayDeAsistencia[posAsistencia].cantInscripciones].fechaInscripcion = fechaInscripcion;// en la ultima posicion
+                        auxIns.idClase = idClaseAReservar;
 
-                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos=auxIns;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = auxIns;
                         delete[]auxIns;
 
                         /*
@@ -314,17 +314,17 @@ eResClase ReservaClases (int horarioIng, string nombreClaseIng, int idClienteIng
                     }
 
                 }
-                else{
-                    posAsistencia=0;
-                    asist.tamAsist=asist.tamAsist+1;
-                    asist.arrayDeAsistencia = new Asistencia [asist.tamAsist];
+                else {
+                    posAsistencia = 0;
+                    asist.tamAsist = asist.tamAsist + 1;
+                    asist.arrayDeAsistencia = new Asistencia[asist.tamAsist];
 
-                    asist.arrayDeAsistencia[0].cantInscripciones=1;
+                    asist.arrayDeAsistencia[0].cantInscripciones = 1;
                     asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[0].cantInscripciones];
 
-                    asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=fechaInscripcion;
-                    asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=idClaseAReservar;
-                    asist.arrayDeAsistencia[0].idCliente=idClienteIng;
+                    asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion = fechaInscripcion;
+                    asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase = idClaseAReservar;
+                    asist.arrayDeAsistencia[0].idCliente = idClienteIng;
 
                 }
             }
