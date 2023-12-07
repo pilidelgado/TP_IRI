@@ -11,6 +11,10 @@ int main(){
     gym.tamClases = 0;
     gym.tamClientes = 0; //MisAsistencias asist; //comentado xq falta resolver est parte
 
+    asist.arrayDeAsistencia[0].cantInscripciones=0;
+    asist.arrayDeAsistencia[0].idCliente=0;
+    asist.arrayDeAsistencia[0].CursosInscriptos[0].fechaInscripcion=0;
+    asist.arrayDeAsistencia[0].CursosInscriptos[0].idClase=0;
 
     ifstream archivo_clases;//me creo una variable del tipo ifstream
     archivo_clases.open("C:\\Users\\emmif\\source\\Trabajo Gym\\TP_IRI\\iriClasesGYM.csv",ios::in);
