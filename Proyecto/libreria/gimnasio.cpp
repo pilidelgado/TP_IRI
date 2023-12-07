@@ -290,10 +290,10 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                         asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
                         asist.arrayDeAsistencia[posAsistencia].idCliente = idClienteIng;
 
-                        Inscripcion * auxIns = new Inscripcion[aux.cantInscripciones];
+                        Inscripcion * auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
                         auxIns[0].fechaInscripcion = fechaInscripcion;
                         auxIns[0].idClase = idClaseAReservar;
-                        for (int i = 0; i < aux.cantInscripciones; ++i) {
+                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; ++i) {
                             asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[i] = auxIns[i];
 
                         }
