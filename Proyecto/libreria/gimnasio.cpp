@@ -19,7 +19,7 @@ int buscarIdClase(Gimnasio gym, int horarioIng, string nombreClaseIng){
     return idClaseAReservar;
 }
 
-int agregarAResevados(Gimnasio * gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
+int agregarAResevados(Gimnasio *gym, int idClase, int idCliente) //es *gym ya que modifico sus datos
 //le paso la estructura de gym, el id de clase a reservar y el id del cliente que quiere reservar la clase
 {
     int reservaRes=-1;//inicializo resultado en -1, siendo este el valor cundo indica error
@@ -123,8 +123,8 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
     for(int i= 0; i < tamArray; i++)
     {
         if(arrayClases[i].nombre == "Spinning"){
-            arrayClases[i].cupo_maximo =45; //inicilizo el cupo cupo_maximo
-            arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
+            arrayClases[i].cupo_maximo= 45; //inicilizo el cupo cupo_maximo
+            arrayClases[i].cupo= 0;//como no tengo ningun cliente anotado por el momento inicializo en 0
             arrayClases[i].reservados = new int[arrayClases[i].cupo_maximo]; //vuelvo a reservados un array dinamico segun mi cupo maximo
             for(int j=0;j<arrayClases[i].cupo_maximo; j++)
                 arrayClases[i].reservados[j]=0;//inicializo el array de reservados
@@ -152,7 +152,7 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
             for(int j=0;j<arrayClases[i].cupo_maximo; j++)
                 arrayClases[i].reservados[j]=0;//inicializo el array de reservados
         }
-        if(arrayClases[i].nombre == "Zumba ")
+        if(arrayClases[i].nombre == "Zumba")
         {
             arrayClases[i].cupo_maximo =50; //inicilizo el cupo cupo_maximo
             arrayClases[i].cupo =0;//como no tengo ningun cliente anotado por el momento inicializo en 0
@@ -240,9 +240,8 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                         asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[0].idClase = idClaseAReservar;
 
                         delete [] aux;
-
-                    }
-                    if (posAsistencia >=0) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+                    } else
+                    {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
 
                         Inscripcion* auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
@@ -291,6 +290,4 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
     }
     return ExitoReserva;
 }
-
-
 

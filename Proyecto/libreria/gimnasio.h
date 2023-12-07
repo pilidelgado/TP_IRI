@@ -61,7 +61,4 @@ bool repetidos(Gimnasio gym, int posClase, int idCliente);
 
 void inicializarArrayClases0(Clase *&arrayClases, int tamArray);//funcion que inicializa el array de clases con 0 en el array de reservados, y sus respectivos cupos maximos
 
-void escribirBinario(ofstream &archivoBin, MisAsistencias &asist);
-//void escribirTxt(ofstream &archivoTxt, MisAsistencias &asist);
-
 #endif // GIMNASIO_H

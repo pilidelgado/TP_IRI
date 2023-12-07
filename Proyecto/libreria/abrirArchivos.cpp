@@ -163,28 +163,3 @@ void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
 
     archivoBin.close();
 }
-
-
-/*VERSION VIEJA
- * void escribirBinario(ofstream &archivoBin, MisAsistencias &asist){
-
-    if(archivoBin.is_open()){
-        for (int i = 0; i < asist.tamAsist; ++i) {
-            archivoBin.write((char*)&asist.arrayDeAsistencia[i].idCliente, sizeof(int));
-            archivoBin.write((char*)&asist.arrayDeAsistencia[i].cantInscripciones, sizeof(int));
-
-            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j)
-                archivoBin.write((char*)&asist.arrayDeAsistencia[i].CursosInscriptos[j], sizeof(Inscripcion));
-        }
-    }
-    //se convierte el puntero del entero idCliente a un puntero tipo char.
-
-    archivoBin.close();
-
-    return;
-}*/
-
-
-
-
-
