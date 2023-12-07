@@ -155,12 +155,11 @@ void leerClientes_CSV(ifstream &archivo, gimnasio& miGimnasio) {
 }*/
 
 void escribirBinario(int idCliente, int idClase, time_t fechaInsc){
-    ofstream archivoBin("asistencias_noviembre.dat", ios::binary);
+    ofstream archivoBin("asistencias_diciembre.dat", ios::binary);
     if(!archivoBin.is_open()){
-        //eror de un enum. ERROR AL ABRIR ARCHIVO
+        cout << "Error al crear el archivo binario" <<endl<<endl;//eror de un enum. ERROR AL ABRIR ARCHIVO
         return;
     }
-
 
     archivoBin.write((char*)&idCliente, sizeof(int));
     //se convierte el puntero del entero idCliente a un puntero tipo char.
