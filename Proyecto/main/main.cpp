@@ -39,14 +39,23 @@ int main(){
 
     int idClienteIng = rand() %  251;//llamo a una funcion random q genere un numero del 0 al 250
     cout << "Ingrese su Id de cliente:\t" << idClienteIng <<endl;
+    /*//EN CASO DE AGREGARLO MANUAL:
+     * cin >> idClienteIng;
+    cin.ignore();//para q no me tome el enter */
 
     if(RevisarCliente(idClienteIng, gym)) //corrobora que el cliente exista y tenga la cuota al dia
     {
 
         string nombreClaseIng = nombreClaseAleatorio();
         cout << "Ingrese el nombre de la clase que quiera reservar:\t"<<nombreClaseIng<<endl;
+
+        //getline(cin, nombreClaseIng);
+
         int horarioIng = rand() % 12 + 8; // 12 da un numero entre 0 11, se le suma 8
         cout<< "Ingrese su horario que quiera reservar:\t"<< horarioIng<<endl;
+
+        //cin >> horarioIng;
+
         eResClase resultados = ReservaClases(horarioIng, nombreClaseIng, idClienteIng, asist, gym);//llamo a la función de reservar clases
 
         switch(resultados) {
