@@ -207,7 +207,7 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
             if (resultado == -1)
                 return eResClase::ErrInscripcion; //no pude inscribir, xq no hay cupo, devuelvo error
             else {
-                time_t fechaInscripcion = time(nuulptr); //me guardo la hora en la q estoy inscribiendo
+                time_t fechaInscripcion = time(nullptr); //me guardo la hora en la q estoy inscribiendo
 
                 int posAsistencia = 0;
                 if (asist.tamAsist > 0) {
@@ -242,7 +242,7 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                         delete [] aux;
 
                     }
-                    if (posAsistencia != -3) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
+                    if (posAsistencia >=0) {//si posAsistencia!=-3  significa que ya se habia inscripto a otras clases
 
                         Inscripcion* auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
 
