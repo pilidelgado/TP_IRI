@@ -180,61 +180,6 @@ void inicializarArrayClases0(Clase *&arrayClases, int tamArray){
 }/*QUE HACE LA FUNCION? Dado un array de clientes y su respectivo tamaño, compara los nombres y segun sea el caso
  inicializa esa clase especifica: cambia el cupo maximo, hace que el tamaño del array reservados sea cupo maximo, y pone el cupo en 0, ya que no hay nadie */
 
-/*void escribirTxt(ofstream& archivoTxt, MisAsistencias& asist) {
-    if (archivoTxt.is_open()) {
-        // Escribir cada elemento de arrayDeAsistencia
-        for (int i = 0; i < asist.tamAsist; ++i) {
-            archivoTxt << asist.arrayDeAsistencia[i].idCliente << "," << asist.arrayDeAsistencia[i].cantInscripciones << ", { ";
-
-            // Escribir el Cliente completo en el archivo
-            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j) {
-                archivoTxt << asist.arrayDeAsistencia[i].CursosInscriptos[j].idClase << ":" << asist.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion;
-                if (j < asist.arrayDeAsistencia[i].cantInscripciones - 1) {
-                    archivoTxt << ", ";
-                }
-            }
-
-            archivoTxt << " }" << endl;
-        }
-
-        // Verificar si hubo errores durante la escritura
-        if (!archivoTxt) {
-            cout << "Error al escribir en el archivo txt." << endl;
-        }
-        else {
-            cout << "Escritura exitosa en el archivo txt." << endl;
-        }
-    }
-    else {
-        cout << "Error al abrir el archivo txt." << endl;
-    }
-
-    archivoTxt.close();
-}*/
-void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
-    if (archivoBin.is_open()) {
-        // Escribir cada elemento de arrayDeAsistencia
-        for (int i = 0; i < asist.tamAsist; ++i) {
-            // Escribir el Cliente completo en el archivo
-            archivoBin.write((char*)&asist.arrayDeAsistencia[i].idCliente, sizeof(int));
-            archivoBin.write((char*)&asist.arrayDeAsistencia[i].cantInscripciones, sizeof(int));
-
-            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j)
-                archivoBin.write((char*)&asist.arrayDeAsistencia[i].CursosInscriptos[j], sizeof(Inscripcion));
-        }
-
-        // Verificar si hubo errores durante la escritura
-        if (!archivoBin) {
-            cout << "Error al escribir en el archivo binario." << endl;
-        } else {
-            cout << "Escritura exitosa en el archivo binario." << endl;
-        }
-    } else {
-        cout << "Error al abrir el archivo binario." << endl;
-    }
-
-    archivoBin.close();
-}
 
 //Función principal:
 
@@ -290,15 +235,10 @@ eResClase ReservaClases(int horarioIng, string nombreClaseIng, int idClienteIng,
                         asist.arrayDeAsistencia[posAsistencia].cantInscripciones = 1;
                         asist.arrayDeAsistencia[posAsistencia].idCliente = idClienteIng;
 
-                        Inscripcion * auxIns = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
-                        auxIns[0].fechaInscripcion = fechaInscripcion;
-                        auxIns[0].idClase = idClaseAReservar;
-                        for (int i = 0; i < asist.arrayDeAsistencia[posAsistencia].cantInscripciones; ++i) {
-                            asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[i] = auxIns[i];
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos = new Inscripcion[asist.arrayDeAsistencia[posAsistencia].cantInscripciones];
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones -1].fechaInscripcion = fechaInscripcion;
+                        asist.arrayDeAsistencia[posAsistencia].CursosInscriptos[asist.arrayDeAsistencia[posAsistencia].cantInscripciones -1].idClase = idClaseAReservar;
 
-                        }
-
-                        delete[] auxIns;
                         delete [] aux;
 
                     }

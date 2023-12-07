@@ -108,6 +108,63 @@ void leerClientes_CSV(ifstream &archivo2, Gimnasio &miGimnasio) {
     cout<<endl<<"Exitos al abrir el archivo de clientes"<<endl<<endl;
 }
 
+/*void escribirTxt(ofstream& archivoTxt, MisAsistencias& asist) {
+    if (archivoTxt.is_open()) {
+        // Escribir cada elemento de arrayDeAsistencia
+        for (int i = 0; i < asist.tamAsist; ++i) {
+            archivoTxt << asist.arrayDeAsistencia[i].idCliente << "," << asist.arrayDeAsistencia[i].cantInscripciones << ", { ";
+
+            // Escribir el Cliente completo en el archivo
+            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j) {
+                archivoTxt << asist.arrayDeAsistencia[i].CursosInscriptos[j].idClase << ":" << asist.arrayDeAsistencia[i].CursosInscriptos[j].fechaInscripcion;
+                if (j < asist.arrayDeAsistencia[i].cantInscripciones - 1) {
+                    archivoTxt << ", ";
+                }
+            }
+
+            archivoTxt << " }" << endl;
+        }
+
+        // Verificar si hubo errores durante la escritura
+        if (!archivoTxt) {
+            cout << "Error al escribir en el archivo txt." << endl;
+        }
+        else {
+            cout << "Escritura exitosa en el archivo txt." << endl;
+        }
+    }
+    else {
+        cout << "Error al abrir el archivo txt." << endl;
+    }
+
+    archivoTxt.close();
+}*/
+void escribirBinario(ofstream &archivoBin, MisAsistencias &asist) {
+    if (archivoBin.is_open()) {
+        // Escribir cada elemento de arrayDeAsistencia
+        for (int i = 0; i < asist.tamAsist; ++i) {
+            // Escribir el Cliente completo en el archivo
+            archivoBin.write((char*)&asist.arrayDeAsistencia[i].idCliente, sizeof(int));
+            archivoBin.write((char*)&asist.arrayDeAsistencia[i].cantInscripciones, sizeof(int));
+
+            for (int j = 0; j < asist.arrayDeAsistencia[i].cantInscripciones; ++j)
+                archivoBin.write((char*)&asist.arrayDeAsistencia[i].CursosInscriptos[j], sizeof(Inscripcion));
+        }
+
+        // Verificar si hubo errores durante la escritura
+        if (!archivoBin) {
+            cout << "Error al escribir en el archivo binario." << endl;
+        } else {
+            cout << "Escritura exitosa en el archivo binario." << endl;
+        }
+    } else {
+        cout << "Error al abrir el archivo binario." << endl;
+    }
+
+    archivoBin.close();
+}
+
+
 /*VERSION VIEJA
  * void escribirBinario(ofstream &archivoBin, MisAsistencias &asist){
 
